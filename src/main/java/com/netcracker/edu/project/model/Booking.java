@@ -10,7 +10,7 @@ public class Booking {
     protected long roomId;
     protected long userId;
     protected long statusId;
-    protected long paySystemId;
+    protected long paySysId;
     protected long code;
 
     protected int numPersons;

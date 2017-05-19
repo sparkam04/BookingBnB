@@ -33,5 +33,5 @@ public class Hotel {
     protected Time checkOutTime;
 
     protected ArrayList<String> images;
-    protected ArrayList<Long> paySystems;
+    protected ArrayList<Long> paySysIds;
 }

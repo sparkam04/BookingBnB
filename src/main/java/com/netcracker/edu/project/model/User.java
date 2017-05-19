@@ -11,6 +11,5 @@ public class User {
     protected String lastName;
     protected String phone;
     protected String email;
-
-    protected boolean pass;
+    protected String pass;
 }
