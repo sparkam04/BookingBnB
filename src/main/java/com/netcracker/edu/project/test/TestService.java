@@ -1,5 +1,8 @@
 package com.netcracker.edu.project.test;
 
+import com.netcracker.edu.project.dao.impl.CountryDatabaseDAO;
+import com.netcracker.edu.project.model.Country;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +12,10 @@ import java.util.List;
 @Service
 public class TestService {
 
-    private List<TestEntity> testEntities = new ArrayList<TestEntity>(Arrays.asList(
+    @Autowired
+    private CountryDatabaseDAO countryDatabaseDAO;
+
+    private List<TestEntity> testEntities = new ArrayList<>(Arrays.asList(
             new TestEntity("1", "Test1"),
             new TestEntity("2", "Test2"),
             new TestEntity("3", "Test3")
@@ -17,6 +23,15 @@ public class TestService {
 
     public List<TestEntity> getTestEntities() {
         return testEntities;
+    }
+
+
+    public Country getCountry(Long id) {
+        return countryDatabaseDAO.getById(id);
+    }
+
+    public void addCountry(Country country) {
+        countryDatabaseDAO.add(country);
     }
 
     public TestEntity getTestEntity(String id) {

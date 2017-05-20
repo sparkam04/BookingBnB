@@ -1,14 +1,9 @@
 package com.netcracker.edu.project.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Room {
-    private long id;
-    private long hotelId;
+public class Room extends Model {
+    private Long hotelId;
 
     private int numOfPlaces;
 
@@ -20,19 +15,11 @@ public class Room {
 
     private Collection<String> images;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getHotelId() {
+    public Long getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(long hotelId) {
+    public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 

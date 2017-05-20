@@ -1,37 +1,25 @@
 package com.netcracker.edu.project.model;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Rating {
-    private long id;
-    private long bookingId;
+public class Rating extends Model {
+    private Long bookingId;
 
-    private int value;
+    private Integer value;
 
     private String comment;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getBookingId() {
+    public Long getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(long bookingId) {
+    public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

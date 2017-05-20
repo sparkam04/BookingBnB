@@ -1,19 +1,15 @@
 package com.netcracker.edu.project.model;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Country {
-    private long id;
-
+public class Country extends Model {
     private String name;
+    private String code;
 
-    public long getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

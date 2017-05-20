@@ -1,20 +1,7 @@
 package com.netcracker.edu.project.model;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Status {
-    private long id;
-
+public class Status extends Model {
     private String name;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

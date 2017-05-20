@@ -3,13 +3,9 @@ package com.netcracker.edu.project.model;
 import java.sql.Time;
 import java.util.Collection;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Hotel {
-    private long id;
-    private long ownerId;
-    private long locationId;
+public class Hotel extends Model {
+    private Long ownerId;
+    private Long locationId;
 
     private double hotelRating;
 
@@ -35,27 +31,19 @@ public class Hotel {
     private Collection<String> images;
     private Collection<Long> paySysIds;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(long ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
-    public long getLocationId() {
+    public Long getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(long locationId) {
+    public void setLocationId(Long locationId) {
         this.locationId = locationId;
     }
 

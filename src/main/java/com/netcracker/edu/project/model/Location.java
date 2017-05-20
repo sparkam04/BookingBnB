@@ -1,29 +1,17 @@
 package com.netcracker.edu.project.model;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Location {
-    private long id;
-    private long cityId;
+public class Location extends Model {
+    private Long cityId;
 
     private String streetAdress;
     private String postalCode;
     private String GPSCoords;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(long cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 

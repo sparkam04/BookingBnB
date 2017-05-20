@@ -1,9 +1,8 @@
 package com.netcracker.edu.project.test;
 
+import com.netcracker.edu.project.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class TestController {
@@ -16,17 +15,15 @@ public class TestController {
         return "Testing";
     }
 
-    @RequestMapping("/testList")
-    public List<TestEntity> testList() {
-
-        return testService.getTestEntities();
-
-    }
-
-    @RequestMapping("/testList/{id}")
-    public TestEntity getTestEntity(@PathVariable String id) {
-        return testService.getTestEntity(id);
-    }
+//    @RequestMapping("/Country/{id}")
+//    public Country getCountry(@PathVariable Long id) {
+//        return testService.getCountry(id);
+//    }
+//
+//    @RequestMapping(method = RequestMethod.POST, value = "/Country")
+//    public void addCountry(@RequestBody Country country) {
+//        testService.addCountry(country);
+//    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/testList")
     public void getTestEntity(@RequestBody TestEntity testEntity) {

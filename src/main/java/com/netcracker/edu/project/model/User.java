@@ -1,11 +1,7 @@
 package com.netcracker.edu.project.model;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class User {
-    private long id;
-    private long roleId;
+public class User extends Model {
+    private Long roleId;
 
     private String firstName;
     private String lastName;
@@ -13,19 +9,11 @@ public class User {
     private String email;
     private String pass;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

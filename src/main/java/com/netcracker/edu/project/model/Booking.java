@@ -2,16 +2,12 @@ package com.netcracker.edu.project.model;
 
 import java.sql.Date;
 
-/**
- * Created by Alexander on 19.05.2017.
- */
-public class Booking {
-    private long id;
-    private long roomId;
-    private long userId;
-    private long statusId;
-    private long paySysId;
-    private long code;
+public class Booking extends Model {
+    private Long roomId;
+    private Long userId;
+    private Long statusId;
+    private Long paySysId;
+    private Long code;
 
     private int numPersons;
 
@@ -22,51 +18,43 @@ public class Booking {
     private Date checkIn;
     private Date checkOut;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getRoomId() {
+    public Long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(long roomId) {
+    public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getStatusId() {
+    public Long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(long statusId) {
+    public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
 
-    public long getPaySysId() {
+    public Long getPaySysId() {
         return paySysId;
     }
 
-    public void setPaySysId(long paySysId) {
+    public void setPaySysId(Long paySysId) {
         this.paySysId = paySysId;
     }
 
-    public long getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 
