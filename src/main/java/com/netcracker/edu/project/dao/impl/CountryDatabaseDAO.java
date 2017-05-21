@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements CountryDAO{
@@ -44,7 +46,7 @@ public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements 
     }
 
     @Override
-    public void add(Country model) {
+    public boolean add(Country country) {
         String sql = "INSERT ALL\n" +
                 "INTO objects (object_id, object_type_id, name) \n" +
                 "VALUES (?, 1, ?)\n" +
@@ -55,21 +57,41 @@ public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements 
                 "INTO attributes (attr_id, object_id, value) \n" +
                 "VALUES (2, ?, ?)\n" +
                 "SELECT * FROM DUAL";
-        getJdbcTemplate().update(sql, model.getId(), model.getName(), model.getId(), model.getCode(),model.getId(), model.getName());
+        int affrctedRows = getJdbcTemplate().update(sql, country.getId(), country.getName(), country.getId(), country.getCode(),country.getId(), country.getName());
+
+        return affrctedRows == 3;
     }
 
     @Override
-    public void update(Country model) {
+    public boolean update(Country country) {
+        String sql = "UPDATE attributes\n" +
+                "SET value = ?\n" +
+                "WHERE object_id = ? and ATTR_ID = ?";
 
+        List<Object[]> arguments = new ArrayList<Object[]>(){
+            {
+                add(0, new Object[]{country.getCode(), country.getId(), 1});
+                add(1, new Object[]{country.getName(), country.getId(), 2});
+            }
+        };
+        int[] response = getJdbcTemplate().batchUpdate(sql,arguments);
+
+        return response[0] == -2 && response[1] == -2;
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
+        String sql = "delete from objects where object_id = ?";
+        int affectedRows = getJdbcTemplate().update(sql, id);
 
+        return affectedRows == 1;
     }
 
     @Override
-    public void remove(Country model) {
+    public boolean remove(Country country) {
+        String sql = "delete from objects where object_id = ?";
+        int affectedRows = getJdbcTemplate().update(sql, country.getId());
 
+        return affectedRows == 1;
     }
 }

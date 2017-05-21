@@ -22,17 +22,22 @@ public class CountryController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/Country")
-    public void addCountry(@RequestBody Country country) {
-        countryService.addCountry(country);
+    public boolean addCountry(@RequestBody Country country) {
+        return countryService.addCountry(country);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/Country/{id}")
-    public void updateCountry(@RequestBody Country country, @PathVariable Long id) {
-        /* Todo */
+    @RequestMapping(method = RequestMethod.PUT, value = "/Country")
+    public boolean updateCountry(@RequestBody Country country) {
+        return countryService.updateCountry(country);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/Country/{id}")
-    public void deleteCountry(@PathVariable Long id) {
-        /* Todo */
+    public boolean deleteCountry(@PathVariable Long id) {
+        return countryService.removeCountry(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/Country")
+    public boolean deleteCountry(@RequestBody Country country) {
+        return countryService.removeCountry(country);
     }
 }

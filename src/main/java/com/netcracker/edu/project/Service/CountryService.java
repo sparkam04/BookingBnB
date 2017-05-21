@@ -15,7 +15,19 @@ public class CountryService {
         return countryDatabaseDAO.getById(id);
     }
 
-    public void addCountry(Country country) {
-        countryDatabaseDAO.add(country);
+    public boolean addCountry(Country country) {
+        return countryDatabaseDAO.add(country);
+    }
+
+    public boolean removeCountry(Country country) {
+        return countryDatabaseDAO.remove(country);
+    }
+
+    public boolean removeCountry(Long id) {
+        return countryDatabaseDAO.remove(id);
+    }
+
+    public boolean updateCountry(Country country) {
+        return countryDatabaseDAO.update(country);
     }
 }

@@ -10,11 +10,11 @@ public interface EntityDAO<T extends Model> {
 
     T getById(Long id);
 
-    void add(T model);
+    boolean add(T model);
 
-    void update(T model);
+    boolean update(T model);
 
-    void remove(Long id);
+    boolean remove(Long id);
 
-    void remove(T model);
+    boolean remove(T model);
 }
