@@ -1,4 +1,4 @@
-package com.netcracker.edu.project.model;
+package com.netcracker.edu.project.Model;
 
 import java.sql.Time;
 import java.util.Collection;

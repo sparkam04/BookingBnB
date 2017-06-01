@@ -1,6 +1,5 @@
 package com.netcracker.edu.project.test;
 
-import com.netcracker.edu.project.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

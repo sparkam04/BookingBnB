@@ -1,6 +1,6 @@
 package com.netcracker.edu.project.dao;
 
-import com.netcracker.edu.project.model.Model;
+import com.netcracker.edu.project.Model.Model;
 
 import java.util.Collection;
 

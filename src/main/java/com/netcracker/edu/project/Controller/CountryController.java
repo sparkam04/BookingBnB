@@ -1,7 +1,7 @@
 package com.netcracker.edu.project.Controller;
 
 import com.netcracker.edu.project.Service.CountryService;
-import com.netcracker.edu.project.model.Country;
+import com.netcracker.edu.project.Model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

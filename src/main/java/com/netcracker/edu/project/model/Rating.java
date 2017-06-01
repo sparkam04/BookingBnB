@@ -1,4 +1,4 @@
-package com.netcracker.edu.project.model;
+package com.netcracker.edu.project.Model;
 
 public class Rating extends Model {
     private Long bookingId;

@@ -1,7 +1,7 @@
 package com.netcracker.edu.project.dao.impl;
 
 import com.netcracker.edu.project.dao.CountryDAO;
-import com.netcracker.edu.project.model.Country;
+import com.netcracker.edu.project.Model.Country;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
