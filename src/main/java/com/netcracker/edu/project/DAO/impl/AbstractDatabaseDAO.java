@@ -1,6 +1,6 @@
-package com.netcracker.edu.project.dao.impl;
+package com.netcracker.edu.project.DAO.impl;
 
-import com.netcracker.edu.project.dao.EntityDAO;
+import com.netcracker.edu.project.DAO.EntityDAO;
 import com.netcracker.edu.project.Model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,4 +1,4 @@
-package com.netcracker.edu.project.dao;
+package com.netcracker.edu.project.DAO;
 
 import com.netcracker.edu.project.Model.Country;
 

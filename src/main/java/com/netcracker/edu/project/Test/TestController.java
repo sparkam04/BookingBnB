@@ -1,4 +1,4 @@
-package com.netcracker.edu.project.test;
+package com.netcracker.edu.project.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ public class TestController {
     @Autowired
     private TestService testService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/Test")
     public String test() {
         return "Testing";
     }

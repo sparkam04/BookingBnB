@@ -1,4 +1,4 @@
-package com.netcracker.edu.project.test;
+package com.netcracker.edu.project.Test;
 
 
 public class TestEntity {

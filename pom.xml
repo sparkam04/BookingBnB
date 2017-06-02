@@ -29,6 +29,7 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
+        <!--mvn install:install-file -Dfile=C:\\Users\\Alexander\\Downloads\\ojdbc7.jar  -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
