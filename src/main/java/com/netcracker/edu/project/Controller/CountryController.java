@@ -13,31 +13,31 @@ public class CountryController {
 
     @RequestMapping("/Country")
     public String getAllCountries() {
-        return "TO DO";
+        return null;// TODO: 06.06.2017
     }
 
     @RequestMapping("/Country/{id}")
     public Country getCountry(@PathVariable Long id) {
-        return countryService.getCountry(id);
+        return countryService.getEntity(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/Country")
     public boolean addCountry(@RequestBody Country country) {
-        return countryService.addCountry(country);
+        return countryService.addEntity(country);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/Country")
     public boolean updateCountry(@RequestBody Country country) {
-        return countryService.updateCountry(country);
+        return countryService.updateEntity(country);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/Country/{id}")
     public boolean deleteCountry(@PathVariable Long id) {
-        return countryService.removeCountry(id);
+        return countryService.removeEntity(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/Country")
     public boolean deleteCountry(@RequestBody Country country) {
-        return countryService.removeCountry(country);
+        return countryService.removeEntity(country);
     }
 }

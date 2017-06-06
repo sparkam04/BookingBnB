@@ -9,12 +9,28 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T> {
 
     private JdbcTemplate jdbcTemplate;
 
-    JdbcTemplate getJdbcTemplate() {
+    protected JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
 
     @Autowired
-    void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        String sql = "delete from objects where object_id = ?";
+        int affectedRows = getJdbcTemplate().update(sql, id);
+
+        return affectedRows == 1;
+    }
+
+    @Override
+    public boolean remove(T model) {
+        String sql = "delete from objects where object_id = ?";
+        int affectedRows = getJdbcTemplate().update(sql, model.getId());
+
+        return affectedRows == 1;
     }
 }

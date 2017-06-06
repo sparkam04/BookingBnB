@@ -3,7 +3,7 @@ package com.netcracker.edu.project.Model;
 public class Location extends Model {
     private Long cityId;
 
-    private String streetAdress;
+    private String streetAddress;
     private String postalCode;
     private String GPSCoords;
 
@@ -15,12 +15,12 @@ public class Location extends Model {
         this.cityId = cityId;
     }
 
-    public String getStreetAdress() {
-        return streetAdress;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setStreetAdress(String streetAdress) {
-        this.streetAdress = streetAdress;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     public String getPostalCode() {

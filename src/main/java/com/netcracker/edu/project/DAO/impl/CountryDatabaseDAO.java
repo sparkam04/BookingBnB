@@ -78,20 +78,4 @@ public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements 
 
         return response[0] == -2 && response[1] == -2;
     }
-
-    @Override
-    public boolean remove(Long id) {
-        String sql = "delete from objects where object_id = ?";
-        int affectedRows = getJdbcTemplate().update(sql, id);
-
-        return affectedRows == 1;
-    }
-
-    @Override
-    public boolean remove(Country country) {
-        String sql = "delete from objects where object_id = ?";
-        int affectedRows = getJdbcTemplate().update(sql, country.getId());
-
-        return affectedRows == 1;
-    }
 }

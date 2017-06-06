@@ -12,32 +12,32 @@ public class CityController {
     private CityService cityService;
 
     @RequestMapping("/City")
-    public String getAllCountries() {
+    public String getAllCities() {
         return "TO DO";
     }
 
     @RequestMapping("/City/{id}")
-    public City getCountry(@PathVariable Long id) {
-        return cityService.getCity(id);
+    public City getCity(@PathVariable Long id) {
+        return cityService.getEntity(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/City")
-    public boolean addCountry(@RequestBody City city) {
-        return cityService.addCity(city);
+    public boolean addCity(@RequestBody City city) {
+        return cityService.addEntity(city);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/City")
-    public boolean updateCountry(@RequestBody City city) {
-        return cityService.updateCity(city);
+    public boolean updateCity(@RequestBody City city) {
+        return cityService.updateEntity(city);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/City/{id}")
-    public boolean deleteCountry(@PathVariable Long id) {
-        return cityService.removeCity(id);
+    public boolean deleteCity(@PathVariable Long id) {
+        return cityService.removeEntity(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/City")
-    public boolean deleteCountry(@RequestBody City city) {
-        return cityService.removeCity(city);
+    public boolean deleteCity(@RequestBody City city) {
+        return cityService.removeEntity(city);
     }
 }

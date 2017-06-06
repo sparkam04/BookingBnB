@@ -64,20 +64,4 @@ public class CityDatabaseDAO extends AbstractDatabaseDAO<City> implements CityDA
 
         return affectedRows == 2;
     }
-
-    @Override
-    public boolean remove(Long id) {
-        String sql = "delete from objects where object_id = ?";
-        int affectedRows = getJdbcTemplate().update(sql, id);
-
-        return affectedRows == 1;
-    }
-
-    @Override
-    public boolean remove(City city) {
-        String sql = "delete from objects where object_id = ?";
-        int affectedRows = getJdbcTemplate().update(sql, city.getId());
-
-        return affectedRows == 1;
-    }
 }
