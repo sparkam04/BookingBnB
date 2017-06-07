@@ -26,7 +26,8 @@ public class CityDatabaseDAO extends AbstractDatabaseDAO<City> implements CityDA
                 "from OBJECTS city\n" +
                 "    join attributes city_name on city_name.OBJECT_ID = city.OBJECT_ID and city_name.ATTR_ID = 3\n" +
                 "where\n" +
-                "    city.OBJECT_ID = ?";
+                "   city.object_type_id = 2 " +
+                "   and city.OBJECT_ID = ?";
 
         return getJdbcTemplate().queryForObject(sql, new Object[]{id},new CityMapper());
     }
@@ -57,7 +58,7 @@ public class CityDatabaseDAO extends AbstractDatabaseDAO<City> implements CityDA
 
     @Override
     public boolean update(City city) {
-        String sql1 = "UPDATE objects SET PARENT_ID = ?, NAME = ? WHERE object_id = ?";
+        String sql1 = "UPDATE objects SET PARENT_ID = ?, NAME = ? WHERE object_type_id = 2 and object_id = ?";
         String sql2 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 3";
         int affectedRows = getJdbcTemplate().update(sql1, city.getCountryId(), city.getName(), city.getId());
         affectedRows += getJdbcTemplate().update(sql2, city.getName(), city.getId());

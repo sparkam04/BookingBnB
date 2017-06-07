@@ -29,7 +29,8 @@ public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements 
                 "join attributes country_code on country_code.OBJECT_ID = country.OBJECT_ID and country_code.ATTR_ID = 1\n" +
                 "join attributes country_name on country_name.OBJECT_ID = country.OBJECT_ID and country_name.ATTR_ID = 2\n" +
                 "where \n" +
-                "    country.OBJECT_ID = ?";
+                "   country.OBJECT_TYPE_ID = 1 " +
+                "   and country.OBJECT_ID = ?";
 
         return getJdbcTemplate().queryForObject(sql, new Object[]{id},new CountryMapper());
     }
@@ -49,33 +50,29 @@ public class CountryDatabaseDAO extends AbstractDatabaseDAO<Country> implements 
     public boolean add(Country country) {
         String sql = "INSERT ALL\n" +
                 "INTO objects (object_id, object_type_id, name) \n" +
-                "VALUES (?, 1, ?)\n" +
+                "VALUES (object_id_seq.nextval, 1, ?)\n" +
                 "\n" +
                 "INTO attributes (attr_id, object_id, value) \n" +
-                "VALUES (1, ?, ?)\n" +
+                "VALUES (1, object_id_seq.currval, ?)\n" +
                 "\n" +
                 "INTO attributes (attr_id, object_id, value) \n" +
-                "VALUES (2, ?, ?)\n" +
+                "VALUES (2, object_id_seq.currval, ?)\n" +
                 "SELECT * FROM DUAL";
-        int affrctedRows = getJdbcTemplate().update(sql, country.getId(), country.getName(), country.getId(), country.getCode(),country.getId(), country.getName());
+        int affrctedRows = getJdbcTemplate().update(sql, country.getName(), country.getCode(), country.getName());
 
         return affrctedRows == 3;
     }
 
     @Override
     public boolean update(Country country) {
-        String sql = "UPDATE attributes\n" +
-                "SET value = ?\n" +
-                "WHERE object_id = ? and ATTR_ID = ?";
+        String sql1 = "UPDATE objects SET NAME = ? WHERE object_type_id = 1 and object_id = ?";
+        String sql2 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 1";
+        String sql3 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 2";
 
-        List<Object[]> arguments = new ArrayList<Object[]>(){
-            {
-                add(0, new Object[]{country.getCode(), country.getId(), 1});
-                add(1, new Object[]{country.getName(), country.getId(), 2});
-            }
-        };
-        int[] response = getJdbcTemplate().batchUpdate(sql,arguments);
+        int affectedRows = getJdbcTemplate().update(sql1, country.getName(), country.getId());
+        affectedRows += getJdbcTemplate().update(sql2, country.getCode(), country.getId());
+        affectedRows += getJdbcTemplate().update(sql3, country.getName(), country.getId());
 
-        return response[0] == -2 && response[1] == -2;
+        return affectedRows == 3;
     }
 }

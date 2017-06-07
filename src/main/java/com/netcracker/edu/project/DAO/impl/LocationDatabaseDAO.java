@@ -24,7 +24,8 @@ public class LocationDatabaseDAO extends AbstractDatabaseDAO<Location> implement
                 "    join attributes postal_code on postal_code.OBJECT_ID = location.OBJECT_ID and postal_code.ATTR_ID = 6\n" +
                 "    join attributes gps_coords on gps_coords.OBJECT_ID = location.OBJECT_ID and gps_coords.ATTR_ID = 7\n" +
                 "where\n" +
-                "    location.OBJECT_ID = ?";
+                "    location.OBJECT_TYPE_ID = 3\n" +
+                "    and location.OBJECT_ID = ?";
 
         return getJdbcTemplate().queryForObject(sql, new Object[]{id},new LocationMapper());
     }
@@ -64,7 +65,7 @@ public class LocationDatabaseDAO extends AbstractDatabaseDAO<Location> implement
 
     @Override
     public boolean update(Location model) {
-        String sql1 = "UPDATE objects SET PARENT_ID = ?, NAME = ? WHERE object_id = ?";
+        String sql1 = "UPDATE objects SET PARENT_ID = ?, NAME = ? WHERE object_type_id = 3 and object_id = ?";
         String sql2 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 5";
         String sql3 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 6";
         String sql4 = "UPDATE ATTRIBUTES SET VALUE = ? WHERE object_id = ? and attr_id = 7";
