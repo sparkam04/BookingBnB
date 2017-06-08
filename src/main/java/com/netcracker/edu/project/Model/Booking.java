@@ -9,9 +9,9 @@ public class Booking extends Model {
     private Long paySysId;
     private Long code;
 
-    private int numPersons;
+    private Integer numPersons;
 
-    private boolean isPaid;
+    private Boolean isPaid;
 
     private String message;
 
@@ -58,19 +58,19 @@ public class Booking extends Model {
         this.code = code;
     }
 
-    public int getNumPersons() {
+    public Integer getNumPersons() {
         return numPersons;
     }
 
-    public void setNumPersons(int numPersons) {
+    public void setNumPersons(Integer numPersons) {
         this.numPersons = numPersons;
     }
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(Boolean paid) {
         isPaid = paid;
     }
 

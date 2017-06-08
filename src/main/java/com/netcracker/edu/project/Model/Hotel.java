@@ -7,19 +7,19 @@ public class Hotel extends Model {
     private Long ownerId;
     private Long locationId;
 
-    private double hotelRating;
+    private Double hotelRating;
 
-    private boolean hasWifi;
-    private boolean hasShuttle;
-    private boolean hasSmoking;
-    private boolean hasParking;
-    private boolean hasConditioning;
-    private boolean hasPets;
-    private boolean hasPool;
-    private boolean hasKitchen;
-    private boolean hasBreakfast;
+    private Boolean hasWifi;
+    private Boolean hasShuttle;
+    private Boolean hasSmoking;
+    private Boolean hasParking;
+    private Boolean hasConditioning;
+    private Boolean hasPets;
+    private Boolean hasPool;
+    private Boolean hasKitchen;
+    private Boolean hasBreakfast;
 
-    private boolean isPreorder;
+    private Boolean isPreorder;
 
     private String hotelName;
     private String phone;
@@ -28,7 +28,7 @@ public class Hotel extends Model {
     private Time checkInTime;
     private Time checkOutTime;
 
-    private Collection<String> images;
+    private Collection<Long> images;
     private Collection<Long> paySysIds;
 
     public Long getOwnerId() {
@@ -47,7 +47,7 @@ public class Hotel extends Model {
         this.locationId = locationId;
     }
 
-    public double getHotelRating() {
+    public Double getHotelRating() {
         return hotelRating;
     }
 
@@ -55,83 +55,83 @@ public class Hotel extends Model {
         this.hotelRating = hotelRating;
     }
 
-    public boolean isHasWifi() {
+    public Boolean isHasWifi() {
         return hasWifi;
     }
 
-    public void setHasWifi(boolean hasWifi) {
+    public void setHasWifi(Boolean hasWifi) {
         this.hasWifi = hasWifi;
     }
 
-    public boolean isHasShuttle() {
+    public Boolean isHasShuttle() {
         return hasShuttle;
     }
 
-    public void setHasShuttle(boolean hasShuttle) {
+    public void setHasShuttle(Boolean hasShuttle) {
         this.hasShuttle = hasShuttle;
     }
 
-    public boolean isHasSmoking() {
+    public Boolean isHasSmoking() {
         return hasSmoking;
     }
 
-    public void setHasSmoking(boolean hasSmoking) {
+    public void setHasSmoking(Boolean hasSmoking) {
         this.hasSmoking = hasSmoking;
     }
 
-    public boolean isHasParking() {
+    public Boolean isHasParking() {
         return hasParking;
     }
 
-    public void setHasParking(boolean hasParking) {
+    public void setHasParking(Boolean hasParking) {
         this.hasParking = hasParking;
     }
 
-    public boolean isHasConditioning() {
+    public Boolean isHasConditioning() {
         return hasConditioning;
     }
 
-    public void setHasConditioning(boolean hasConditioning) {
+    public void setHasConditioning(Boolean hasConditioning) {
         this.hasConditioning = hasConditioning;
     }
 
-    public boolean isHasPets() {
+    public Boolean isHasPets() {
         return hasPets;
     }
 
-    public void setHasPets(boolean hasPets) {
+    public void setHasPets(Boolean hasPets) {
         this.hasPets = hasPets;
     }
 
-    public boolean isHasPool() {
+    public Boolean isHasPool() {
         return hasPool;
     }
 
-    public void setHasPool(boolean hasPool) {
+    public void setHasPool(Boolean hasPool) {
         this.hasPool = hasPool;
     }
 
-    public boolean isHasKitchen() {
+    public Boolean isHasKitchen() {
         return hasKitchen;
     }
 
-    public void setHasKitchen(boolean hasKitchen) {
+    public void setHasKitchen(Boolean hasKitchen) {
         this.hasKitchen = hasKitchen;
     }
 
-    public boolean isHasBreakfast() {
+    public Boolean isHasBreakfast() {
         return hasBreakfast;
     }
 
-    public void setHasBreakfast(boolean hasBreakfast) {
+    public void setHasBreakfast(Boolean hasBreakfast) {
         this.hasBreakfast = hasBreakfast;
     }
 
-    public boolean isPreorder() {
+    public Boolean isPreorder() {
         return isPreorder;
     }
 
-    public void setPreorder(boolean preorder) {
+    public void setPreorder(Boolean preorder) {
         isPreorder = preorder;
     }
 
@@ -175,11 +175,11 @@ public class Hotel extends Model {
         this.checkOutTime = checkOutTime;
     }
 
-    public Collection<String> getImages() {
+    public Collection<Long> getImages() {
         return images;
     }
 
-    public void setImages(Collection<String> images) {
+    public void setImages(Collection<Long> images) {
         this.images = images;
     }
 

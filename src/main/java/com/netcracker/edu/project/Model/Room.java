@@ -5,13 +5,13 @@ import java.util.Collection;
 public class Room extends Model {
     private Long hotelId;
 
-    private int numOfPlaces;
+    private Integer numOfPlaces;
 
-    private double cost;
+    private Double cost;
 
-    private boolean hasBathroom;
-    private boolean hasTV;
-    private boolean hasExtraBed;
+    private Boolean hasBathroom;
+    private Boolean hasTV;
+    private Boolean hasExtraBed;
 
     private Collection<String> images;
 
@@ -23,43 +23,43 @@ public class Room extends Model {
         this.hotelId = hotelId;
     }
 
-    public int getNumOfPlaces() {
+    public Integer getNumOfPlaces() {
         return numOfPlaces;
     }
 
-    public void setNumOfPlaces(int numOfPlaces) {
+    public void setNumOfPlaces(Integer numOfPlaces) {
         this.numOfPlaces = numOfPlaces;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
-    public boolean isHasBathroom() {
+    public Boolean isHasBathroom() {
         return hasBathroom;
     }
 
-    public void setHasBathroom(boolean hasBathroom) {
+    public void setHasBathroom(Boolean hasBathroom) {
         this.hasBathroom = hasBathroom;
     }
 
-    public boolean isHasTV() {
+    public Boolean isHasTV() {
         return hasTV;
     }
 
-    public void setHasTV(boolean hasTV) {
+    public void setHasTV(Boolean hasTV) {
         this.hasTV = hasTV;
     }
 
-    public boolean isHasExtraBed() {
+    public Boolean isHasExtraBed() {
         return hasExtraBed;
     }
 
-    public void setHasExtraBed(boolean hasExtraBed) {
+    public void setHasExtraBed(Boolean hasExtraBed) {
         this.hasExtraBed = hasExtraBed;
     }
 
