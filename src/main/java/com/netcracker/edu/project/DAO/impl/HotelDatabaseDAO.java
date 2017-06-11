@@ -16,7 +16,15 @@ import java.util.List;
 public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements HotelDAO {
     @Override
     public Collection<Hotel> getAll() {
-        return null;
+        String sql = "select object_id from objects where object_type_id = 4";
+        List<Long> hotelIdList= getJdbcTemplate().queryForList(sql, Long.TYPE);
+
+        List<Hotel> hotelList = new ArrayList<>();
+        for (Long hotelId : hotelIdList) {
+            hotelList.add(getById(hotelId));
+        }
+
+        return hotelList;
     }
 
     @Override

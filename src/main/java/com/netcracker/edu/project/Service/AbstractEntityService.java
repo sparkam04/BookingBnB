@@ -3,9 +3,14 @@ package com.netcracker.edu.project.Service;
 import com.netcracker.edu.project.DAO.EntityDAO;
 import com.netcracker.edu.project.Model.Model;
 
+import java.util.Collection;
+
 public abstract class AbstractEntityService<T extends Model> {
 
     protected abstract EntityDAO<T> getDao();
+    public Collection<T> getAllEntities() {
+        return getDao().getAll();
+    }
 
     public T getEntity(Long id) {
         return getDao().getById(id);

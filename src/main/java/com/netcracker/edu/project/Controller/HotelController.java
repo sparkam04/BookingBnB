@@ -5,6 +5,8 @@ import com.netcracker.edu.project.Service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 public class HotelController {
 
@@ -12,9 +14,9 @@ public class HotelController {
     private HotelService hotelService;
 
     @RequestMapping("/Hotel")
-    public String getAllLocations() {
-        // TODO: 07.06.2017
-        return "TO DO";
+    public Collection<Hotel> getAllLocations() {
+
+        return hotelService.getAllEntities();
     }
 
     @RequestMapping("/Hotel/{id}")

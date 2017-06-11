@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="testCtrl">
+
+    <h2>Hotel info</h2>
+    <p>
+        <select name="mySelect" id="mySelect"
+               ng-options="hotelOption.hotelName for hotelOption in hotels track by hotelOption.id"
+               ng-model="hotel">
+
+        </select>
+    </p>
+
+    <p>id: {{hotel.id}}</p>
+    <p>Hotel Name: {{hotel.hotelName}}</p>
+    <p>Owner: {{hotel.ownerId}}  </p>
+    <p>Description: {{hotel.description}}</p>
+    <p>Location: {{hotel.locationId}}</p>
+    <p>Rating: {{hotel.hotelRating}}</p>
+    <p>Wifi: <input type="checkbox" ng-model="hotel.hasWifi"></p>
+    <p>Shuttle: <input type="checkbox" ng-model="hotel.hasShuttle"></p>
+    <p>Smoking: <input type="checkbox" ng-model="hotel.hasSmoking"></p>
+    <p>Parking: <input type="checkbox" ng-model="hotel.hasParking"></p>
+    <p>Conditioning: <input type="checkbox" ng-model="hotel.hasConditioning"></p>
+    <p>Pets: <input type="checkbox" ng-model="hotel.hasPets"></p>
+    <p>Pool: <input type="checkbox" ng-model="hotel.hasPool"></p>
+    <p>Kitchen: <input type="checkbox" ng-model="hotel.hasKitchen"></p>
+    <p>Breakfast: <input type="checkbox" ng-model="hotel.hasBreakfast"></p>
+    <p>Phone: {{hotel.phone}}</p>
+    <p>CheckIn Time: {{hotel.checkInTime}}</p>
+    <p>CheckOut Time: {{hotel.checkOutTime}}</p>
+    <p>images: {{hotel.images}}</p>
+    <p>Pay Systems: {{hotel.paySysIds}}</p>
+    <p>Preorder: <input type="checkbox" ng-model="hotel.preorder"></p>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.controller('testCtrl', myFunc);
+
+    function myFunc($scope, $http) {
+
+      $scope.failure = undefined;
+
+      $http.get("/Hotel")
+      .then(function(response) {
+        $scope.hotels = response.data;
+      }).catch(function(failure){
+        $scope.failure = failure});
+    }
+</script>
+
+</body>
+</html>
