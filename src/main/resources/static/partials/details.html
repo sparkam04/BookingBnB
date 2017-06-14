@@ -1,0 +1,30 @@
+<div>
+
+    <button ng-click="tc.toggleEditMode()">Edit</button>
+    <p>{{tc.editMode}}</p>
+
+    <p>id: {{tc.hotel.id}}</p>
+    <p>Hotel Name: {{tc.hotel.hotelName}}</p>
+    <p>Owner: {{tc.hotel.ownerId}} </p>
+    <p>Description: {{tc.hotel.description}}</p>
+    <p>Location: {{tc.hotel.locationId}}</p>
+    <p>Rating: {{tc.hotel.hotelRating}}</p>
+    <p>Wifi: <input type="checkbox" ng-model="tc.hotel.hasWifi"></p>
+    <p>Shuttle: <input type="checkbox" ng-model="tc.hotel.hasShuttle"></p>
+    <p>Smoking: <input type="checkbox" ng-model="tc.hotel.hasSmoking"></p>
+    <p>Parking: <input type="checkbox" ng-model="tc.hotel.hasParking"></p>
+    <p>Conditioning: <input type="checkbox" ng-model="tc.hotel.hasConditioning"></p>
+    <p>Pets: <input type="checkbox" ng-model="tc.hotel.hasPets"></p>
+    <p>Pool: <input type="checkbox" ng-model="tc.hotel.hasPool"></p>
+    <p>Kitchen: <input type="checkbox" ng-model="tc.hotel.hasKitchen"></p>
+    <p>Breakfast: <input type="checkbox" ng-model="tc.hotel.hasBreakfast"></p>
+    <p>Phone: {{tc.hotel.phone}}</p>
+    <p>CheckIn Time: {{tc.hotel.checkInTime}}</p>
+    <p>CheckOut Time: {{tc.hotel.checkOutTime}}</p>
+    <p>images: {{tc.hotel.images}}</p>
+    <p>Pay Systems: {{tc.hotel.paySysIds}}</p>
+    <p>Preorder: <input type="checkbox" ng-model="tc.hotel.preorder"></p>
+
+    <p><a class="btn btn-default" href="#/" role="button">Back &raquo;</a></p>
+
+</div>
