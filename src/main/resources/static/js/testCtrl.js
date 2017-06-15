@@ -31,8 +31,8 @@
                 self.locations = data;
             });
 
-        this.selectHotel = function (index) {
-            this.hotel = this.hotels[index];
+        this.selectHotel = function (hotel_) {
+            this.hotel = hotel_;
             this.hotel.fullAddess = this.getFullAddressByLocationId(this.hotel.locationId);
         };
 
