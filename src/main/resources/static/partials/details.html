@@ -9,7 +9,12 @@
     <p>Hotel Name: {{tc.hotel.hotelName}}</p>
     <p>Owner: {{tc.hotel.ownerId}} </p>
     <p>Description: {{tc.hotel.description}}</p>
-    <p>Location: {{tc.hotel.locationId}}</p>
+    <!--<p>Location: {{tc.hotel.locationId}}</p>-->
+    <p>Country: {{tc.hotel.fullAddess.country.name}}</p>
+    <p>City: {{tc.hotel.fullAddess.city.name}}</p>
+    <p>Street, Address: {{tc.hotel.fullAddess.location.streetAddress}}</p>
+    <p>Postal Code: {{tc.hotel.fullAddess.location.postalCode}}</p>
+    <p>GPS Co-ordinates: {{tc.hotel.fullAddess.location.gpscoords}}</p>
     <p>Rating: {{tc.hotel.hotelRating}}</p>
     <p>Wifi: <input type="checkbox" ng-model="tc.hotel.hasWifi"></p>
     <p>Shuttle: <input type="checkbox" ng-model="tc.hotel.hasShuttle"></p>
