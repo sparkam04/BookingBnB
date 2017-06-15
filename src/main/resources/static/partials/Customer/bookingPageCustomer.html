@@ -1,28 +1,36 @@
 <!-- выборку по отелям копирнул с главной страницы. никакой логики нет -->
 <!--   Страничка «Бронирование»  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div>
     <p>
-        Hotel <input type="text" name="inputHotel">
+        <input type="text" name="inputHotel"> Hotel
     </p>
     <p>
-        Room <input type="text" name="inputRoom">
+        <input type="text" name="inputRoom"> Room
     </p>
-    Select check in date : <input type="date" name="calCheckIn">
-    Select check out date : <input type="date" name="calCheckOut">
+    <p>
+        <input type="date" name="calCheckIn">Check-in date
     </p>
-    <p>Number of people <input type="number" name="inputNumberOfPeople" value="1">
-        Price <input type="number" name="inputPrice"></p>
-    <li>
-        <select name="Select" id="SelectPaySystem">
-            <option value="">- pay system -</option>
+    <p>
+        <input type="date" name="calCheckOut"> Check-out date
+    </p>
+    <p><input type="number" name="inputNumberOfPeople" value="1" style="width: 5em;">
+        Number of people
+    </p>
+    <p>
+        <input type="number" name="inputPrice" style="width: 5em;">
+        Price
+    </p>
+    <p>
+        <select name="SelectPaySystem" id="SelectPaySystem">
+            <option value="">- Pay system -</option>
         </select>
-    </li>
-
-    <p>
-        <button name="buttonConfirm"> Confirm reservation</button>
-        <button name="buttonCansel"> Cansel</button>
     </p>
-    <p>special requests:</p>
+    <p>
+        <button name="buttonConfirm" class="btn"> Confirm reservation</button>
+        <button name="buttonCansel" class="btn"> Cansel</button>
+    </p>
+    <p>Special requests:</p>
     <p>
         <textarea name="textRequests" cols="40" rows="5"></textarea>
     </p>

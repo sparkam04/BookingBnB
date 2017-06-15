@@ -1,30 +1,37 @@
 <!--   Страничка «Кабинет пользователя», вкладка «Текущие
 заказы», действие при нажатии кнопки «Просмотреть» -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div>
     <p> Hotel: <b>hotel</b></p>
     <p> Room: <b>room</b></p>
     <p> Administrator <b>...</b></p>
     <p> Phone: <b>...</b></p>
     <p>
-        check in date : <input type="date" name="calCheckIn">
-        check out date : <input type="date" name="calCheckOut">
+        <input type="date" name="calCheckIn"> Check-in date
+    </p>
+    <p>
+        <input type="date" name="calCheckOut">
+        Check-out date
     </p>
 
     <p>
-        Number of people <input type="number" name="inputNumberOfPeople" value="1">
-        Price <input type="number" name="inputPrice"></p>
-
+        <input type="number" name="inputNumberOfPeople" value="1" style="width: 5em;">
+        Number of People
+    </p>
+    <p>
+        <input type="number" name="inputPrice" style="width: 5em;"> Price
+    </p>
     <p>
         <select name="Select" id="SelectPaySystem">
             <option value="">- pay system -</option>
         </select>
     </p>
-    <p>special requests:</p>
+    <p>Special requests:</p>
     <p>
-        <textarea name="Text1" cols="40" rows="5"></textarea>
+        <textarea name="TextRequests" cols="40" rows="5"></textarea>
     </p>
     <p>
-        <button name="buttonClose"> Close</button>
+        <button name="buttonClose" class="btn"> Close </button>
     </p>
 </div>
 
