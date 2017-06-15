@@ -1,13 +1,14 @@
 (function () {
 
     var app = angular.module("myApp");
-    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc) {
+    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, $filter) {
         this.editMode = false;
         this.failure = undefined;
         this.country = {};
         this.city = {};
-        this.location = {};
+        this.location = {id: 0};
         this.hotel = {};
+        this.editedHotel = {};
 
 
         var self = this;
@@ -36,16 +37,28 @@
         };
 
         this.selectCountry = function () {
+            this.location = {id: 0};
         };
 
-        this.selectCyty = function () {
+        this.selectCity = function () {
+            this.location = {id: 0};
         };
 
         this.selectLocation = function () {
         };
 
+        this.updateHotel = function (hotelData) {
+            hotelData.checkInTime = $filter('date')(hotelData.cInTime, 'HH:mm:ss').toString();
+            hotelData.checkOutTime = $filter('date')(hotelData.cOutTime, 'HH:mm:ss').toString();
+
+            console.log(JSON.stringify(hotelData.valueOf()));
+            HotelDataSvc.updHotel(hotelData);
+        };
+
         this.toggleEditMode = function () {
             this.editMode = !this.editMode;
+            // this.editedHotel = Object.create(this.hotel);
+            this.editedHotel = JSON.parse(JSON.stringify(this.hotel));
         };
     });
 })();

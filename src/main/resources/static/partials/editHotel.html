@@ -1,0 +1,30 @@
+<div>
+
+    <p>id: {{tc.editedHotel.id}}</p>
+    <p>Hotel Name: <input type="text" ng-model="tc.editedHotel.hotelName" placeholder="Hotel Name"></p>
+    <p>Owner: {{tc.editedHotel.ownerId}} </p>
+    <p>Description: <input type="text" ng-model="tc.editedHotel.description" placeholder="Hotel Description"></p>
+    <p>Location: {{tc.editedHotel.locationId}}</p>
+    <p>Rating: {{tc.editedHotel.hotelRating}}</p>
+    <p>Wifi: <input type="checkbox" ng-model="tc.editedHotel.hasWifi"></p>
+    <p>Shuttle: <input type="checkbox" ng-model="tc.editedHotel.hasShuttle"></p>
+    <p>Smoking: <input type="checkbox" ng-model="tc.editedHotel.hasSmoking"></p>
+    <p>Parking: <input type="checkbox" ng-model="tc.editedHotel.hasParking"></p>
+    <p>Conditioning: <input type="checkbox" ng-model="tc.editedHotel.hasConditioning"></p>
+    <p>Pets: <input type="checkbox" ng-model="tc.editedHotel.hasPets"></p>
+    <p>Pool: <input type="checkbox" ng-model="tc.editedHotel.hasPool"></p>
+    <p>Kitchen: <input type="checkbox" ng-model="tc.editedHotel.hasKitchen"></p>
+    <p>Breakfast: <input type="checkbox" ng-model="tc.editedHotel.hasBreakfast"></p>
+    <p>Phone: <input type="text" ng-model="tc.editedHotel.phone" placeholder="phone"></p>
+    <p>CheckIn Time: {{tc.editedHotel.checkInTime}}<input type="time" id="timeInput1" name="input" ng-model="tc.editedHotel.cInTime"
+                                                          placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required /></p>
+    <p>CheckOut Time: {{tc.editedHotel.checkOutTime}}<input type="time" id="timeInput2" name="input" ng-model="tc.editedHotel.cOutTime"
+                                                            placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required /></p>
+    <p>images: {{tc.editedHotel.images}}</p>
+    <p>Pay Systems: {{tc.editedHotel.paySysIds}}</p>
+    <p>Preorder: <input type="checkbox" ng-model="tc.editedHotel.preorder"></p>
+
+    <p><a class="btn btn-default" href="#!/" role="button" ng-click="tc.updateHotel(tc.editedHotel)">Save</a></p>
+    <p><a class="btn btn-default" href="#!details" role="button">Back &raquo;</a></p>
+
+</div>

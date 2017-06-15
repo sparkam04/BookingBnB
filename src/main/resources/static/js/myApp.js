@@ -8,5 +8,8 @@ app.config(function($routeProvider) {
     .when("/details", {
         templateUrl : "partials/details.html"
     })
+        .when("/editHotel", {
+            templateUrl : "partials/editHotel.html"
+        })
     ;
 });
