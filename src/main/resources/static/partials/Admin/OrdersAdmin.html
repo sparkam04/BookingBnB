@@ -1,0 +1,55 @@
+<!-- Страничка «Кабинет Админа гостиницы», вкладка «Заказы» -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div>
+    <div class="form-group">
+        <p>
+            Order number
+            <input type="text" name="inputOrderNumber" value="1" size="2">
+            Hotel
+            <select name="SelectHotel" id="SelectHotel">
+                <option value="">- Hotel -</option>
+            </select>
+            Room
+            <select name="SelectRoom" id="SelectRoom">
+                <option value="">- room -</option>
+            </select>
+            Number of people <input name=inputNumberOfPeople type=number style="width: 5em;">
+            Check-in date : <input type="date" name="calCheckIn">
+            Check-out date : <input type="date" name="calCheckOut">
+            State
+            <select name="SelectState" id="SelectState">
+                <option value="">- State -</option>
+            </select>
+            <button name="buttonClear" class="btn"> Clear</button>
+        </p>
+    </div>
+    <p>
+        <table border="0" class="table">
+            <tr>
+                <th>Order number</th>
+                <th>Hotel</th>
+                <th>Room</th>
+                <th>Customer</th>
+                <th>Check-in time</th>
+                <th>Check-out Time</th>
+                <th>Number of people</th>
+                <th>Price</th>
+                <th>State</th>
+                <th>View</th>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Example</td>
+                <td>Example</td>
+                <td>Maks</td>
+                <td>12.10.1993</td>
+                <td>16.10.2017</td>
+                <td>7</td>
+                <td>28</td>
+                <td>Example</td>
+                <td>
+    <p><a class="btn btn-default" href="#/" role="button">View &raquo;</a></p></td>
+    </tr>
+    </table>
+    </p>
+</div>
