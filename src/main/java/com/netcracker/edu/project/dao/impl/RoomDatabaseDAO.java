@@ -2,6 +2,7 @@ package com.netcracker.edu.project.dao.impl;
 
 import com.netcracker.edu.project.dao.RoomDAO;
 import com.netcracker.edu.project.model.Room;
+import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,7 +11,11 @@ import java.util.List;
 /**
  * Created by Alexander on 18.06.2017.
  */
+@Repository
 public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDAO {
+    RoomDatabaseDAO() {
+    }
+
     @Override
     protected Room getNewModel() {
         return new Room();

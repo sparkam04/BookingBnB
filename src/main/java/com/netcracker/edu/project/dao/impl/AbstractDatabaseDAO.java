@@ -14,6 +14,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         put(CityDatabaseDAO.class, City.class.getSimpleName());
         put(LocationDatabaseDAO.class, Location.class.getSimpleName());
         put(HotelDatabaseDAO.class, Hotel.class.getSimpleName());
+        put(RoomDatabaseDAO.class, Room.class.getSimpleName());
     }};
 
     protected Boolean hasParentId;
@@ -107,22 +108,6 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
                             Long.TYPE,
                             id, attrId));
         setMultipleReferences(model, multipleReferences.iterator());
-
-        /*for (Attribute attribute : sqlEntityDescriptor.attributes) {
-            if (attribute.type == Attribute.Type.SINGLE_REFERENCE)
-                singleReferences.add(
-                        getJdbcTemplate().queryForObject(
-                                SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
-                                Long.TYPE,
-                                id, attribute.id));
-            if (attribute.type == Attribute.Type.MULTIPLE_REFERENCE)
-                multipleReferences.add(
-                        getJdbcTemplate().queryForList(
-                                SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
-                                Long.TYPE,
-                                id, attribute.id));
-        }*/
-
         return model;
     }
 
