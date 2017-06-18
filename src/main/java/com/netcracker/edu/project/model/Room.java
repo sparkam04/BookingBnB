@@ -5,6 +5,7 @@ import java.util.Collection;
 public class Room extends Model {
     private Long hotelId;
 
+    private Integer roomId;
     private Integer numOfPlaces;
 
     private Double cost;
@@ -14,6 +15,38 @@ public class Room extends Model {
     private Boolean hasExtraBed;
 
     private Collection<String> images;
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
+    }
+
+    public Boolean getHasBathroom() {
+        return hasBathroom;
+    }
+
+    public void setHasBathroom(Boolean hasBathroom) {
+        this.hasBathroom = hasBathroom;
+    }
+
+    public Boolean getHasTV() {
+        return hasTV;
+    }
+
+    public void setHasTV(Boolean hasTV) {
+        this.hasTV = hasTV;
+    }
+
+    public Boolean getHasExtraBed() {
+        return hasExtraBed;
+    }
+
+    public void setHasExtraBed(Boolean hasExtraBed) {
+        this.hasExtraBed = hasExtraBed;
+    }
 
     public Long getHotelId() {
         return hotelId;
@@ -43,24 +76,12 @@ public class Room extends Model {
         return hasBathroom;
     }
 
-    public void setHasBathroom(Boolean hasBathroom) {
-        this.hasBathroom = hasBathroom;
-    }
-
     public Boolean isHasTV() {
         return hasTV;
     }
 
-    public void setHasTV(Boolean hasTV) {
-        this.hasTV = hasTV;
-    }
-
     public Boolean isHasExtraBed() {
         return hasExtraBed;
-    }
-
-    public void setHasExtraBed(Boolean hasExtraBed) {
-        this.hasExtraBed = hasExtraBed;
     }
 
     public Collection<String> getImages() {
