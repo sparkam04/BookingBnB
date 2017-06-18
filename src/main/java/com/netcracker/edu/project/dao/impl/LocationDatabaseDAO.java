@@ -2,47 +2,72 @@ package com.netcracker.edu.project.dao.impl;
 
 import com.netcracker.edu.project.dao.LocationDAO;
 import com.netcracker.edu.project.model.Location;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Repository
 public class LocationDatabaseDAO extends AbstractDatabaseDAO<Location> implements LocationDAO {
-
-    LocationDatabaseDAO() {
-        setObjectTypeId(3);
+    @Override
+    protected Location getNewModel() {
+        return new Location();
     }
 
     @Override
-    public Location getById(Long id) {
-        String sql = "select location.object_id, location.PARENT_ID city_Id, street_addr.value address, postal_code.VALUE postal_Code, gps_coords.VALUE gps_Coordinates\n" +
-                "from OBJECTS location\n" +
-                "    join attributes street_addr on street_addr.OBJECT_ID = location.OBJECT_ID and street_addr.ATTR_ID = 5\n" +
-                "    join attributes postal_code on postal_code.OBJECT_ID = location.OBJECT_ID and postal_code.ATTR_ID = 6\n" +
-                "    join attributes gps_coords on gps_coords.OBJECT_ID = location.OBJECT_ID and gps_coords.ATTR_ID = 7\n" +
-                "where\n" +
-                "    location.OBJECT_TYPE_ID = 3\n" +
-                "    and location.OBJECT_ID = ?";
-
-        return getJdbcTemplate().queryForObject(sql, new Object[]{id},new LocationMapper());
-    }
-
-    private final class LocationMapper implements RowMapper<Location> {
-        @Override
-        public Location mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Location location = new Location();
-            location.setId(rs.getLong("object_id"));
-            location.setCityId(rs.getLong("city_Id"));
-            location.setStreetAddress(rs.getString("address"));
-            location.setPostalCode(rs.getString("postal_Code"));
-            location.setGPSCoords(rs.getString("gps_Coordinates"));
-            return location;
-        }
+    protected String getName(Location model) {
+        return model.getStreetAddress();
     }
 
     @Override
+    protected Long getParentId(Location model) {
+        return model.getCityId();
+    }
+
+    @Override
+    protected Location setParentId(Location model, Long parentId) {
+        model.setCityId(parentId);
+        return model;
+    }
+
+    @Override
+    protected Iterator<String> getValues(Location model) {
+        List<String> values = new LinkedList<>();
+        values.add(model.getStreetAddress());
+        values.add(model.getPostalCode());
+        values.add(model.getGPSCoords());
+        return values.iterator();
+    }
+
+    @Override
+    protected Location setValues(Location model, Iterator<String> valuesIterator) {
+        model.setStreetAddress(valuesIterator.next());
+        model.setPostalCode(valuesIterator.next());
+        model.setGPSCoords(valuesIterator.next());
+        return model;
+    }
+
+    @Override
+    protected Iterator<Long> getSingleReferences(Location model) {
+        return null;
+    }
+
+    @Override
+    protected Location setSingleReferences(Location model, Iterator<Long> singldeReferencesIterator) {
+        return model;
+    }
+
+    @Override
+    protected Iterator<List<Long>> getMultipleReferences(Location model) {
+        return null;
+    }
+
+    @Override
+    protected Location setMultipleReferences(Location model, Iterator<List<Long>> multipleReferencesIterator) {
+        return model;
+    }
+/*@Override
     public boolean add(Location model) {
         String sql = "INSERT ALL\n" +
                 "    INTO objects (object_id, PARENT_ID, object_type_id, name)\n" +
@@ -78,4 +103,15 @@ public class LocationDatabaseDAO extends AbstractDatabaseDAO<Location> implement
         return affectedRows == 4;
     }
 
+    @Override
+    public Location mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Location location = new Location();
+        Iterator<Attribute> codes = sqlEntityDescriptor.attributes.iterator();
+        location.setId(rs.getLong(codes.next().code));
+        location.setCityId(rs.getLong(codes.next().code));
+        location.setStreetAddress(rs.getString(codes.next().code));
+        location.setPostalCode(rs.getString(codes.next().code));
+        location.setGPSCoords(rs.getString(codes.next().code));
+        return location;
+    }*/
 }

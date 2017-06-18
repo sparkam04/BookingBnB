@@ -2,25 +2,108 @@ package com.netcracker.edu.project.dao.impl;
 
 import com.netcracker.edu.project.dao.HotelDAO;
 import com.netcracker.edu.project.model.Hotel;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements HotelDAO {
-
-    HotelDatabaseDAO() {
-        setObjectTypeId(4);
+    @Override
+    protected Hotel getNewModel() {
+        return new Hotel();
     }
 
     @Override
+    protected String getName(Hotel model) {
+        return model.getHotelName();
+    }
+
+    @Override
+    protected Long getParentId(Hotel model) {
+        return model.getLocationId();
+    }
+
+    @Override
+    protected Hotel setParentId(Hotel model, Long parentId) {
+        model.setLocationId(parentId);
+        return model;
+    }
+
+    @Override
+    protected Iterator<String> getValues(Hotel model) {
+        List<String> values = new LinkedList<>();
+        values.add(model.getHotelName());
+        values.add(model.getPhone());
+        values.add(model.getDescription());
+        values.add(Double.toString(model.getHotelRating()));
+        values.add(Boolean.toString(model.isHasWifi()));
+        values.add(Boolean.toString(model.isHasShuttle()));
+        values.add(Boolean.toString(model.isHasSmoking()));
+        values.add(Boolean.toString(model.isHasParking()));
+        values.add(Boolean.toString(model.isHasConditioning()));
+        values.add(Boolean.toString(model.isHasPets()));
+        values.add(Boolean.toString(model.isHasPool()));
+        values.add(Boolean.toString(model.isHasKitchen()));
+        values.add(Boolean.toString(model.isHasBreakfast()));
+        values.add(model.getCheckInTime().toString());
+        values.add(model.getCheckOutTime().toString());
+        values.add(Boolean.toString(model.isPreorder()));
+        return values.iterator();
+    }
+
+    @Override
+    protected Hotel setValues(Hotel model, Iterator<String> valuesIterator) {
+        model.setHotelName(valuesIterator.next());
+        model.setPhone(valuesIterator.next());
+        model.setDescription(valuesIterator.next());
+        model.setHotelRating(Double.valueOf(valuesIterator.next()));
+        model.setHasWifi(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasShuttle(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasSmoking(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasParking(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasConditioning(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasPets(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasPool(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasKitchen(Boolean.getBoolean(valuesIterator.next()));
+        model.setHasBreakfast(Boolean.getBoolean(valuesIterator.next()));
+        model.setCheckInTime(Time.valueOf(valuesIterator.next()));
+        model.setCheckOutTime(Time.valueOf(valuesIterator.next()));
+        model.setPreorder(Boolean.getBoolean(valuesIterator.next()));
+        return model;
+    }
+
+    @Override
+    protected Iterator<Long> getSingleReferences(Hotel model) {
+        List<Long> singleReferences = new LinkedList<>();
+        singleReferences.add(model.getOwnerId());
+        return singleReferences.iterator();
+    }
+
+    @Override
+    protected Hotel setSingleReferences(Hotel model, Iterator<Long> singldeReferencesIterator) {
+        model.setOwnerId(singldeReferencesIterator.next());
+        return model;
+    }
+
+    @Override
+    protected Iterator<List<Long>> getMultipleReferences(Hotel model) {
+        List<List<Long>> multipleReferences = new LinkedList<>();
+        multipleReferences.add((List) model.getPaySysIds());
+        multipleReferences.add((List) model.getImages());
+        return multipleReferences.iterator();
+    }
+
+    @Override
+    protected Hotel setMultipleReferences(Hotel model, Iterator<List<Long>> multipleReferencesIterator) {
+        model.setImages(multipleReferencesIterator.next());
+        model.setPaySysIds(multipleReferencesIterator.next());
+        return model;
+    }
+
+    /*@Override
     public Hotel getById(Long id) {
         Hotel hotel;
         String sql = "select hotel.object_id\n" +
@@ -97,33 +180,6 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         hotel.setImages(hotelImages);
 
         return hotel;
-    }
-
-    private final class HotelMapper implements RowMapper<Hotel> {
-        @Override
-        public Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Hotel hotel = new Hotel();
-            hotel.setId(rs.getLong("object_id"));
-            hotel.setHotelName(rs.getString("hotel_name"));
-            hotel.setOwnerId(rs.getLong("owner_id_ref"));
-            hotel.setLocationId(rs.getLong("location_id"));
-            hotel.setPhone(rs.getString("phone"));
-            hotel.setDescription(rs.getString("description"));
-            hotel.setHotelRating(rs.getDouble("hotel_rating"));
-            hotel.setHasWifi(Boolean.parseBoolean(rs.getString("has_wifi")));
-            hotel.setHasShuttle(Boolean.parseBoolean(rs.getString("has_shuttle")));
-            hotel.setHasSmoking(Boolean.parseBoolean(rs.getString("has_smoking")));
-            hotel.setHasParking(Boolean.parseBoolean(rs.getString("has_parking")));
-            hotel.setHasConditioning(Boolean.parseBoolean(rs.getString("has_conditioning")));
-            hotel.setHasPets(Boolean.parseBoolean(rs.getString("has_pets")));
-            hotel.setHasPool(Boolean.parseBoolean(rs.getString("has_pool")));
-            hotel.setHasKitchen(Boolean.parseBoolean(rs.getString("has_kitchen")));
-            hotel.setHasBreakfast(Boolean.parseBoolean(rs.getString("has_breakfast")));
-            hotel.setCheckInTime(Time.valueOf(rs.getString("check_in_time")));
-            hotel.setCheckOutTime(Time.valueOf(rs.getString("check_out_time")));
-            hotel.setPreorder(Boolean.parseBoolean(rs.getString("is_preorder")));
-            return hotel;
-        }
     }
 
     @Override
@@ -250,5 +306,29 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         return success && success1 && success2 && success3 && success4;
     }
 
-
+    @Override
+    public Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Hotel hotel = new Hotel();
+        Iterator<Attribute> codes = sqlEntityDescriptor.attributes.iterator();
+        hotel.setId(rs.getLong(codes.next().code));
+        hotel.setHotelName(rs.getString(codes.next().code));
+        hotel.setOwnerId(rs.getLong(codes.next().code));
+        hotel.setLocationId(rs.getLong(codes.next().code));
+        hotel.setPhone(rs.getString(codes.next().code));
+        hotel.setDescription(rs.getString(codes.next().code));
+        hotel.setHotelRating(rs.getDouble(codes.next().code));
+        hotel.setHasWifi(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasShuttle(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasSmoking(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasParking(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasConditioning(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasPets(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasPool(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasKitchen(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setHasBreakfast(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        hotel.setCheckInTime(Time.valueOf(rs.getString(codes.next().code)));
+        hotel.setCheckOutTime(Time.valueOf(rs.getString(codes.next().code)));
+        hotel.setPreorder(Boolean.parseBoolean(rs.getString(codes.next().code)));
+        return hotel;
+    }*/
 }
