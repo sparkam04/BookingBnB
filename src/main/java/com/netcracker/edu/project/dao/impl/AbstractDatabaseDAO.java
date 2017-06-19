@@ -8,13 +8,20 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQLRequests {
+abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQLRequests, ExceptionMessages {
     private static final Map<Class, String> objTypes = new HashMap<Class, String>() {{
-        put(CountryDatabaseDAO.class, Country.class.getSimpleName());
+        put(BookingDatabaseDAO.class, Booking.class.getSimpleName());
         put(CityDatabaseDAO.class, City.class.getSimpleName());
-        put(LocationDatabaseDAO.class, Location.class.getSimpleName());
+        put(CountryDatabaseDAO.class, Country.class.getSimpleName());
         put(HotelDatabaseDAO.class, Hotel.class.getSimpleName());
+        put(ImageDatabaseDAO.class, Image.class.getSimpleName());
+        put(LocationDatabaseDAO.class, Location.class.getSimpleName());
+        put(PaySystemDatabaseDAO.class, PaySystem.class.getSimpleName());
+        put(RatingDatabaseDAO.class, PaySystem.class.getSimpleName());
+        put(RoleDatabaseDAO.class, PaySystem.class.getSimpleName());
         put(RoomDatabaseDAO.class, Room.class.getSimpleName());
+        put(StatusDatabaseDAO.class, Status.class.getSimpleName());
+        put(UserDatabaseDAO.class, User.class.getSimpleName());
     }};
 
     protected Boolean hasParentId;
