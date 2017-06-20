@@ -1,29 +1,15 @@
 package com.netcracker.edu.project.dao.impl;
 
 import com.netcracker.edu.project.dao.EntityDAO;
-import com.netcracker.edu.project.model.*;
+import com.netcracker.edu.project.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.PostConstruct;
+import java.sql.ResultSet;
 import java.util.*;
 
 abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQLRequests, ExceptionMessages {
-    private static final Map<Class, String> objTypes = new HashMap<Class, String>() {{
-        put(BookingDatabaseDAO.class, Booking.class.getSimpleName());
-        put(CityDatabaseDAO.class, City.class.getSimpleName());
-        put(CountryDatabaseDAO.class, Country.class.getSimpleName());
-        put(HotelDatabaseDAO.class, Hotel.class.getSimpleName());
-        put(ImageDatabaseDAO.class, Image.class.getSimpleName());
-        put(LocationDatabaseDAO.class, Location.class.getSimpleName());
-        put(PaySystemDatabaseDAO.class, PaySystem.class.getSimpleName());
-        put(RatingDatabaseDAO.class, PaySystem.class.getSimpleName());
-        put(RoleDatabaseDAO.class, PaySystem.class.getSimpleName());
-        put(RoomDatabaseDAO.class, Room.class.getSimpleName());
-        put(StatusDatabaseDAO.class, Status.class.getSimpleName());
-        put(UserDatabaseDAO.class, User.class.getSimpleName());
-    }};
-
     protected Boolean hasParentId;
     protected Long objectTypeId;
     protected List<Long> valueAttrIds;
@@ -32,51 +18,41 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    protected JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     @PostConstruct
     private void init() {
-        this.objectTypeId = getJdbcTemplate().queryForObject(
+        this.objectTypeId = jdbcTemplate.queryForObject(
                 SELECT_OBJTYPE_BY_NAME,
                 Long.TYPE,
-                objTypes.get(this.getClass()));
-        this.hasParentId = null != getJdbcTemplate().queryForObject(
+                getNewModel().getClass().getSimpleName());
+        this.hasParentId = null != jdbcTemplate.queryForObject(
                 SELECT_PARENTYPEID_BY_OBJTYPEID,
                 Long.TYPE,
                 objectTypeId);
-        this.valueAttrIds = getJdbcTemplate().queryForList(
+        this.valueAttrIds = jdbcTemplate.queryForList(
                 SELECT_ATTRTYPEID_VALUE_BY_OBJTYPEID,
                 Long.TYPE,
                 objectTypeId);
-        this.singleRefAttrIds = getJdbcTemplate().queryForList(
+        this.singleRefAttrIds = jdbcTemplate.queryForList(
                 SELECT_ATTRTYPEID_SINGLEREF_BY_OBJTYPEID,
                 Long.TYPE,
                 objectTypeId);
-        this.multRefAttrIds = getJdbcTemplate().queryForList(
+        this.multRefAttrIds = jdbcTemplate.queryForList(
                 SELECT_ATTRTYPEID_MULTLEREF_BY_OBJTYPEID,
                 Long.TYPE,
                 objectTypeId
         );
-        return;
     }
 
     @Override
     public Collection<T> getAll() {
-        List<Long> entityIdList = getJdbcTemplate().queryForList(
+        List<Long> entityIdList = jdbcTemplate.queryForList(
                 SELECT_OBJID_BY_OBJTYPEID_REQUEST,
                 new Object[]{objectTypeId},
                 Long.TYPE);
-
-        List<T> entityList = new ArrayList<>();
-        for (Long entityId : entityIdList)
+        List<T> entityList = new LinkedList<>();
+        for (Long entityId : entityIdList) {
             entityList.add(getById(entityId));
-
+        }
         return entityList;
     }
 
@@ -86,22 +62,30 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         model.setId(id);
         if (hasParentId)
             setParentId(model,
-                    getJdbcTemplate().queryForObject(
+                    jdbcTemplate.queryForObject(
                             SELECT_PARENTID_BY_OBJECTID,
                             Long.TYPE,
                             id
                     ));
-        setValues(model,
-                getJdbcTemplate().queryForList(
-                        SELECT_VALUE_BY_OBJECTID,
-                        String.class,
-                        id
-                ).iterator());
+
+        setValues(model, jdbcTemplate.query(
+                SELECT_VALUE_BY_OBJECTID,
+                (ResultSet resultSet) -> {
+                    String s;
+                    List<String> values = new LinkedList<String>();
+                    while (resultSet.next()) {
+                        s = resultSet.getString(1);
+                        //NOT TO PARSE NULL VALUES
+                        values.add(s == null ? "" : s);
+                    }
+                    return values.iterator();
+                }
+                , id));
 
         List<Long> singleReferences = new LinkedList<>();
         for (Long attrId : singleRefAttrIds)
             singleReferences.add(
-                    getJdbcTemplate().queryForObject(
+                    jdbcTemplate.queryForObject(
                             SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
                             Long.TYPE,
                             id, attrId));
@@ -110,7 +94,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         List<List<Long>> multipleReferences = new LinkedList<>();
         for (Long attrId : multRefAttrIds)
             multipleReferences.add(
-                    getJdbcTemplate().queryForList(
+                    jdbcTemplate.queryForList(
                             SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
                             Long.TYPE,
                             id, attrId));
@@ -122,7 +106,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     public boolean add(T model) {
         if (model.getId() == null)
             setNewId(model);
-        getJdbcTemplate().update(
+        jdbcTemplate.update(
                 INSERT_OBJECT_REQUEST,
                 model.getId(), getParentId(model), objectTypeId, getName(model));
 
@@ -130,7 +114,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         Iterator<String> values = getValues(model);
         for (Long attrId : valueAttrIds)
             attributeInsertArgs.add(new Object[]{attrId, model.getId(), values.next()});
-        getJdbcTemplate().batchUpdate(
+        jdbcTemplate.batchUpdate(
                 INSERT_ATTRIBUTE_REQUEST,
                 attributeInsertArgs
         );
@@ -149,15 +133,15 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     @Override
     public boolean update(T model) {
         if (model.getId() == null)
-            throw new NullPointerException("ID CANT BE NULL");
+            throw new NullPointerException(NULL_MODEL_ID_MESSAGE);
 
-        getJdbcTemplate().update(
+        jdbcTemplate.update(
                 UPDATE_OBJECTS,
                 getParentId(model), getName(model), objectTypeId, model.getId());
 
         Iterator<String> valuesIterator = getValues(model);
         for (Long attrId : valueAttrIds)
-            getJdbcTemplate().update(
+            jdbcTemplate.update(
                     UPDATE_ATTRIBUTES,
                     new Object[]{valuesIterator.next(), model.getId(), attrId});
 
@@ -176,7 +160,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
 
     @Override
     public boolean remove(Long id) {
-        int affectedRows = getJdbcTemplate().update(DELETE_OBJ_BY_OBJID_REQUEST, id);
+        int affectedRows = jdbcTemplate.update(DELETE_OBJ_BY_OBJID_REQUEST, id);
         return affectedRows == 1;
     }
 
@@ -186,7 +170,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     }
 
     boolean batchInsertObjReferences(Long attributeId, Collection<Long> references, Long objId) {
-        getJdbcTemplate().update(
+        jdbcTemplate.update(
                 DELETE_OBJREF_BY_ATTRID_OBJID_REQUEST,
                 attributeId,
                 objId);
@@ -195,7 +179,7 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         for (Long reference : references)
             arguments.add(new Object[]{attributeId, reference, objId});
 
-        for (int i : getJdbcTemplate().batchUpdate(INSERT_OBJREF_REQUEST, arguments))
+        for (int i : jdbcTemplate.batchUpdate(INSERT_OBJREF_REQUEST, arguments))
             if (i != -2)
                 return false;
 
@@ -203,26 +187,38 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     }
 
     protected void setNewId(T model) {
-        model.setId(getJdbcTemplate().queryForObject(NEW_OBJECT_ID, Long.TYPE));
+        model.setId(jdbcTemplate.queryForObject(NEW_OBJECT_ID, Long.TYPE));
     }
 
     abstract protected T getNewModel();
 
     abstract protected String getName(T model);
 
-    abstract protected Long getParentId(T model);
+    protected Long getParentId(T model) {
+        return null;
+    }
 
-    abstract protected T setParentId(T model, Long parentId);
+    protected T setParentId(T model, Long parentId) {
+        return model;
+    }
 
     abstract protected Iterator<String> getValues(T model);
 
     abstract protected T setValues(T model, Iterator<String> valuesIterator);
 
-    abstract protected Iterator<Long> getSingleReferences(T model);
+    protected Iterator<Long> getSingleReferences(T model) {
+        return null;
+    }
 
-    abstract protected T setSingleReferences(T model, Iterator<Long> singldeReferencesIterator);
+    protected T setSingleReferences(T model, Iterator<Long> singldeReferencesIterator) {
+        return model;
+    }
 
-    abstract protected Iterator<List<Long>> getMultipleReferences(T model);
+    protected Iterator<List<Long>> getMultipleReferences(T model) {
+        return null;
+    }
 
-    abstract protected T setMultipleReferences(T model, Iterator<List<Long>> multipleReferencesIterator);
+    protected T setMultipleReferences(T model, Iterator<List<Long>> multipleReferencesIterator) {
+        return model;
+    }
 }

@@ -5,60 +5,47 @@ import com.netcracker.edu.project.model.Rating;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Alexander on 19.06.2017.
  */
 @Repository
-public class RatingDatabaseDAO extends AbstractDatabaseDAO<Rating> implements RatingDAO{
+public class RatingDatabaseDAO extends AbstractDatabaseDAO<Rating> implements RatingDAO {
     @Override
     protected Rating getNewModel() {
-        return null;
+        return new Rating();
     }
 
     @Override
     protected String getName(Rating model) {
-        return null;
+        return model.getBookingId().toString();
     }
 
     @Override
     protected Long getParentId(Rating model) {
-        return null;
+        return model.getBookingId();
     }
 
     @Override
     protected Rating setParentId(Rating model, Long parentId) {
-        return null;
+        model.setBookingId(parentId);
+        return model;
     }
 
     @Override
     protected Iterator<String> getValues(Rating model) {
-        return null;
+        List<String> values = new LinkedList<>();
+        values.add(Integer.toString(model.getValue()));
+        values.add(model.getComment());
+        return values.iterator();
     }
 
     @Override
     protected Rating setValues(Rating model, Iterator<String> valuesIterator) {
-        return null;
-    }
-
-    @Override
-    protected Iterator<Long> getSingleReferences(Rating model) {
-        return null;
-    }
-
-    @Override
-    protected Rating setSingleReferences(Rating model, Iterator<Long> singldeReferencesIterator) {
-        return null;
-    }
-
-    @Override
-    protected Iterator<List<Long>> getMultipleReferences(Rating model) {
-        return null;
-    }
-
-    @Override
-    protected Rating setMultipleReferences(Rating model, Iterator<List<Long>> multipleReferencesIterator) {
-        return null;
+        model.setValue(Integer.parseInt(valuesIterator.next()));
+        model.setComment(valuesIterator.next());
+        return model;
     }
 }

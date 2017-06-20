@@ -43,24 +43,4 @@ public class CityDatabaseDAO extends AbstractDatabaseDAO<City> implements CityDA
         model.setName(valuesIterator.next());
         return model;
     }
-
-    @Override
-    protected Iterator<Long> getSingleReferences(City model) {
-        return null;
-    }
-
-    @Override
-    protected City setSingleReferences(City model, Iterator<Long> singldeReferencesIterator) {
-        return model;
-    }
-
-    @Override
-    protected Iterator<List<Long>> getMultipleReferences(City model) {
-        return null;
-    }
-
-    @Override
-    protected City setMultipleReferences(City model, Iterator<List<Long>> multipleReferencesIterator) {
-        return model;
-    }
 }

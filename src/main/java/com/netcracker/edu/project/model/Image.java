@@ -2,14 +2,14 @@ package com.netcracker.edu.project.model;
 
 public class Image extends Model {
     private String imageUrl;
-    private String image_description;
+    private String imageDescription;
 
-    public String getImage_description() {
-        return image_description;
+    public String getImageDescription() {
+        return imageDescription;
     }
 
-    public void setImage_description(String image_description) {
-        this.image_description = image_description;
+    public void setImageDescription(String imageDescription) {
+        this.imageDescription = imageDescription;
     }
 
     public String getImageUrl() {

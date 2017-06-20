@@ -5,6 +5,7 @@ import com.netcracker.edu.project.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,51 +15,43 @@ import java.util.List;
 public class UserDatabaseDAO extends AbstractDatabaseDAO<User> implements UserDAO {
     @Override
     protected User getNewModel() {
-        return null;
+        return new User();
     }
 
     @Override
     protected String getName(User model) {
-        return null;
+        return model.getFirstName() + " " + model.getLastName();
     }
 
     @Override
     protected Long getParentId(User model) {
-        return null;
+        return model.getRoleId();
     }
 
     @Override
     protected User setParentId(User model, Long parentId) {
-        return null;
+        model.setRoleId(parentId);
+        return model;
     }
 
     @Override
     protected Iterator<String> getValues(User model) {
-        return null;
+        List<String> values = new LinkedList<>();
+        values.add(model.getFirstName());
+        values.add(model.getLastName());
+        values.add(model.getPhone());
+        values.add(model.getEmail());
+        values.add(model.getPass());
+        return values.iterator();
     }
 
     @Override
     protected User setValues(User model, Iterator<String> valuesIterator) {
-        return null;
-    }
-
-    @Override
-    protected Iterator<Long> getSingleReferences(User model) {
-        return null;
-    }
-
-    @Override
-    protected User setSingleReferences(User model, Iterator<Long> singldeReferencesIterator) {
-        return null;
-    }
-
-    @Override
-    protected Iterator<List<Long>> getMultipleReferences(User model) {
-        return null;
-    }
-
-    @Override
-    protected User setMultipleReferences(User model, Iterator<List<Long>> multipleReferencesIterator) {
-        return null;
+        model.setFirstName(valuesIterator.next());
+        model.setLastName(valuesIterator.next());
+        model.setPhone(valuesIterator.next());
+        model.setEmail(valuesIterator.next());
+        model.setPass(valuesIterator.next());
+        return model;
     }
 }

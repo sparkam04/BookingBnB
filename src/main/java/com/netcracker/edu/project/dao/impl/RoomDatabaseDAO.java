@@ -13,9 +13,6 @@ import java.util.List;
  */
 @Repository
 public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDAO {
-    RoomDatabaseDAO() {
-    }
-
     @Override
     protected Room getNewModel() {
         return new Room();
@@ -57,26 +54,6 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
         model.setHasTV(Boolean.parseBoolean(valuesIterator.next()));
         model.setHasExtraBed(Boolean.parseBoolean(valuesIterator.next()));
         model.setCost(Double.parseDouble(valuesIterator.next()));
-        return model;
-    }
-
-    @Override
-    protected Iterator<Long> getSingleReferences(Room model) {
-        return null;
-    }
-
-    @Override
-    protected Room setSingleReferences(Room model, Iterator<Long> singldeReferencesIterator) {
-        return model;
-    }
-
-    @Override
-    protected Iterator<List<Long>> getMultipleReferences(Room model) {
-        return null;
-    }
-
-    @Override
-    protected Room setMultipleReferences(Room model, Iterator<List<Long>> multipleReferencesIterator) {
         return model;
     }
 }
