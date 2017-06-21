@@ -47,8 +47,8 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     public Collection<T> getAll() {
         List<Long> entityIdList = jdbcTemplate.queryForList(
                 SELECT_OBJID_BY_OBJTYPEID_REQUEST,
-                new Object[]{objectTypeId},
-                Long.TYPE);
+                Long.TYPE,
+                objectTypeId);
         List<T> entityList = new LinkedList<>();
         for (Long entityId : entityIdList) {
             entityList.add(getById(entityId));
@@ -60,13 +60,14 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
     public T getById(Long id) {
         T model = getNewModel();
         model.setId(id);
-        if (hasParentId)
-            setParentId(model,
-                    jdbcTemplate.queryForObject(
-                            SELECT_PARENTID_BY_OBJECTID,
-                            Long.TYPE,
-                            id
-                    ));
+
+        setParentId(model,
+                jdbcTemplate.queryForObject(
+                        SELECT_PARENTID_BY_OBJECTID,
+                        Long.TYPE,
+                        id
+                )
+        );
 
         setValues(model, jdbcTemplate.query(
                 SELECT_VALUE_BY_OBJECTID,
@@ -80,25 +81,36 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
                     }
                     return values.iterator();
                 }
-                , id));
+                , id
+                )
+        );
 
-        List<Long> singleReferences = new LinkedList<>();
-        for (Long attrId : singleRefAttrIds)
-            singleReferences.add(
-                    jdbcTemplate.queryForObject(
-                            SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
-                            Long.TYPE,
-                            id, attrId));
-        setSingleReferences(model, singleReferences.iterator());
+        setSingleReferences(model, jdbcTemplate.queryForList(
+                SELECT_SINGLE_REFERENCE_BY_OBJID_REQUEST,
+                Long.TYPE,
+                id
+                ).iterator()
+        );
 
-        List<List<Long>> multipleReferences = new LinkedList<>();
-        for (Long attrId : multRefAttrIds)
-            multipleReferences.add(
-                    jdbcTemplate.queryForList(
-                            SELECT_REFERENCE_BY_OBJID_ATTRID_REQUEST,
-                            Long.TYPE,
-                            id, attrId));
-        setMultipleReferences(model, multipleReferences.iterator());
+        setMultipleReferences(model, jdbcTemplate.query(
+                SELECT_MULT_REFERENCE_BY_OBJID_REQUEST,
+                (ResultSet resultSet) -> {
+                    LinkedList<LinkedList<Long>> values = new LinkedList<>();
+                    Long currAttrId = null, nextAttrId;
+                    while (resultSet.next()) {
+                        nextAttrId = resultSet.getLong("ATTRTYPE_ID");
+                        if (currAttrId != nextAttrId) {
+                            currAttrId = nextAttrId;
+                            values.addLast(new LinkedList());
+                        }
+                        values.getLast().addLast(resultSet.getLong("REFERENCE"));
+                    }
+                    return ((List) values).iterator();
+                },
+                id
+                )
+        );
+
         return model;
     }
 

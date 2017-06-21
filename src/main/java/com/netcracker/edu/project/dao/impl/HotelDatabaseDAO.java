@@ -4,7 +4,7 @@ import com.netcracker.edu.project.dao.HotelDAO;
 import com.netcracker.edu.project.model.Hotel;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,8 +69,8 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         model.setHasPool(Boolean.getBoolean(valuesIterator.next()));
         model.setHasKitchen(Boolean.getBoolean(valuesIterator.next()));
         model.setHasBreakfast(Boolean.getBoolean(valuesIterator.next()));
-        model.setCheckInTime(Time.valueOf(valuesIterator.next()));
-        model.setCheckOutTime(Time.valueOf(valuesIterator.next()));
+        model.setCheckInTime(LocalTime.parse(valuesIterator.next()));
+        model.setCheckOutTime(LocalTime.parse(valuesIterator.next()));
         model.setPreorder(Boolean.getBoolean(valuesIterator.next()));
         return model;
     }

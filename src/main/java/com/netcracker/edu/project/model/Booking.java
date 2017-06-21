@@ -1,6 +1,6 @@
 package com.netcracker.edu.project.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Booking extends Model {
     private Long roomId;
@@ -15,8 +15,8 @@ public class Booking extends Model {
 
     private String message;
 
-    private Date checkIn;
-    private Date checkOut;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
 
     public Long getRoomId() {
         return roomId;
@@ -70,10 +70,6 @@ public class Booking extends Model {
         return isPaid;
     }
 
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -82,19 +78,27 @@ public class Booking extends Model {
         this.message = message;
     }
 
-    public Date getCheckIn() {
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Date checkIn) {
+    public void setCheckIn(LocalDate checkIn) {
         this.checkIn = checkIn;
     }
 
-    public Date getCheckOut() {
+    public LocalDate getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(Date checkOut) {
+    public void setCheckOut(LocalDate checkOut) {
         this.checkOut = checkOut;
     }
 }

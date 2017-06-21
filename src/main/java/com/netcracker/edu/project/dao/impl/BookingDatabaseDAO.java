@@ -4,7 +4,7 @@ import com.netcracker.edu.project.dao.BookingDAO;
 import com.netcracker.edu.project.model.Booking;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,22 +39,22 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     protected Iterator<String> getValues(Booking model) {
         List<String> values = new LinkedList<>();
         values.add(Long.toString(model.getCode()));
+        values.add(model.getMessage());
         values.add(model.getCheckIn().toString());
         values.add(model.getCheckOut().toString());
         values.add(Integer.toString(model.getNumPersons()));
         values.add(Boolean.toString(model.isPaid()));
-        values.add(model.getMessage());
         return values.iterator();
     }
 
     @Override
     protected Booking setValues(Booking model, Iterator<String> valuesIterator) {
         model.setCode(Long.parseLong(valuesIterator.next()));
-        model.setCheckIn(Date.valueOf(valuesIterator.next()));
-        model.setCheckOut(Date.valueOf(valuesIterator.next()));
+        model.setMessage(valuesIterator.next());
+        model.setCheckIn(LocalDate.parse(valuesIterator.next()));
+        model.setCheckOut(LocalDate.parse(valuesIterator.next()));
         model.setNumPersons(Integer.parseInt(valuesIterator.next()));
         model.setPaid(Boolean.parseBoolean(valuesIterator.next()));
-        model.setMessage(valuesIterator.next());
         return model;
     }
 

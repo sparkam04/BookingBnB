@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - вторник-июня-20-2017   
+--  File created - среда-июня-21-2017   
 --------------------------------------------------------
 DROP TABLE "OBJTYPE" cascade constraints;
 DROP TABLE "ATTRTYPE" cascade constraints;
@@ -241,7 +241,7 @@ Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('35',null,'10','Dollar Cash',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('36',null,'10','Hryvnia Cash',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('37','10','7','Booking1',null);
-Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('38','11','8','Booking2',null);
+Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('38','10','7','Booking2',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('62','1','2','Dnepr',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('99',null,'11','Hotel Image 3',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('82','4','3','Deribasovskaya 6',null);
@@ -430,16 +430,13 @@ Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('28','16','7
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('28','17','8',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('28','18','9',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('28','19','10',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','33','Visa',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','34','Master Card',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('49','26',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','29',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','30',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','31',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','32',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','33',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','34',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','35',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','36',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','38',null,null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','29','Closed',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','30','Booked',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','31','Busy',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('34','32','Free',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('53','99',null,null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('52','99',null,null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('53','97',null,null);
@@ -448,9 +445,11 @@ Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('53','98',nu
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('52','98',null,null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('53','100',null,null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('52','100',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','20',null,null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','21',null,null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','20','Client',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','21','Hotel Owner',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('36','37',null,null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','35','Dollar Cash',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','36','Hruvnia Cash',null);
 REM INSERTING into OBJREFERENCE
 SET DEFINE OFF;
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('10','27','8');
@@ -473,19 +472,10 @@ Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','98','110');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','99','110');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','100','9');
 --------------------------------------------------------
---  DDL for Index CON_OBJECT_TYPE_ID
+--  DDL for Index CON_ATTRIBUTES_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "CON_OBJECT_TYPE_ID" ON "OBJTYPE" ("OBJECT_TYPE_ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "SYSTEM" ;
---------------------------------------------------------
---  DDL for Index SYS_C009045
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "SYS_C009045" ON "OBJTYPE" ("CODE") 
+  CREATE UNIQUE INDEX "CON_ATTRIBUTES_PK" ON "ATTRIBUTES" ("ATTR_ID", "OBJECT_ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -509,10 +499,10 @@ Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','100','9');
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
---  DDL for Index CON_ATTRIBUTES_PK
+--  DDL for Index CON_OBJECT_TYPE_ID
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "CON_ATTRIBUTES_PK" ON "ATTRIBUTES" ("ATTR_ID", "OBJECT_ID") 
+  CREATE UNIQUE INDEX "CON_OBJECT_TYPE_ID" ON "OBJTYPE" ("OBJECT_TYPE_ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -527,19 +517,14 @@ Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','100','9');
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
---  DDL for Trigger OBJECT_TYPE_ID_GENERATE
+--  DDL for Index SYS_C009045
 --------------------------------------------------------
 
-  CREATE OR REPLACE TRIGGER "OBJECT_TYPE_ID_GENERATE" 
-BEFORE INSERT OR UPDATE OF OBJECT_TYPE_ID ON OBJTYPE
-FOR EACH ROW
-BEGIN
-  IF(:NEW.OBJECT_TYPE_ID IS NULL)
-    THEN :NEW.OBJECT_TYPE_ID := OBJECT_TYPE_ID_SEQ.NEXTVAL;
-  END IF;
-END;
-/
-ALTER TRIGGER "OBJECT_TYPE_ID_GENERATE" ENABLE;
+  CREATE UNIQUE INDEX "SYS_C009045" ON "OBJTYPE" ("CODE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
 --  DDL for Trigger ATTRTYPE_ID_GENERATE
 --------------------------------------------------------
@@ -554,20 +539,6 @@ BEGIN
 END;
 /
 ALTER TRIGGER "ATTRTYPE_ID_GENERATE" ENABLE;
---------------------------------------------------------
---  DDL for Trigger OBJECT_ID_GENERATE
---------------------------------------------------------
-
-  CREATE OR REPLACE TRIGGER "OBJECT_ID_GENERATE" 
-BEFORE INSERT OR UPDATE OF OBJECT_ID ON OBJECTS
-FOR EACH ROW
-BEGIN
-  IF(:NEW.OBJECT_ID IS NULL)
-    THEN :NEW.OBJECT_ID := OBJECT_ID_SEQ.NEXTVAL;
-  END IF;
-END;
-/
-ALTER TRIGGER "OBJECT_ID_GENERATE" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger BOOKING_CODE_GENERATE
 --------------------------------------------------------
@@ -604,6 +575,34 @@ BEGIN
 END;
 /
 ALTER TRIGGER "MANDATORY_ATTRS_CHECK" DISABLE;
+--------------------------------------------------------
+--  DDL for Trigger OBJECT_ID_GENERATE
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "OBJECT_ID_GENERATE" 
+BEFORE INSERT OR UPDATE OF OBJECT_ID ON OBJECTS
+FOR EACH ROW
+BEGIN
+  IF(:NEW.OBJECT_ID IS NULL)
+    THEN :NEW.OBJECT_ID := OBJECT_ID_SEQ.NEXTVAL;
+  END IF;
+END;
+/
+ALTER TRIGGER "OBJECT_ID_GENERATE" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger OBJECT_TYPE_ID_GENERATE
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "OBJECT_TYPE_ID_GENERATE" 
+BEFORE INSERT OR UPDATE OF OBJECT_TYPE_ID ON OBJTYPE
+FOR EACH ROW
+BEGIN
+  IF(:NEW.OBJECT_TYPE_ID IS NULL)
+    THEN :NEW.OBJECT_TYPE_ID := OBJECT_TYPE_ID_SEQ.NEXTVAL;
+  END IF;
+END;
+/
+ALTER TRIGGER "OBJECT_TYPE_ID_GENERATE" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger OBJREFERENCE_CHECK
 --------------------------------------------------------
