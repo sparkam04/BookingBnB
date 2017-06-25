@@ -4,7 +4,8 @@ import com.netcracker.edu.project.dao.BookingDAO;
 import com.netcracker.edu.project.model.Booking;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  */
 @Repository
 public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements BookingDAO {
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(Booking.DATE_FORMAT);
+
     @Override
     protected Booking getNewModel() {
         return new Booking();
@@ -40,8 +43,8 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
         List<String> values = new LinkedList<>();
         values.add(Long.toString(model.getCode()));
         values.add(model.getMessage());
-        values.add(model.getCheckIn().toString());
-        values.add(model.getCheckOut().toString());
+        values.add(DATE_FORMATTER.format(model.getCheckIn()));
+        values.add(DATE_FORMATTER.format(model.getCheckOut()));
         values.add(Integer.toString(model.getNumPersons()));
         values.add(Boolean.toString(model.isPaid()));
         return values.iterator();
@@ -51,8 +54,12 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     protected Booking setValues(Booking model, Iterator<String> valuesIterator) {
         model.setCode(Long.parseLong(valuesIterator.next()));
         model.setMessage(valuesIterator.next());
-        model.setCheckIn(LocalDate.parse(valuesIterator.next()));
-        model.setCheckOut(LocalDate.parse(valuesIterator.next()));
+        try {
+            model.setCheckIn(DATE_FORMATTER.parse(valuesIterator.next()));
+            model.setCheckOut(DATE_FORMATTER.parse(valuesIterator.next()));
+        } catch (ParseException ex) {
+            //CATCH
+        }
         model.setNumPersons(Integer.parseInt(valuesIterator.next()));
         model.setPaid(Boolean.parseBoolean(valuesIterator.next()));
         return model;
@@ -64,7 +71,7 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
         singleReferences.add(model.getUserId());
         singleReferences.add(model.getStatusId());
         singleReferences.add(model.getPaySysId());
-        return null;
+        return singleReferences.iterator();
     }
 
     @Override

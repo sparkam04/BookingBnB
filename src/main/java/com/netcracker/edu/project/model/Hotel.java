@@ -1,9 +1,13 @@
 package com.netcracker.edu.project.model;
 
-import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Collection;
+import java.util.Date;
 
 public class Hotel extends Model {
+    public static final String TIME_FORMAT = "hh:mm";
+
     private Long ownerId;
     private Long locationId;
 
@@ -25,8 +29,10 @@ public class Hotel extends Model {
     private String phone;
     private String description;
 
-    private LocalTime checkInTime;
-    private LocalTime checkOutTime;
+    @JsonFormat(pattern = TIME_FORMAT)
+    private Date checkInTime;
+    @JsonFormat(pattern = TIME_FORMAT)
+    private Date checkOutTime;
 
     private Collection<Long> images;
     private Collection<Long> paySysIds;
@@ -52,10 +58,6 @@ public class Hotel extends Model {
     }
 
     public void setHotelRating(Double hotelRating) {
-        this.hotelRating = hotelRating;
-    }
-
-    public void setHotelRating(double hotelRating) {
         this.hotelRating = hotelRating;
     }
 
@@ -123,99 +125,59 @@ public class Hotel extends Model {
         this.description = description;
     }
 
-    public Boolean getHasWifi() {
-        return hasWifi;
-    }
-
     public void setHasWifi(Boolean hasWifi) {
         this.hasWifi = hasWifi;
-    }
-
-    public Boolean getHasShuttle() {
-        return hasShuttle;
     }
 
     public void setHasShuttle(Boolean hasShuttle) {
         this.hasShuttle = hasShuttle;
     }
 
-    public Boolean getHasSmoking() {
-        return hasSmoking;
-    }
-
     public void setHasSmoking(Boolean hasSmoking) {
         this.hasSmoking = hasSmoking;
-    }
-
-    public Boolean getHasParking() {
-        return hasParking;
     }
 
     public void setHasParking(Boolean hasParking) {
         this.hasParking = hasParking;
     }
 
-    public Boolean getHasConditioning() {
-        return hasConditioning;
-    }
-
     public void setHasConditioning(Boolean hasConditioning) {
         this.hasConditioning = hasConditioning;
-    }
-
-    public Boolean getHasPets() {
-        return hasPets;
     }
 
     public void setHasPets(Boolean hasPets) {
         this.hasPets = hasPets;
     }
 
-    public Boolean getHasPool() {
-        return hasPool;
-    }
-
     public void setHasPool(Boolean hasPool) {
         this.hasPool = hasPool;
-    }
-
-    public Boolean getHasKitchen() {
-        return hasKitchen;
     }
 
     public void setHasKitchen(Boolean hasKitchen) {
         this.hasKitchen = hasKitchen;
     }
 
-    public Boolean getHasBreakfast() {
-        return hasBreakfast;
-    }
-
     public void setHasBreakfast(Boolean hasBreakfast) {
         this.hasBreakfast = hasBreakfast;
-    }
-
-    public Boolean getPreorder() {
-        return isPreorder;
     }
 
     public void setPreorder(Boolean preorder) {
         isPreorder = preorder;
     }
 
-    public LocalTime getCheckInTime() {
+    public Date getCheckInTime() {
         return checkInTime;
     }
 
-    public void setCheckInTime(LocalTime checkInTime) {
+    public void setCheckInTime(Date checkInTime) {
         this.checkInTime = checkInTime;
     }
 
-    public LocalTime getCheckOutTime() {
+    public Date getCheckOutTime() {
         return checkOutTime;
     }
 
-    public void setCheckOutTime(LocalTime checkOutTime) {
+    public void setCheckOutTime(Date checkOutTime) {
         this.checkOutTime = checkOutTime;
     }
 

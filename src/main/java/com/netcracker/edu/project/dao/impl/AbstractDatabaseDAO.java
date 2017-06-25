@@ -61,14 +61,15 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         T model = getNewModel();
         model.setId(id);
 
-        setParentId(model,
-                jdbcTemplate.queryForObject(
-                        SELECT_PARENTID_BY_OBJECTID,
-                        Long.TYPE,
-                        id
-                )
-        );
-
+        if (hasParentId) {
+            setParentId(model,
+                    jdbcTemplate.queryForObject(
+                            SELECT_PARENTID_BY_OBJECTID,
+                            Long.TYPE,
+                            id
+                    )
+            );
+        }
         setValues(model, jdbcTemplate.query(
                 SELECT_VALUE_BY_OBJECTID,
                 (ResultSet resultSet) -> {
@@ -84,33 +85,34 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
                 , id
                 )
         );
-
-        setSingleReferences(model, jdbcTemplate.queryForList(
-                SELECT_SINGLE_REFERENCE_BY_OBJID_REQUEST,
-                Long.TYPE,
-                id
-                ).iterator()
-        );
-
-        setMultipleReferences(model, jdbcTemplate.query(
-                SELECT_MULT_REFERENCE_BY_OBJID_REQUEST,
-                (ResultSet resultSet) -> {
-                    LinkedList<LinkedList<Long>> values = new LinkedList<>();
-                    Long currAttrId = null, nextAttrId;
-                    while (resultSet.next()) {
-                        nextAttrId = resultSet.getLong("ATTRTYPE_ID");
-                        if (currAttrId != nextAttrId) {
-                            currAttrId = nextAttrId;
-                            values.addLast(new LinkedList());
+        if (!singleRefAttrIds.isEmpty()) {
+            setSingleReferences(model, jdbcTemplate.queryForList(
+                    SELECT_SINGLE_REFERENCE_BY_OBJID_REQUEST,
+                    Long.TYPE,
+                    id
+                    ).iterator()
+            );
+        }
+        if (!multRefAttrIds.isEmpty()) {
+            setMultipleReferences(model, jdbcTemplate.query(
+                    SELECT_MULT_REFERENCE_BY_OBJID_REQUEST,
+                    (ResultSet resultSet) -> {
+                        LinkedList<LinkedList<Long>> values = new LinkedList<>();
+                        Long currAttrId = null, nextAttrId;
+                        while (resultSet.next()) {
+                            nextAttrId = resultSet.getLong("ATTRTYPE_ID");
+                            if (currAttrId != nextAttrId) {
+                                currAttrId = nextAttrId;
+                                values.addLast(new LinkedList());
+                            }
+                            values.getLast().addLast(resultSet.getLong("REFERENCE"));
                         }
-                        values.getLast().addLast(resultSet.getLong("REFERENCE"));
-                    }
-                    return ((List) values).iterator();
-                },
-                id
-                )
-        );
-
+                        return ((List) values).iterator();
+                    },
+                    id
+                    )
+            );
+        }
         return model;
     }
 
@@ -130,15 +132,17 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
                 INSERT_ATTRIBUTE_REQUEST,
                 attributeInsertArgs
         );
-
-        Iterator<Long> singleReferenceIterator = getSingleReferences(model);
-        for (Long attrId : singleRefAttrIds)
-            batchInsertObjReferences(
-                    attrId, Arrays.asList(singleReferenceIterator.next()), model.getId());
-
-        Iterator<List<Long>> multipleReferencesIterator = getMultipleReferences(model);
-        for (Long attrId : multRefAttrIds)
-            batchInsertObjReferences(attrId, multipleReferencesIterator.next(), model.getId());
+        if (!singleRefAttrIds.isEmpty()) {
+            Iterator<Long> singleReferenceIterator = getSingleReferences(model);
+            for (Long attrId : singleRefAttrIds)
+                batchInsertObjReferences(
+                        attrId, model.getId(), singleReferenceIterator.next());
+        }
+        if (!singleRefAttrIds.isEmpty()) {
+            Iterator<List<Long>> multipleReferencesIterator = getMultipleReferences(model);
+            for (Long attrId : multRefAttrIds)
+                batchInsertObjReferences(attrId, model.getId(), multipleReferencesIterator.next().toArray(new Long[0]));
+        }
         return true;
     }
 
@@ -156,17 +160,18 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
             jdbcTemplate.update(
                     UPDATE_ATTRIBUTES,
                     new Object[]{valuesIterator.next(), model.getId(), attrId});
-
-        Iterator<Long> singleReferenceIterator = getSingleReferences(model);
-        for (Long attrId : singleRefAttrIds)
-            batchInsertObjReferences(
-                    attrId, Arrays.asList(singleReferenceIterator.next()), model.getId());
-
-        Iterator<List<Long>> multipleReferencesIterator = getMultipleReferences(model);
-        for (Long attrId : multRefAttrIds)
-            batchInsertObjReferences(
-                    attrId, multipleReferencesIterator.next(), model.getId());
-
+        if (!singleRefAttrIds.isEmpty()) {
+            Iterator<Long> singleReferenceIterator = getSingleReferences(model);
+            for (Long attrId : singleRefAttrIds)
+                batchInsertObjReferences(
+                        attrId, model.getId(), singleReferenceIterator.next());
+        }
+        if (!multRefAttrIds.isEmpty()) {
+            Iterator<List<Long>> multipleReferencesIterator = getMultipleReferences(model);
+            for (Long attrId : multRefAttrIds)
+                batchInsertObjReferences(
+                        attrId, model.getId(), multipleReferencesIterator.next().toArray(new Long[0]));
+        }
         return true;
     }
 
@@ -181,19 +186,24 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T>, SQL
         return remove(model.getId());
     }
 
-    boolean batchInsertObjReferences(Long attributeId, Collection<Long> references, Long objId) {
+    boolean batchInsertObjReferences(Long attributeId, Long objId, Long... references) {
         jdbcTemplate.update(
                 DELETE_OBJREF_BY_ATTRID_OBJID_REQUEST,
                 attributeId,
                 objId);
 
         List<Object[]> arguments = new ArrayList<>();
-        for (Long reference : references)
-            arguments.add(new Object[]{attributeId, reference, objId});
+        for (Long reference : references) {
+            if (reference != null) {
+                arguments.add(new Object[]{attributeId, reference, objId});
+            }
+        }
 
-        for (int i : jdbcTemplate.batchUpdate(INSERT_OBJREF_REQUEST, arguments))
-            if (i != -2)
+        for (int i : jdbcTemplate.batchUpdate(INSERT_OBJREF_REQUEST, arguments)) {
+            if (i != -2) {
                 return false;
+            }
+        }
 
         return true;
     }

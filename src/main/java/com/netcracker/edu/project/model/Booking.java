@@ -1,8 +1,12 @@
 package com.netcracker.edu.project.model;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class Booking extends Model {
+    public static final String DATE_FORMAT = "dd-mm-yyyy";
+
     private Long roomId;
     private Long userId;
     private Long statusId;
@@ -15,8 +19,11 @@ public class Booking extends Model {
 
     private String message;
 
-    private LocalDate checkIn;
-    private LocalDate checkOut;
+    @JsonFormat(pattern = DATE_FORMAT)
+    private Date checkIn;
+    @JsonFormat(pattern = DATE_FORMAT)
+    private Date checkOut;
+
 
     public Long getRoomId() {
         return roomId;
@@ -86,19 +93,19 @@ public class Booking extends Model {
         isPaid = paid;
     }
 
-    public LocalDate getCheckIn() {
+    public Date getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDate checkIn) {
+    public void setCheckIn(Date checkIn) {
         this.checkIn = checkIn;
     }
 
-    public LocalDate getCheckOut() {
+    public Date getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDate checkOut) {
+    public void setCheckOut(Date checkOut) {
         this.checkOut = checkOut;
     }
 }

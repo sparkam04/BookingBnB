@@ -4,13 +4,16 @@ import com.netcracker.edu.project.dao.HotelDAO;
 import com.netcracker.edu.project.model.Hotel;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements HotelDAO {
+    private static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat(Hotel.TIME_FORMAT);
+
     @Override
     protected Hotel getNewModel() {
         return new Hotel();
@@ -48,8 +51,8 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         values.add(Boolean.toString(model.isHasPool()));
         values.add(Boolean.toString(model.isHasKitchen()));
         values.add(Boolean.toString(model.isHasBreakfast()));
-        values.add(model.getCheckInTime().toString());
-        values.add(model.getCheckOutTime().toString());
+        values.add(TIME_FORMATTER.format(model.getCheckInTime()));
+        values.add(TIME_FORMATTER.format(model.getCheckOutTime()));
         values.add(Boolean.toString(model.isPreorder()));
         return values.iterator();
     }
@@ -69,8 +72,12 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         model.setHasPool(Boolean.getBoolean(valuesIterator.next()));
         model.setHasKitchen(Boolean.getBoolean(valuesIterator.next()));
         model.setHasBreakfast(Boolean.getBoolean(valuesIterator.next()));
-        model.setCheckInTime(LocalTime.parse(valuesIterator.next()));
-        model.setCheckOutTime(LocalTime.parse(valuesIterator.next()));
+        try {
+            model.setCheckInTime(TIME_FORMATTER.parse(valuesIterator.next()));
+            model.setCheckOutTime(TIME_FORMATTER.parse(valuesIterator.next()));
+        } catch (ParseException ex) {
+            //CATCH
+        }
         model.setPreorder(Boolean.getBoolean(valuesIterator.next()));
         return model;
     }
