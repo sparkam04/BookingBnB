@@ -5,7 +5,7 @@
 
     this.getLocations = function() {
 
-         return $http.get("/Location")
+         return $http.get("/location")
          .then(function(response) {
             return response.data;
          });

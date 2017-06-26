@@ -5,7 +5,7 @@
 
     this.getCountries = function() {
 
-         return $http.get("/Country")
+         return $http.get("/country")
          .then(function(response) {
             return response.data;
          });

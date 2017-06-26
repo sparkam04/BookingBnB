@@ -69,7 +69,6 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         String sql_paySystems = "select \n" +
                 "    pay_sys_ref.REFERENCE pay_sys_id\n" +
                 "from OBJECTS hotel\n" +
-                "    join attributes hotel_name on hotel_name.OBJECT_ID = hotel.OBJECT_ID and hotel_name.ATTR_ID = 9\n" +
                 "    join OBJREFERENCE pay_sys_ref on pay_sys_ref.OBJECT_ID = hotel.OBJECT_ID\n" +
                 "where\n" +
                 "    hotel.OBJECT_TYPE_ID = 4\n" +
@@ -79,7 +78,6 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         String sql_Hotel_images = "select \n" +
                 "    hotel_image.REFERENCE hotel_image\n" +
                 "from OBJECTS hotel\n" +
-                "    join attributes hotel_name on hotel_name.OBJECT_ID = hotel.OBJECT_ID and hotel_name.ATTR_ID = 9\n" +
                 "    join OBJREFERENCE hotel_image on hotel_image.OBJECT_ID = hotel.OBJECT_ID\n" +
                 "where\n" +
                 "    hotel.OBJECT_TYPE_ID = 4\n" +

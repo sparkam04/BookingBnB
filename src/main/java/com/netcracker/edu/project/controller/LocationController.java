@@ -13,32 +13,32 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    @RequestMapping("/Location")
+    @RequestMapping("/location")
     public Collection<Location> getAllLocations() {
         return locationService.getAllEntities();
     }
 
-    @RequestMapping("/Location/{id}")
+    @RequestMapping("/location/{id}")
     public Location getLocation(@PathVariable Long id) {
         return locationService.getEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/Location")
+    @RequestMapping(method = RequestMethod.POST, value = "/location")
     public boolean addLocation(@RequestBody Location location) {
         return locationService.addEntity(location);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/Location")
+    @RequestMapping(method = RequestMethod.PUT, value = "/location")
     public boolean updateLocation(@RequestBody Location location) {
         return locationService.updateEntity(location);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/Location/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/location/{id}")
     public boolean deleteLocation(@PathVariable Long id) {
         return locationService.removeEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/Location")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/location")
     public boolean deleteLocation(@RequestBody Location location) {
         return locationService.removeEntity(location);
     }

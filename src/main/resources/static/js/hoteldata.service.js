@@ -2,10 +2,10 @@
     var app = angular.module("myApp");
 
     app.service("HotelDataSvc", function ($http) {
-
+        var self = this;
         this.getHotels = function () {
 
-            return $http.get("/Hotel")
+            return $http.get("/hotel")
                 .then(function (response) {
                     return response.data;
                 });
@@ -15,17 +15,22 @@
 
             // console.log(JSON.stringify(hotelData));
 
-            $http.put("/Hotel", hotelData)
+            return $http.put("/hotel", hotelData)
                 .then(
                     function (response) {
                         // success callback
                         console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
                     },
                     function (response) {
                         // failure callback
                         console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
                     }
-                );
+                )
+            ;
         }
 
     });

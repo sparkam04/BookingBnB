@@ -13,32 +13,32 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping("/City")
+    @RequestMapping("/city")
     public Collection<City> getAllCities() {
         return cityService.getAllEntities();
     }
 
-    @RequestMapping("/City/{id}")
+    @RequestMapping("/city/{id}")
     public City getCity(@PathVariable Long id) {
         return cityService.getEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/City")
+    @RequestMapping(method = RequestMethod.POST, value = "/city")
     public boolean addCity(@RequestBody City city) {
         return cityService.addEntity(city);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/City")
+    @RequestMapping(method = RequestMethod.PUT, value = "/city")
     public boolean updateCity(@RequestBody City city) {
         return cityService.updateEntity(city);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/City/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/city/{id}")
     public boolean deleteCity(@PathVariable Long id) {
         return cityService.removeEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/City")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/city")
     public boolean deleteCity(@RequestBody City city) {
         return cityService.removeEntity(city);
     }

@@ -5,7 +5,7 @@
 
     this.getCities = function() {
 
-         return $http.get("/City")
+         return $http.get("/city")
          .then(function(response) {
             return response.data;
          });

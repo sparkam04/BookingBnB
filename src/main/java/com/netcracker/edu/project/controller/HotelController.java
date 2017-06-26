@@ -13,33 +13,33 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
-    @RequestMapping("/Hotel")
-    public Collection<Hotel> getAllLocations() {
+    @RequestMapping("/hotel")
+    public Collection<Hotel> getAllHotels() {
         return hotelService.getAllEntities();
     }
 
-    @RequestMapping("/Hotel/{id}")
-    public Hotel getLocation(@PathVariable Long id) {
+    @RequestMapping("/hotel/{id}")
+    public Hotel getHotel(@PathVariable Long id) {
         return hotelService.getEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/Hotel")
-    public boolean addLocation(@RequestBody Hotel hotel) {
+    @RequestMapping(method = RequestMethod.POST, value = "/hotel")
+    public boolean addHotel(@RequestBody Hotel hotel) {
         return hotelService.addEntity(hotel);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/Hotel")
-    public boolean updateLocation(@RequestBody Hotel hotel) {
+    @RequestMapping(method = RequestMethod.PUT, value = "/hotel")
+    public boolean updateHotel(@RequestBody Hotel hotel) {
         return hotelService.updateEntity(hotel);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/Hotel/{id}")
-    public boolean deleteLocation(@PathVariable Long id) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotel/{id}")
+    public boolean deleteHotel(@PathVariable Long id) {
         return hotelService.removeEntity(id);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/Hotel")
-    public boolean deleteLocation(@RequestBody Hotel hotel) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotel")
+    public boolean deleteHotel(@RequestBody Hotel hotel) {
         return hotelService.removeEntity(hotel);
     }
 }

@@ -1,35 +1,38 @@
 (function () {
 
     var app = angular.module("myApp");
-    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, $filter) {
-        this.editMode = false;
-        this.failure = undefined;
-        this.country = {};
-        this.city = {};
-        this.location = {id: 0};
-        this.hotel = {};
-        this.editedHotel = {};
-
+    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, $filter, $timeout, $window, $route) {
         var self = this;
-        HotelDataSvc.getHotels()
-        .then(function(data) {
-            self.hotels = data;
-        });
 
-        CountryDataSvc.getCountries()
-            .then(function(data) {
-                self.countries = data;
-            });
+        this.init = function () {
+            this.country = {};
+            this.city = {};
+            this.location = {id: 0};
+            this.hotel = {};
+            this.editedHotel = {};
 
-        CityDataSvc.getCities()
-            .then(function(data) {
-                self.cities = data;
-            });
+            HotelDataSvc.getHotels()
+                .then(function(data) {
+                    self.hotels = data;
+                });
 
-        LocationDataSvc.getLocations()
-            .then(function(data) {
-                self.locations = data;
-            });
+            CountryDataSvc.getCountries()
+                .then(function(data) {
+                    self.countries = data;
+                });
+
+            CityDataSvc.getCities()
+                .then(function(data) {
+                    self.cities = data;
+                });
+
+            LocationDataSvc.getLocations()
+                .then(function(data) {
+                    self.locations = data;
+                });
+        };
+
+        this.init();
 
         this.selectHotel = function (hotel_) {
             this.hotel = hotel_;
@@ -61,34 +64,38 @@
         };
 
         this.updateHotel = function (hotelData) {
-            if(hotelData.cInTime === undefined) {
-                var t1 = hotelData.checkInTime.split(':');
-                var d1 = new Date();
-                d1.setHours(t1[0]);
-                d1.setMinutes(t1[1]);
-                d1.setSeconds(0);
-                d1.setMilliseconds(0);
-                hotelData.cInTime = new Date(d1);
+            if(hotelData.cInTime !== undefined) {
+                hotelData.checkInTime = $filter('date')(hotelData.cInTime, 'HH:mm:ss').toString();
             }
-            if(hotelData.cOutTime === undefined) {
-                var t2 = hotelData.checkOutTime.split(':');
-                var d2 = new Date();
-                d2.setHours(t2[0]);
-                d2.setMinutes(t2[1]);
-                d2.setSeconds(0);
-                d2.setMilliseconds(0);
-                hotelData.cOutTime = new Date(d2);
+            if(hotelData.cOutTime !== undefined) {
+                hotelData.checkOutTime = $filter('date')(hotelData.cOutTime, 'HH:mm:ss').toString();
             }
-
-            hotelData.checkInTime = $filter('date')(hotelData.cInTime, 'HH:mm:ss').toString();
-            hotelData.checkOutTime = $filter('date')(hotelData.cOutTime, 'HH:mm:ss').toString();
 
             // console.log(JSON.stringify(hotelData.valueOf()));
-            HotelDataSvc.updHotel(hotelData);
+            HotelDataSvc.updHotel(hotelData)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        self.resp = "Success.";
+                        self.clearMessage();
+                    } else {
+                        self.resp = "Error"
+                    }
+                });
+            hotelData.cInTime = undefined;
+            hotelData.cOutTime = undefined;
+
+        };
+
+        this.clearMessage = function () {
+            $timeout(function () {
+                self.resp = undefined;
+                $window.location.href = '/';
+                // $route.reload();
+                $window.route.reload();
+            }, 3000)
         };
 
         this.toggleEditMode = function () {
-            this.editMode = !this.editMode;
             // this.editedHotel = Object.create(this.hotel);
             this.editedHotel = JSON.parse(JSON.stringify(this.hotel));
         };
