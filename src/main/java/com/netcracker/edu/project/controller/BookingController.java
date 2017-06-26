@@ -18,6 +18,11 @@ public class BookingController {
         return bookingService.getAllEntities();
     }
 
+    @RequestMapping("/booking/room/{id}")
+    public Collection<Booking> getBookingsByRoom(@PathVariable Long id) {
+        return bookingService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/booking/{id}")
     public Booking getBooking(@PathVariable Long id) {
         return bookingService.getEntity(id);

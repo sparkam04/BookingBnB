@@ -18,6 +18,11 @@ public class CityController {
         return cityService.getAllEntities();
     }
 
+    @RequestMapping("/city/country/{id}")
+    public Collection<City> getCitiesByCountry(@PathVariable Long id) {
+        return cityService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/city/{id}")
     public City getCity(@PathVariable Long id) {
         return cityService.getEntity(id);

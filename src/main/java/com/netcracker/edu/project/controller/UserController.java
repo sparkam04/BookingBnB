@@ -18,6 +18,11 @@ public class UserController {
         return userService.getAllEntities();
     }
 
+    @RequestMapping("/user/role/{id}")
+    public Collection<User> getUsersByRole(@PathVariable Long id) {
+        return userService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/user/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.getEntity(id);

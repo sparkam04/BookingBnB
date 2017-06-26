@@ -12,6 +12,10 @@ public abstract class AbstractEntityService<T extends Model> {
         return getDao().getAll();
     }
 
+    public Collection<T> getEntitiesByParentId(Long parentId) {
+        return getDao().getByParentId(parentId);
+    }
+
     public T getEntity(Long id) {
         return getDao().getById(id);
     }

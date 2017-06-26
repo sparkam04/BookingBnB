@@ -18,6 +18,11 @@ public class HotelController {
         return hotelService.getAllEntities();
     }
 
+    @RequestMapping("/hotel/city/{id}")
+    public Collection<Hotel> getHotelsByCity(@PathVariable Long id) {
+        return hotelService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/hotel/{id}")
     public Hotel getHotel(@PathVariable Long id) {
         return hotelService.getEntity(id);

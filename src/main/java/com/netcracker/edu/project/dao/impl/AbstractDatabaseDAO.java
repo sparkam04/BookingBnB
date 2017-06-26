@@ -53,6 +53,18 @@ abstract class AbstractDatabaseDAO<T extends Model> implements EntityDAO<T> {
         String sql = "select object_id from objects where object_type_id = ?";
         List<Long> entityIdList = getJdbcTemplate().queryForList(sql, new Object[]{getObjectTypeId()}, Long.TYPE);
 
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
+    public Collection<T> getByParentId(Long parentId) {
+        String sql = "select object_id from objects where object_type_id = ? and parent_id = ?";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, new Object[]{getObjectTypeId(), parentId}, Long.TYPE);
+
+        return getEntityCollection(entityIdList);
+    }
+
+    Collection<T> getEntityCollection(List<Long> entityIdList) {
         List<T> entityList = new ArrayList<>();
         for (Long entityId : entityIdList) {
             entityList.add(getById(entityId));

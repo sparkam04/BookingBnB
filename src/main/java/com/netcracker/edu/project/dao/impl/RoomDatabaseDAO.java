@@ -5,6 +5,7 @@ import com.netcracker.edu.project.model.Room;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,6 +57,33 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
         room.setImages(roomImages);
 
         return room;
+    }
+
+    @Override
+    public Collection<Room> getFreeRoomsByDateByCity(Date checkIn, Date checkOut, Long cityId) {
+        String sql = "SELECT ROOM.OBJECT_ID\n" +
+                "FROM OBJECTS ROOM \n" +
+                "JOIN objects hotel ON hotel.OBJECT_ID = ROOM.PARENT_ID\n" +
+                "JOIN objects location ON location.OBJECT_ID = hotel.PARENT_ID\n" +
+                "WHERE ROOM.OBJECT_TYPE_ID = 5 \n" +
+                "AND location.PARENT_ID = ?  AND not EXISTS(\n" +
+                "SELECT *\n" +
+                "    FROM OBJECTS BOOKING\n" +
+                "    JOIN ATTRIBUTES DATE_CHECK_IN ON DATE_CHECK_IN.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_IN.ATTR_ID = 38\n" +
+                "    JOIN ATTRIBUTES DATE_CHECK_OUT ON DATE_CHECK_OUT.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_OUT.ATTR_ID = 39  \n" +
+                "    WHERE BOOKING.OBJECT_TYPE_ID = 7\n" +
+                "    AND (\n" +
+                "            DATE_CHECK_IN.DATE_VALUE between TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') and TO_DATE(?, 'YYYY\"-\"MM\"-\"DD')\n" +
+                "        OR  (DATE_CHECK_OUT.DATE_VALUE between TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') and TO_DATE(?, 'YYYY\"-\"MM\"-\"DD'))\n" +
+                "        OR  (TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') between DATE_CHECK_IN.DATE_VALUE and DATE_CHECK_OUT.DATE_VALUE)\n" +
+                "        OR  (TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') between DATE_CHECK_IN.DATE_VALUE and DATE_CHECK_OUT.DATE_VALUE)\n" +
+                "        )\n" +
+                "    AND ROOM.OBJECT_ID = BOOKING.PARENT_ID\n" +
+                ")";
+        List<Long> roomIdList = getJdbcTemplate().queryForList(sql, new Object[]{cityId, checkIn.toString(), checkOut.toString(),
+                checkIn.toString(), checkOut.toString(), checkIn.toString(), checkOut.toString()}, Long.TYPE);
+
+        return getEntityCollection(roomIdList);
     }
 
     private final class RoomMapper implements RowMapper<Room> {
