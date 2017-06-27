@@ -38,6 +38,29 @@ public class UserDatabaseDAO extends AbstractDatabaseDAO<User> implements UserDA
         return user;
     }
 
+    public User getByEmail(String email){
+        User user;
+        String sql = "select user_.object_id, user_.PARENT_ID role_id \n" +
+                "    , first_name.VALUE first_name\n" +
+                "    , last_name.VALUE last_name\n" +
+                "    , phone.VALUE phone\n" +
+                "    , email.VALUE email\n" +
+                "    , password_.VALUE password_\n" +
+                "from objects user_\n" +
+                "join attributes first_name on first_name.OBJECT_ID = user_.OBJECT_ID and first_name.ATTR_ID = 45\n" +
+                "join attributes last_name on last_name.OBJECT_ID = user_.OBJECT_ID and last_name.ATTR_ID = 46\n" +
+                "join attributes phone on phone.OBJECT_ID = user_.OBJECT_ID and phone.ATTR_ID = 47\n" +
+                "join attributes email on email.OBJECT_ID = user_.OBJECT_ID and email.ATTR_ID = 48\n" +
+                "join attributes password_ on password_.OBJECT_ID = user_.OBJECT_ID and password_.ATTR_ID = 49\n" +
+                "where user_.OBJECT_TYPE_ID = 9\n" +
+                "    and email.VALUE = ?";
+
+        user = getJdbcTemplate().queryForObject(sql, new Object[]{email}, new UserMapper());
+
+        return user;
+    }
+
+
     private final class UserMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {

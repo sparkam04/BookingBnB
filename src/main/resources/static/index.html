@@ -33,11 +33,13 @@
     <script src="js/locationdata.service.js"></script>
 </head>
 
-<body>
+<body ng-controller="testCtrl as tc">
 
+<div ng-include="'partials/navbar.html'"></div>
 
-<div class="container" style="position: relative" ng-controller="testCtrl as tc">
-    <div ng-include="'partials/navbar.html'"></div>
+<div class="container" style="position: relative" >
+    <br>
+    <br>
 
     <div ng-view></div>
 
