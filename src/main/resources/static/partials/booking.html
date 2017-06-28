@@ -1,0 +1,99 @@
+
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<p></p>
+<form action="#!booking">
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <!--<form role="form" class="form-inline">-->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Hotel">Hotel</label>
+                    <p></p>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%" ng-model="bc.room.hotel.hotelName" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <label for="Room">Room</label>
+                    <p></p>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%" ng-model="bc.room.roomName" ng-disabled="true">
+                </div>
+            </div>
+        <!--</form>-->
+
+
+        <!--<form role="form" class="form-inline">-->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="calCheckIn">Check-in date</label>
+                    <p></p>
+                    <input type="date" name="calCheckIn" class="form-control" style="width:100%" ng-model="bc.checkIn" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <label for="calCheckOut">Check-out date</label>
+                    <p></p>
+                    <input type="date" name="calCheckOut" class="form-control" style="width:100%" ng-model="bc.checkOut" ng-disabled="true">
+                </div>
+            </div>
+        <!--</form>-->
+
+        <!--<form role="form" class="form-inline">-->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputNumberOfPeople">Number of people</label>
+                    <p></p>
+                    <!--<input type="number" name="inputNumberOfPeople" value="1" class="form-control" style="width:100%">-->
+
+                        <input type="number" name="quantity" value="1" class="form-control" style="width:100%"min="1" max="{{bc.room.numOfPlaces}}">
+
+
+                </div>
+                <div class="col-md-6">
+                    <label for="Price">Price of booking</label>
+                    <p></p>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%" ng-model="bc.totalCost" ng-disabled="true">
+                </div>
+            </div>
+        <!--</form>-->
+
+        <!--<form role="form" class="form-inline">-->
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="PaySystem">Pay system</label>
+                    <p></p>
+                    <select name="SelectPaySystem" id="SelectPaySystem" class="form-control" style="width:100%"
+
+                            ng-options="paySysOption.name for paySysOption in bc.paySystems track by paySysOption.id"
+                            ng-model="bc.paySystem">
+                        <!--<option value="">- Select Pay System -</option>-->
+                    </select>
+
+                </div>
+            </div>
+
+        <!--</form>-->
+
+        <!--<form role="form" class="form-inline">-->
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="submit" class="btn" style="width:100%">
+                    <!--<button name="buttonConfirm" class="btn" style="width:100%"> Confirm reservation</button>-->
+                </div>
+                <div class="col-md-4">
+                    <p><a class="btn btn-default" href="#" role="button" ng-click="" class="btn" style="width:100%">Back</a></p>
+                    <!--<button name="buttonBack" class="btn" style="width:100%"> Back</button>-->
+                </div>
+            </div>
+        <!--</form>-->
+        <!--<form role="form" class="form-inline">-->
+            <p></p>
+            <label for="textRequests">Special Requests</label>
+            <p></p>
+            <textarea name="textRequests" ng-model="bc.customerMessage" rows="5" class="form-control" style="width:100%"></textarea>
+
+        <!--</form>-->
+    </div>
+    <div class="col-md-4"></div>
+</div>
+</form>

@@ -1,19 +1,19 @@
 (function () {
     var app = angular.module("myApp");
 
-    app.service("CityDataSvc", function ($http) {
+    app.service("PayDataSvc", function ($http) {
 
-        this.getCities = function () {
+        this.getPaySystems = function () {
 
-            return $http.get("/city")
+            return $http.get("/paysystem")
                 .then(function (response) {
                     return response.data;
                 });
         };
 
-        this.getCitiesByCountry = function (countryId) {
+        this.getPaySystemById = function (Id) {
 
-            return $http.get("/city/country/" + countryId)
+            return $http.get("/paysystem/" + Id)
                 .then(function (response) {
                     return response.data;
                 });

@@ -51,7 +51,7 @@ app.controller('testCtrl', myFunc);
       $scope.failure = undefined;
         self = $scope;
         _this = this;
-      $http.get("/Hotel")
+      $http.get("/hotel")
       .then(function(response) {
         $scope.hotels = response.data;
       }).catch(function(failure){

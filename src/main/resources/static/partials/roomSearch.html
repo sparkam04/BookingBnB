@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="sidebar-nav">
+
+            <ul class="nav nav-list">
+
+
+                <li>
+                    <select name="SelectCountry" id="SelectCountry"
+
+                            ng-options="countryOption.name for countryOption in bc.countries track by countryOption.id"
+                            ng-change="bc.selectCountry()" ng-model="bc.country">
+                        <option value="">- Country -</option>
+                    </select>
+                </li>
+                <li>
+                    <select name="SelectCity" id="SelectCity"
+                            ng-options="cityOption.name for cityOption in bc.cities track by cityOption.id"
+                            ng-change="bc.selectCity()" ng-model="bc.city">
+                        <option value="">- City -</option>
+                    </select>
+                </li>
+
+                <li>
+                    CheckIn:<br>
+                    <input type="date" name="chkIn" ng-model="bc.checkIn" ng-change="bc.setMinChkOut()" min="{{bc.minChkInDate.toISOString().slice(0,10)}}">
+                </li>
+                <li>
+                    CheckOut:<br>
+                    <input type="date" name="chkOut" ng-model="bc.checkOut" min="{{bc.minChkOutDate.toISOString().slice(0,10)}}">
+                    <br>Days:{{(bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}
+                </li>
+
+                <li>
+                    <p><a class="btn btn-default" href="" role="button" ng-click="bc.findRoom()">Search&raquo;</a></p>
+                </li>
+                <!--<li>-->
+                    <!--<select name="SelectLocation" id="SelectLocation"-->
+                            <!--ng-options="locationOption.streetAddress for locationOption in bc.locations track by locationOption.id"-->
+                            <!--ng-change="bc.selectLocation()" ng-model="bc.location">-->
+                        <!--<option value="">- Address -</option>-->
+                    <!--</select>-->
+                <!--</li>-->
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="r in bc.rooms">
+                <h3>Hotel: {{r.hotel.hotelName}}</h3>
+                <p>Room ID: {{r.id}}</p>
+                <!--<p>Hotel: {{r.hotelId}}</p>-->
+                <p>Room Name: {{r.roomName}}</p>
+                <p>Room Number: {{r.roomNumber}}</p>
+                <p>Num of places: {{r.numOfPlaces}}</p>
+
+                <p>Bathroom <input type="checkbox" ng-model="r.hasBathroom" ng-disabled="true">
+                TV <input type="checkbox" ng-model="r.hasTV" ng-disabled="true">
+                Extra bed <input type="checkbox" ng-model="r.hasExtraBed" ng-disabled="true"> </p>
+                <p>Cost per day: {{r.cost}}</p>
+                <p>Total cost: {{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</p>
+
+                <p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)">Book a room&raquo;</a></p>
+            </li>
+        </ul>
+
+    </div>
+
+</div>

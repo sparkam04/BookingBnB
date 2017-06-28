@@ -11,6 +11,22 @@
                 });
         };
 
+        this.getHotelById = function (hotelId) {
+
+            return $http.get("/hotel/" + hotelId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
+        this.getHotelsByLocation = function (locationId) {
+
+            return $http.get("/hotel/location/" + locationId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.updHotel = function (hotelData) {
 
             // console.log(JSON.stringify(hotelData));
@@ -30,7 +46,7 @@
                         return response;
                     }
                 )
-            ;
+                ;
         }
 
     });
