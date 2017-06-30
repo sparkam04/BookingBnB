@@ -59,7 +59,7 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
             Booking booking = new Booking();
             booking.setId(rs.getLong("object_id"));
             booking.setRoomId(rs.getLong("room_id"));
-            booking.setCode(rs.getLong("booking_code"));
+            booking.setCode(rs.getString("booking_code"));
             booking.setMessage(rs.getString("message"));
             booking.setUserId(rs.getLong("user_id"));
             booking.setCheckIn(rs.getDate("date_check_in"));

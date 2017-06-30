@@ -15,4 +15,6 @@ public class UserService extends AbstractEntityService<User>{
     protected UserDatabaseDAO getDao() {
         return userDatabaseDAO;
     }
+
+    public User getUserByEmail(String email) {return getDao().getByEmail(email);}
 }

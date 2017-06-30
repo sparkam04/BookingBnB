@@ -28,6 +28,12 @@ public class UserController {
         return userService.getEntity(id);
     }
 
+//    @RequestMapping("/user/email/{email:.+}")
+    @RequestMapping("/user/email/{email}/")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/user")
     public boolean addUser(@RequestBody User user) {
         return userService.addEntity(user);

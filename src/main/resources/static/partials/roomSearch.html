@@ -6,7 +6,7 @@
 
 
                 <li>
-                    <select name="SelectCountry" id="SelectCountry"
+                    <select name="SelectCountry" id="SelectCountry" class="form-control" style="width:100%"
 
                             ng-options="countryOption.name for countryOption in bc.countries track by countryOption.id"
                             ng-change="bc.selectCountry()" ng-model="bc.country">
@@ -14,7 +14,7 @@
                     </select>
                 </li>
                 <li>
-                    <select name="SelectCity" id="SelectCity"
+                    <select name="SelectCity" id="SelectCity" class="form-control" style="width:100%"
                             ng-options="cityOption.name for cityOption in bc.cities track by cityOption.id"
                             ng-change="bc.selectCity()" ng-model="bc.city">
                         <option value="">- City -</option>
@@ -23,23 +23,26 @@
 
                 <li>
                     CheckIn:<br>
-                    <input type="date" name="chkIn" ng-model="bc.checkIn" ng-change="bc.setMinChkOut()" min="{{bc.minChkInDate.toISOString().slice(0,10)}}">
+                    <input type="date" name="chkIn" class="form-control" style="width:100%" ng-model="bc.checkIn"
+                           ng-change="bc.setMinChkOut()" min="{{bc.minChkInDate.toISOString().slice(0,10)}}">
                 </li>
                 <li>
                     CheckOut:<br>
-                    <input type="date" name="chkOut" ng-model="bc.checkOut" min="{{bc.minChkOutDate.toISOString().slice(0,10)}}">
+                    <input type="date" name="chkOut" class="form-control" style="width:100%" ng-model="bc.checkOut"
+                           min="{{bc.minChkOutDate.toISOString().slice(0,10)}}">
                     <br>Days:{{(bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}
                 </li>
 
                 <li>
-                    <p><a class="btn btn-default" href="" role="button" ng-click="bc.findRoom()">Search&raquo;</a></p>
+                    <p><a class="btn btn-default" href="" role="button" ng-click="bc.findRoom()" style="width:100%">Search&raquo;</a>
+                    </p>
                 </li>
                 <!--<li>-->
-                    <!--<select name="SelectLocation" id="SelectLocation"-->
-                            <!--ng-options="locationOption.streetAddress for locationOption in bc.locations track by locationOption.id"-->
-                            <!--ng-change="bc.selectLocation()" ng-model="bc.location">-->
-                        <!--<option value="">- Address -</option>-->
-                    <!--</select>-->
+                <!--<select name="SelectLocation" id="SelectLocation"-->
+                <!--ng-options="locationOption.streetAddress for locationOption in bc.locations track by locationOption.id"-->
+                <!--ng-change="bc.selectLocation()" ng-model="bc.location">-->
+                <!--<option value="">- Address -</option>-->
+                <!--</select>-->
                 <!--</li>-->
 
             </ul>
@@ -47,22 +50,47 @@
     </div>
     <div class="col-md-8">
 
+
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="r in bc.rooms">
-                <h3>Hotel: {{r.hotel.hotelName}}</h3>
-                <p>Room ID: {{r.id}}</p>
-                <!--<p>Hotel: {{r.hotelId}}</p>-->
-                <p>Room Name: {{r.roomName}}</p>
-                <p>Room Number: {{r.roomNumber}}</p>
-                <p>Num of places: {{r.numOfPlaces}}</p>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>Hotel: <span>{{r.hotel.hotelName}}</span></h3>
+                        <!--<p>Room ID: {{r.id}}</p>-->
+                        <!--<p>Hotel: {{r.hotelId}}</p>-->
+                        <p>Room Name: <span class="badge">{{r.roomName}}</span></p>
+                        <!--<p>Room Number: {{r.roomNumber}}</p>-->
+                        <p>Number of places: <span class="badge">{{r.numOfPlaces}}</span> Room №: <span class="badge">{{r.roomNumber}}</span></p>
 
-                <p>Bathroom <input type="checkbox" ng-model="r.hasBathroom" ng-disabled="true">
-                TV <input type="checkbox" ng-model="r.hasTV" ng-disabled="true">
-                Extra bed <input type="checkbox" ng-model="r.hasExtraBed" ng-disabled="true"> </p>
-                <p>Cost per day: {{r.cost}}</p>
-                <p>Total cost: {{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</p>
+                        <p>Bathroom <input type="checkbox" ng-model="r.hasBathroom" ng-disabled="true">
+                            TV <input type="checkbox" ng-model="r.hasTV" ng-disabled="true">
+                            Extra bed <input type="checkbox" ng-model="r.hasExtraBed" ng-disabled="true"></p>
+                        <!--<p>Cost per day: <span class="badge"></span>{{r.cost}}</p>-->
+                    </div>
 
-                <p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)">Book a room&raquo;</a></p>
+                    <div class="col-md-4" >
+                        <h3></h3>
+                        <p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)"
+                        style="width:100%">Book a room</a></p>
+                        <p>Total cost: <span>{{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</span></p>
+
+                    </div>
+                </div>
+                <!--<div class="row">-->
+                    <!--<div class="col-md-8">-->
+
+
+                    <!--</div>-->
+
+                    <!--<div class="col-md-4">-->
+                        <!--<p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)"-->
+                              <!--style="width:100%">Book a room</a></p>-->
+                        <!--<p>Total cost: <span class="badge">{{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</span></p>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+
             </li>
         </ul>
 
