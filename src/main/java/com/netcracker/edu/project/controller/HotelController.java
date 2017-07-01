@@ -23,6 +23,11 @@ public class HotelController {
         return hotelService.getEntitiesByParentId(id);
     }
 
+    @RequestMapping("/hotel/rating/{id}")
+    public Double getRatingsById(@PathVariable Long id) {
+        return hotelService.getRatingById(id);
+    }
+
     @RequestMapping("/hotel/{id}")
     public Hotel getHotel(@PathVariable Long id) {
         return hotelService.getEntity(id);
