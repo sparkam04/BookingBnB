@@ -1,0 +1,31 @@
+<div>
+
+    <p>id: {{hc.editedHotel.id}}</p>
+    <p>Hotel Name: <input type="text" ng-model="hc.editedHotel.hotelName" placeholder="Hotel Name"></p>
+    <p>Owner: {{hc.editedHotel.ownerId}} </p>
+    <p>Description: <input type="text" ng-model="hc.editedHotel.description" placeholder="Hotel Description"></p>
+    <p>Location: {{hc.editedHotel.locationId}}</p>
+    <p>Rating: {{hc.editedHotel.hotelRating}}</p>
+    <p>Wifi: <input type="checkbox" ng-model="hc.editedHotel.hasWifi"></p>
+    <p>Shuttle: <input type="checkbox" ng-model="hc.editedHotel.hasShuttle"></p>
+    <p>Smoking: <input type="checkbox" ng-model="hc.editedHotel.hasSmoking"></p>
+    <p>Parking: <input type="checkbox" ng-model="hc.editedHotel.hasParking"></p>
+    <p>Conditioning: <input type="checkbox" ng-model="hc.editedHotel.hasConditioning"></p>
+    <p>Pets: <input type="checkbox" ng-model="hc.editedHotel.hasPets"></p>
+    <p>Pool: <input type="checkbox" ng-model="hc.editedHotel.hasPool"></p>
+    <p>Kitchen: <input type="checkbox" ng-model="hc.editedHotel.hasKitchen"></p>
+    <p>Breakfast: <input type="checkbox" ng-model="hc.editedHotel.hasBreakfast"></p>
+    <p>Phone: <input type="text" ng-model="hc.editedHotel.phone" placeholder="phone"></p>
+    <p>CheckIn Time: {{hc.editedHotel.checkInTime}}<input type="time" id="timeInput1" name="input" ng-model="hc.editedHotel.cInTime"
+                                                          placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required /></p>
+    <p>CheckOut Time: {{hc.editedHotel.checkOutTime}}<input type="time" id="timeInput2" name="input" ng-model="hc.editedHotel.cOutTime"
+                                                            placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required /></p>
+    <p>images: {{hc.editedHotel.images}}</p>
+    <p>Pay Systems: {{hc.editedHotel.paySysIds}}</p>
+    <p>Preorder: <input type="checkbox" ng-model="hc.editedHotel.preorder"></p>
+
+    <!--<p><a class="btn btn-default" href="#!/" role="button" ng-click="hc.updateHotel(hc.editedHotel)">Save</a></p>-->
+    <p><a class="btn btn-default" role="button" ng-click="hc.updateHotel(hc.editedHotel)">Save</a> {{hc.resp}}</p>
+    <p><a class="btn btn-default" href="#!hotelAdmin" role="button">Back &raquo;</a></p>
+
+</div>

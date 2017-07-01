@@ -1,0 +1,131 @@
+<form name="frm" ng-submit="hc.submitHotel()">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+
+            <div class="row">
+                <div class="col-md-6">
+                    * - Required
+                    <p></p>
+                    <label for="HotelName">*Hotel Name</label>
+                    <input type="text" name="inputHotelName" class="form-control" style="width:100%"
+                           ng-model="hc.newHotel.hotelName" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="HotelDescription">*Description</label>
+                    <textarea name="HotelDescription" ng-model="hc.newHotel.description" rows="5" class="form-control"
+                              style="width:100%" required></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Owner">*Owner</label>
+                    <select name="SelectUser" id="SelectUser" class="form-control" style="width:100%"
+                            ng-options="userOption.email for userOption in hc.users track by userOption.id"
+                            ng-model="hc.newHotel.user" required>
+                    </select>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="HotelLocation">*Location</label>
+                    <select name="SelectCountry" id="SelectCountry" class="form-control" style="width:100%"
+                            ng-options="countryOption.name for countryOption in hc.countries track by countryOption.id"
+                            ng-change="hc.selectCountry()" ng-model="hc.country">
+                        <option value="">- Country -</option>
+                    </select>
+                    <br>
+                    <select name="SelectCity" id="SelectCity" class="form-control" style="width:100%"
+                            ng-options="cityOption.name for cityOption in hc.cities track by cityOption.id"
+                            ng-change="hc.selectCity()" ng-model="hc.city">
+                        <option value="">- City -</option>
+                    </select>
+                    <br>
+                    <select name="SelectLocation" id="SelectLocation" class="form-control" style="width:100%"
+                            ng-options="locationOption.streetAddress for locationOption in hc.locations track by locationOption.id"
+                            ng-change="hc.selectLocation()" ng-model="hc.location" required>
+                        <option value="">- Address -</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Phone">*Phone</label>
+                    <input type="text" name="phone" class="form-control" style="width:100%" ng-model="hc.newHotel.phone"
+                           required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Wifi: <input type="checkbox" ng-model="hc.newHotel.hasWifi"></p>
+                    <p>Shuttle: <input type="checkbox" ng-model="hc.newHotel.hasShuttle"></p>
+                    <p>Smoking: <input type="checkbox" ng-model="hc.newHotel.hasSmoking"></p>
+                    <p>Parking: <input type="checkbox" ng-model="hc.newHotel.hasParking"></p>
+                    <p>Conditioning: <input type="checkbox" ng-model="hc.newHotel.hasConditioning"></p>
+                    <p>Pets: <input type="checkbox" ng-model="hc.newHotel.hasPets"></p>
+                    <p>Pool: <input type="checkbox" ng-model="hc.newHotel.hasPool"></p>
+                    <p>Kitchen: <input type="checkbox" ng-model="hc.newHotel.hasKitchen"></p>
+                    <p>Breakfast: <input type="checkbox" ng-model="hc.newHotel.hasBreakfast"></p>
+                    <p>Preorder: <input type="checkbox" ng-model="hc.newHotel.preorder"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p>*CheckIn Time: <input type="time" id="timeInput1" name="input"
+                                            ng-model="hc.newHotel.cInTime"
+                                            placeholder="HH:mm:ss" min="00:00:00"
+                                            max="23:59:59"
+                                            required/></p>
+                    <p>*CheckOut Time: <input type="time" id="timeInput2" name="input"
+                                             ng-model="hc.newHotel.cOutTime"
+                                             placeholder="HH:mm:ss" min="00:00:00"
+                                             max="23:59:59"
+                                             required/></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="PaySystem">*Pay systems</label>
+                    <select name="SelectPaySystem"
+
+                            id="SelectPaySystem" class="form-control" style="width:100%"
+
+                            ng-options="paySysOption.name for paySysOption in hc.paySystems track by paySysOption.id"
+                            ng-model="hc.newHotel.paySystems" ng-change="hc.addPaysystem()" multiple required>
+                    </select>
+                </div>
+            </div>
+
+
+            <hr>
+            <p></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" class="btn" style="width:100%"
+                           ng-disabled="frm.$invalid || hc.isCreated">
+                    <span>{{hc.creationResponse}}</span>
+                </div>
+                <div class="col-md-6">
+                    <p><a class="btn btn-default" href="#!hotelAdmin" role="button">Back</a></p>
+                </div>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+</form>
