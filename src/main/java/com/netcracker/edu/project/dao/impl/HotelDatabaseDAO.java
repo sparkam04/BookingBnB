@@ -97,31 +97,18 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         return hotel;
     }
 
-    private final class HotelMapper implements RowMapper<Hotel> {
-        @Override
-        public Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Hotel hotel = new Hotel();
-            hotel.setId(rs.getLong("object_id"));
-            hotel.setHotelName(rs.getString("hotel_name"));
-            hotel.setOwnerId(rs.getLong("owner_id_ref"));
-            hotel.setLocationId(rs.getLong("location_id"));
-            hotel.setPhone(rs.getString("phone"));
-            hotel.setDescription(rs.getString("description"));
-            hotel.setHotelRating(rs.getDouble("hotel_rating"));
-            hotel.setHasWifi(Boolean.parseBoolean(rs.getString("has_wifi")));
-            hotel.setHasShuttle(Boolean.parseBoolean(rs.getString("has_shuttle")));
-            hotel.setHasSmoking(Boolean.parseBoolean(rs.getString("has_smoking")));
-            hotel.setHasParking(Boolean.parseBoolean(rs.getString("has_parking")));
-            hotel.setHasConditioning(Boolean.parseBoolean(rs.getString("has_conditioning")));
-            hotel.setHasPets(Boolean.parseBoolean(rs.getString("has_pets")));
-            hotel.setHasPool(Boolean.parseBoolean(rs.getString("has_pool")));
-            hotel.setHasKitchen(Boolean.parseBoolean(rs.getString("has_kitchen")));
-            hotel.setHasBreakfast(Boolean.parseBoolean(rs.getString("has_breakfast")));
-            hotel.setCheckInTime(Time.valueOf(rs.getString("check_in_time")));
-            hotel.setCheckOutTime(Time.valueOf(rs.getString("check_out_time")));
-            hotel.setPreorder(Boolean.parseBoolean(rs.getString("is_preorder")));
-            return hotel;
-        }
+    @Override
+    public Double getRatingById(Long id) {
+        String sql = "SELECT AVG(RATES.VALUE)\n" +
+                "FROM ATTRIBUTES RATES JOIN OBJECTS RATINGS ON (RATES.ATTR_ID = 55 AND RATINGS.OBJECT_TYPE_ID = 13 AND RATES.OBJECT_ID = RATINGS.OBJECT_ID)\n" +
+                "  JOIN OBJECTS BOOKINGS ON (BOOKINGS.OBJECT_TYPE_ID = 7 AND RATINGS.PARENT_ID = BOOKINGS.OBJECT_ID)\n" +
+                "  JOIN OBJECTS ROOMS ON (ROOMS.OBJECT_TYPE_ID = 5 AND BOOKINGS.PARENT_ID = ROOMS.OBJECT_ID AND ROOMS.PARENT_ID = ?)";
+        Double rating = getJdbcTemplate().queryForObject(sql, Double.TYPE, id);
+        sql = "UPDATE ATTRIBUTES A\n" +
+                "  SET A.VALUE = ? \n" +
+                "  WHERE A.OBJECT_ID = ? AND A.ATTR_ID = 14";
+        getJdbcTemplate().update(sql, rating, id);
+        return rating;
     }
 
     @Override
@@ -246,6 +233,33 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
         boolean success4 = batchInsertObjReferences(27, model.getPaySysIds(), model.getId());
 
         return success && success1 && success2 && success3 && success4;
+    }
+
+    private final class HotelMapper implements RowMapper<Hotel> {
+        @Override
+        public Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Hotel hotel = new Hotel();
+            hotel.setId(rs.getLong("object_id"));
+            hotel.setHotelName(rs.getString("hotel_name"));
+            hotel.setOwnerId(rs.getLong("owner_id_ref"));
+            hotel.setLocationId(rs.getLong("location_id"));
+            hotel.setPhone(rs.getString("phone"));
+            hotel.setDescription(rs.getString("description"));
+            hotel.setHotelRating(rs.getDouble("hotel_rating"));
+            hotel.setHasWifi(Boolean.parseBoolean(rs.getString("has_wifi")));
+            hotel.setHasShuttle(Boolean.parseBoolean(rs.getString("has_shuttle")));
+            hotel.setHasSmoking(Boolean.parseBoolean(rs.getString("has_smoking")));
+            hotel.setHasParking(Boolean.parseBoolean(rs.getString("has_parking")));
+            hotel.setHasConditioning(Boolean.parseBoolean(rs.getString("has_conditioning")));
+            hotel.setHasPets(Boolean.parseBoolean(rs.getString("has_pets")));
+            hotel.setHasPool(Boolean.parseBoolean(rs.getString("has_pool")));
+            hotel.setHasKitchen(Boolean.parseBoolean(rs.getString("has_kitchen")));
+            hotel.setHasBreakfast(Boolean.parseBoolean(rs.getString("has_breakfast")));
+            hotel.setCheckInTime(Time.valueOf(rs.getString("check_in_time")));
+            hotel.setCheckOutTime(Time.valueOf(rs.getString("check_out_time")));
+            hotel.setPreorder(Boolean.parseBoolean(rs.getString("is_preorder")));
+            return hotel;
+        }
     }
 
 
