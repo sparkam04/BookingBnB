@@ -1,0 +1,166 @@
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<form name="frm" ng-submit="bc.submitBooking()">
+    <!--{{bd.booking}}-->
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="id">Booking ID</label>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%"
+                           ng-model="bd.booking.id" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Code">Booking Code</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%"
+                           ng-model="bd.booking.code" ng-disabled="true">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Hotel">Hotel</label>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%"
+                           ng-model="bd.booking.hotel.hotelName" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Room">Room</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%"
+                           ng-model="bd.booking.room.roomName" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="RoomId">Room ID</label>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%"
+                           ng-model="bd.booking.roomId" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="RoomNo">Room Number</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%"
+                           ng-model="bd.booking.room.roomNumber" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="calCheckIn">Check-in date</label>
+                    <input type="date" name="calCheckIn" class="form-control" style="width:100%" ng-model="bd.booking.cIn"
+                           ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="calCheckOut">Check-out date</label>
+                    <input type="date" name="calCheckOut" class="form-control" style="width:100%" ng-model="bd.booking.cOut"
+                           ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="inputNumberOfPeople">Number of people</label>
+                    <!--<input type="number" name="inputNumberOfPeople" value="1" class="form-control" style="width:100%">-->
+
+                    <input type="number" name="quantity" class="form-control" style="width:100%" ng-model="bd.booking.numPersons" ng-disabled="true">
+
+
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Price">Price of booking</label>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%"
+                           value="{{bd.booking.price}}" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="PaySystem">Pay system</label>
+                    <input type="text" name="paySys" class="form-control" style="width:100%"
+                           ng-model="bd.booking.paySystem.name" ng-disabled="true">
+
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Paid">Paid:</label>
+                    <span><input type="checkbox" ng-model="bd.booking.paid" ng-disabled="true"></span>
+
+                </div>
+
+                <div class="col-md-6">
+                    <label for="Status">Status:</label>
+                    <span>{{bd.booking.status.name}}</span>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="Email">*Email</label><span ng-show="bc.isExistsUser" style="color:red"> <strong>already exists. Please login.</strong></span>
+                    <input type="email" name="email" class="form-control" style="width:100%" ng-model="bd.booking.user.email" ng-disabled="true">
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                    <p></p>
+                    <label for="Phone">*Phone</label>
+                    <input type="text" name="phone" class="form-control" style="width:100%" ng-model="bd.booking.user.phone" ng-disabled="true">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="FirstName">*First Name</label>
+                    <input type="text" name="firstname" class="form-control" style="width:100%" ng-model="bd.booking.user.firstName" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="LastNmae">*Last Name</label>
+                    <input type="text" name="lastname" class="form-control" style="width:100%" ng-model="bd.booking.user.lastName" ng-disabled="true">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="textRequests">Special Requests</label>
+                    <p></p>
+                    <textarea name="textRequests" ng-model="bd.booking.message" rows="5" class="form-control"
+                              style="width:100%" ng-disabled="true"></textarea>
+                </div>
+            </div>
+
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" class="btn" style="width:100%" ng-disabled="frm.$invalid || bc.isExistsUser || bc.isBooked"> <span>{{bc.creationResponse}}</span>
+                    <!--<p><a class="btn btn-default" role="button" ng-click="" class="btn" style="width:100%" ng-disabled="frm.$invalid">Submit</a></p>-->
+                    <!--<button name="buttonConfirm" class="btn" style="width:100%"> Confirm reservation</button>-->
+                </div>
+                <div class="col-md-6">
+                    <p><a class="btn btn-default" href="#!bookingAdmin" role="button" ng-click="" style="width:100%">Back</a></p>
+                    <!--<button name="buttonBack" class="btn" style="width:100%"> Back</button>-->
+                </div>
+            </div>
+            <p></p>
+
+
+
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+</form>

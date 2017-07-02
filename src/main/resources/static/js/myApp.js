@@ -42,6 +42,16 @@ app.config(function ($routeProvider) {
             controller : "hotelCtrl",
             controllerAs: 'hc'
         })
+        .when("/bookingAdmin", {
+            templateUrl: "partials/bookingAdmin.html",
+            controller : "bookingSearchCtrl",
+            controllerAs: 'bc'
+        })
+        .when("/bookingDetails", {
+            templateUrl: "partials/bookingDetails.html",
+            controller : "bookingDetailsCtrl",
+            controllerAs: 'bd'
+        })
         .otherwise('/')
     ;
 });
