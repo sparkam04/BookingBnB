@@ -28,6 +28,11 @@ public class LocationController {
         return locationService.getEntity(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/location/streetAddress")
+    public Location getLocationByStreetAddress(@RequestBody Location location) {
+        return locationService.getByStreetAddress(location);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/location")
     public boolean addLocation(@RequestBody Location location) {
         return locationService.addEntity(location);

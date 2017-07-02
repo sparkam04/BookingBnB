@@ -1,0 +1,128 @@
+<form name="frm" ng-submit="hc.updateHotel(hc.editedHotel)">
+    <div class="row">
+        <!--<div class="col-md-4"></div>-->
+        <div class="col-md-8">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="HotelId">Hotel ID:</label>
+                    {{hc.editedHotel.id}}
+                    <p></p>
+                    <label for="HotelName">*Hotel Name:</label>
+                    <p><input type="text" ng-model="hc.editedHotel.hotelName" placeholder="Hotel Name" class="form-control" style="width:100%" required></p>
+
+                    <label for="Owner">Owner ID:</label>
+                    {{hc.editedHotel.ownerId}}
+                    <p></p>
+
+                    <label for="Description">*Description:</label>
+                    <p><textarea name="HotelDescription" ng-model="hc.editedHotel.description" rows="5" class="form-control"
+                              style="width:100%" required></textarea></p>
+                    <!--<p>Location: {{hc.editedHotel.locationId}}</p>-->
+
+                    <label for="Country">Country:</label>
+                    {{hc.editedHotel.fullAddess.country.name}}
+
+                    <p></p>
+                    <label for="City">City:</label>
+                    {{hc.editedHotel.fullAddess.city.name}}
+                    <!--<p>Rating: {{hc.editedHotel.hotelRating}}</p>-->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="streetAddress">*Street, Address</label>
+                    <span ng-show="hc.isExistsAddress" style="color:red"> <strong>already exists.</strong></span>
+                    <input type="text" name="inputStreetAddress" class="form-control" style="width:100%"
+                           ng-change="hc.checkAddressEdit()"
+                           ng-model="hc.editedHotel.fullAddess.location.streetAddress" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="postalCode">*Postal Code</label>
+                    <input type="text" name="inputPostalCode" class="form-control" style="width:100%"
+                           ng-model="hc.editedHotel.fullAddess.location.postalCode" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="gpsCoords">*GPS Co-ordinates</label>
+                    <input type="text" name="inputgpsCoords" class="form-control" style="width:100%"
+                           ng-model="hc.editedHotel.fullAddess.location.gpscoords" required>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <label for="Phone">*Phone</label>
+                    <p><input type="text" ng-model="hc.editedHotel.phone" placeholder="phone" class="form-control" style="width:100%" required></p>
+
+                    <p>CheckIn Time: {{hc.editedHotel.checkInTime}}<input type="time" id="timeInput1" name="input"
+                                                                          ng-model="hc.editedHotel.cInTime"
+                                                                          placeholder="HH:mm:ss" min="00:00:00"
+                                                                          max="23:59:59" /></p>
+                    <p>CheckOut Time: {{hc.editedHotel.checkOutTime}}<input type="time" id="timeInput2" name="input"
+                                                                            ng-model="hc.editedHotel.cOutTime"
+                                                                            placeholder="HH:mm:ss" min="00:00:00"
+                                                                            max="23:59:59" /></p>
+                    <p>images: {{hc.editedHotel.images}}</p>
+                    <!--<p>Pay Systems: {{hc.editedHotel.paySysIds}}</p>-->
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Wifi: <input type="checkbox" ng-model="hc.editedHotel.hasWifi"></p>
+                    <p>Shuttle: <input type="checkbox" ng-model="hc.editedHotel.hasShuttle"></p>
+                    <p>Smoking: <input type="checkbox" ng-model="hc.editedHotel.hasSmoking"></p>
+                    <p>Parking: <input type="checkbox" ng-model="hc.editedHotel.hasParking"></p>
+                    <p>Conditioning: <input type="checkbox" ng-model="hc.editedHotel.hasConditioning"></p>
+                    <p>Pets: <input type="checkbox" ng-model="hc.editedHotel.hasPets"></p>
+                    <p>Pool: <input type="checkbox" ng-model="hc.editedHotel.hasPool"></p>
+                    <p>Kitchen: <input type="checkbox" ng-model="hc.editedHotel.hasKitchen"></p>
+                    <p>Breakfast: <input type="checkbox" ng-model="hc.editedHotel.hasBreakfast"></p>
+                    <p>Preorder: <input type="checkbox" ng-model="hc.editedHotel.preorder"></p>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="PaySystemS">Pay Systems</label>
+                    <span ng-repeat="paySys in hc.paySystems">
+                <label class="checkbox" for="{{paySys.id}}">
+                <input type="checkbox" ng-click="hc.editPaysystem()" ng-model="hc.pSselection.ids[paySys.id]"
+                       name="group1"
+                       id="{{paySys.id}}"/>
+                    {{paySys.name}}
+                </label>
+                </span>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                    <input type="submit" class="btn"
+                           ng-disabled="frm.$invalid || hc.isExistsAddress">  {{hc.resp}}
+                    </p>
+                    <!--<p><a class="btn btn-default" role="button" ng-click="hc.updateHotel(hc.editedHotel)">Save</a>-->
+                        <!--{{hc.resp}}</p>-->
+                    <p></p>
+                    <p><a class="btn btn-default" href="#!hotelAdmin" role="button">Back</a></p>
+                </div>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+</form>

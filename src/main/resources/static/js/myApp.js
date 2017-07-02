@@ -21,13 +21,27 @@ app.config(function ($routeProvider) {
             templateUrl: "partials/home.html",
             controller : "testCtrl",
             controllerAs: 'tc'
-
         })
         .when("/booking", {
             templateUrl: "partials/booking.html",
             controller : "bookingCtrl",
             controllerAs: 'bc'
-
         })
+        .when("/hotelAdmin", {
+            templateUrl: "partials/hotelAdmin.html",
+            controller : "hotelCtrl",
+            controllerAs: 'hc'
+        })
+        .when("/editHotel_", {
+            templateUrl: "partials/editHotel_.html",
+            controller : "hotelCtrl",
+            controllerAs: 'hc'
+        })
+        .when("/addHotel", {
+            templateUrl: "partials/addHotel.html",
+            controller : "hotelCtrl",
+            controllerAs: 'hc'
+        })
+        .otherwise('/')
     ;
 });
