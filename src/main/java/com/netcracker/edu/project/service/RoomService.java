@@ -22,4 +22,8 @@ public class RoomService extends AbstractEntityService<Room>{
     public Collection<Room> getFreeRoomsByDateByCity(Date checkIn, Date checkOut, Long cityId) {
         return getDao().getFreeRoomsByDateByCity(checkIn, checkOut, cityId);
     }
+
+    public Collection<Room> getBusyRoomsByDateByHotel(Date checkIn, Date checkOut, Long hotelId) {
+        return getDao().getBusyRoomsByDateByHotel(checkIn, checkOut, hotelId);
+    }
 }

@@ -86,21 +86,18 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
         return getEntityCollection(roomIdList);
     }
 
-    private final class RoomMapper implements RowMapper<Room> {
-        @Override
-        public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Room room = new Room();
-            room.setId(rs.getLong("object_id"));
-            room.setRoomName(rs.getString("room_name"));
-            room.setHotelId(rs.getLong("hotel_id"));
-            room.setRoomNumber(rs.getInt("room_no"));
-            room.setNumOfPlaces(rs.getInt("num_places"));
-            room.setHasBathroom(Boolean.parseBoolean(rs.getString("has_bathroom")));
-            room.setHasTV(Boolean.parseBoolean(rs.getString("has_tv")));
-            room.setHasExtraBed(Boolean.parseBoolean(rs.getString("has_extra_bed")));
-            room.setCost(rs.getDouble("cost"));
-            return room;
-        }
+    @Override
+    public Collection<Room> getBusyRoomsByDateByHotel(Date checkIn, Date checkOut, Long hotelId) {
+        String sql = "SELECT DISTINCT ROOMS.OBJECT_ID\n" +
+                "FROM OBJECTS ROOMS JOIN OBJECTS BOOKING ON \n" +
+                "  (ROOMS.OBJECT_TYPE_ID = 5 AND BOOKING.OBJECT_TYPE_ID = 7 AND ROOMS.PARENT_ID = ? AND BOOKING.PARENT_ID = ROOMS.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  (CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, hotelId, checkIn, checkOut);
+        return getEntityCollection(entityIdList);
     }
 
     @Override
@@ -174,6 +171,23 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
         boolean success3 = batchInsertObjReferences(59, model.getImages(), model.getId());
 
         return success && success2 && success3;
+    }
+
+    private final class RoomMapper implements RowMapper<Room> {
+        @Override
+        public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Room room = new Room();
+            room.setId(rs.getLong("object_id"));
+            room.setRoomName(rs.getString("room_name"));
+            room.setHotelId(rs.getLong("hotel_id"));
+            room.setRoomNumber(rs.getInt("room_no"));
+            room.setNumOfPlaces(rs.getInt("num_places"));
+            room.setHasBathroom(Boolean.parseBoolean(rs.getString("has_bathroom")));
+            room.setHasTV(Boolean.parseBoolean(rs.getString("has_tv")));
+            room.setHasExtraBed(Boolean.parseBoolean(rs.getString("has_extra_bed")));
+            room.setCost(rs.getDouble("cost"));
+            return room;
+        }
     }
 
 

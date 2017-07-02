@@ -5,6 +5,7 @@ import com.netcracker.edu.project.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Collection;
 
 @RestController
@@ -21,6 +22,16 @@ public class BookingController {
     @RequestMapping("/booking/room/{id}")
     public Collection<Booking> getBookingsByRoom(@PathVariable Long id) {
         return bookingService.getEntitiesByParentId(id);
+    }
+
+    @RequestMapping("/booking/status/{id}")
+    public Collection<Booking> getBookingsByStatusId(@PathVariable Long id) {
+        return bookingService.getBookingsByStatusId(id);
+    }
+
+    @RequestMapping("/booking/date/{from}/{to}")
+    public Collection<Booking> getBookingsByStatusId(@PathVariable Date from, @PathVariable Date to) {
+        return bookingService.getBookingsByDate(from, to);
     }
 
     @RequestMapping("/booking/{id}")

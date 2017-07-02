@@ -31,6 +31,13 @@ public class RoomController {
         return roomService.getFreeRoomsByDateByCity(checkIn, checkOut, cityid);
     }
 
+    @RequestMapping("/room/busy/{checkIn}/{checkOut}/{hotelId}")
+    public Collection<Room> getBusyRooms(@PathVariable("checkIn") Date checkIn,
+                                         @PathVariable("checkOut") Date checkOut,
+                                         @PathVariable("hotelId") Long hotelId) {
+        return roomService.getBusyRoomsByDateByHotel(checkIn, checkOut, hotelId);
+    }
+
     @RequestMapping("/room/{id}")
     public Room getRoom(@PathVariable Long id) {
         return roomService.getEntity(id);

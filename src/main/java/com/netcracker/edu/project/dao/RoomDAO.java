@@ -7,4 +7,6 @@ import java.util.Collection;
 
 public interface RoomDAO extends EntityDAO<Room> {
     Collection<Room> getFreeRoomsByDateByCity(Date checkIn, Date checkOut, Long cityId);
+
+    Collection<Room> getBusyRoomsByDateByHotel(Date checkIn, Date checkOut, Long hotelId);
 }
