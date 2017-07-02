@@ -1,32 +1,61 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div>
-    <p><b>Feedback</b></p>
-    <p>
-        <button name="buttonSend" class="btn"> Send</button>
-    </p>
-    <p>
-        <textarea name="textComments" cols="40" rows="5"></textarea>
-    </p>
+<p></p>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <p align="center">
+       <!-- <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">-->
+                <span class="label label-default" style="font-size: 20" align="center">Feedback</span>
+     <!--       </div>
+            <div class="col-md-5"></div>
+        </div>-->
+        </p>
 
-    <p>
-    <div id="reviewStars-input">
-        <style>
-            @import "reviewStars.css";
-        </style>
-        <input id="star-4" type="radio" name="reviewStars"/>
-        <label title="gorgeous" for="star-4"></label>
+        <form role="form" class="form-inline">
+            <p></p>
+            <label for="textRequests">Detailed review</label>
+            <p></p>
+            <textarea name="textRequests" rows="5" class="form-control" style="width:100%"></textarea>
 
-        <input id="star-3" type="radio" name="reviewStars"/>
-        <label title="good" for="star-3"></label>
+        </form>
 
-        <input id="star-2" type="radio" name="reviewStars"/>
-        <label title="regular" for="star-2"></label>
+        <p>
+        <form role="form" class="form-inline">
+            <div id="reviewStars-input">
+                <style>
+                    @import "reviewStars.css";
+                </style>
+                <input id="star-4" type="radio" name="reviewStars"/>
+                <label title="gorgeous" for="star-4"></label>
 
-        <input id="star-1" type="radio" name="reviewStars"/>
-        <label title="poor" for="star-1"></label>
+                <input id="star-3" type="radio" name="reviewStars"/>
+                <label title="good" for="star-3"></label>
 
-        <input id="star-0" type="radio" name="reviewStars"/>
-        <label title="bad" for="star-0"></label>
+                <input id="star-2" type="radio" name="reviewStars"/>
+                <label title="regular" for="star-2"></label>
+
+                <input id="star-1" type="radio" name="reviewStars"/>
+                <label title="poor" for="star-1"></label>
+
+                <input id="star-0" type="radio" name="reviewStars"/>
+                <label title="bad" for="star-0"></label>
+            </div>
+        </form>
+        <form role="form" class="form-inline">
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <button name="buttonSend" class="btn btn-success" style="width:100%"> Send</button>
+                </div>
+                <div class="col-md-6">
+                    <button name="buttonCansel" class="btn" style="width:100%"> Cansel</button>
+                </div>
+            </div>
+        </form>
+        </p>
     </div>
-    </p>
+    <div class="col-md-4"></div>
 </div>
