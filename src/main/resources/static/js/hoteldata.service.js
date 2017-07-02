@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module("myApp");
 
-    app.service("HotelDataSvc", function ($http) {
+    app.service("HotelDataSvc", function ($http, LocationDataSvc) {
         var self = this;
         this.getHotels = function () {
 
@@ -80,7 +80,10 @@
                         console.log(response);
                         return response;
                     }
-                );
+                )
+                .then(function () {
+                    LocationDataSvc.deleteLocation(hotelData.locationId)
+                });
         };
 
     });

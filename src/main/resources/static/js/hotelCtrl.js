@@ -10,9 +10,17 @@
                     self.countries = data;
                 });
 
+            self.pSselection = {ids: {}};
             PayDataSvc.getPaySystems()
                 .then(function (data) {
                     self.paySystems = data;
+                    return data;
+                })
+                .then(function (data) {
+
+                    for(var i=0; i < self.editedHotel.paySysIds.length; i++) {
+                        self.pSselection.ids[self.editedHotel.paySysIds[i]] = true;
+                    }
                 });
 
             UserDataSvc.getUsers()
@@ -86,19 +94,44 @@
         this.deleteHotel = function (hotel_) {
             HotelDataSvc.deleteHotel(hotel_)
                 .then(function () {
-                    self.selectLocation();
-                });
+                    self.cities = undefined;
+                    self.selectCountry();
+                })
+                ;
 
         };
 
         this.getFullAddressByLocationId = function (locationId) {
-
             return {
-                'country': self.country.name,
-                'city': self.city.name,
-                'location': self.country.streetAddress
+                'country': self.country,
+                'city': self.city,
+                'location': self.location
             };
+            // return {
+            //     'country': self.country.name,
+            //     'city': self.city.name,
+            //     'location': self.location.streetAddress
+            // };
 
+        };
+
+        this.checkAddress = function () {
+            LocationDataSvc.getLocationByStreetAddress(self.newHotel.location)
+                .then(function (response) {
+                    self.isExistsAddress = self.newHotel.location.streetAddress === response.data.streetAddress;
+                });
+        };
+
+        this.checkAddressEdit = function () {
+            LocationDataSvc.getLocationByStreetAddress(self.editedHotel.fullAddess.location)
+                .then(function (response) {
+                    if (self.hotel.fullAddess.location.streetAddress === response.data.streetAddress) {
+                        self.isExistsAddress = false;
+                    }
+                    else{
+                        self.isExistsAddress = self.editedHotel.fullAddess.location.streetAddress === response.data.streetAddress;
+                    }
+                });
         };
 
         this.addPaysystem = function () {
@@ -108,11 +141,22 @@
             });
         };
 
+        this.editPaysystem = function () {
+            self.editedHotel.paySysIds = [];
+            for (var property in self.pSselection.ids) {
+                // if (object.hasOwnProperty(property)) {
+                if(self.pSselection.ids[property] === true) {
+                    self.editedHotel.paySysIds.push(property);
+                }
+                // }
+            }
+        };
+
         this.updateHotel = function (hotelData) {
-            if (hotelData.cInTime !== undefined) {
+            if (hotelData.cInTime !== undefined && hotelData.cInTime !== null) {
                 hotelData.checkInTime = $filter('date')(hotelData.cInTime, 'HH:mm:ss').toString();
             }
-            if (hotelData.cOutTime !== undefined) {
+            if (hotelData.cOutTime !== undefined && hotelData.cOutTime !== null) {
                 hotelData.checkOutTime = $filter('date')(hotelData.cOutTime, 'HH:mm:ss').toString();
             }
 
@@ -124,7 +168,9 @@
                     } else {
                         self.resp = "Error"
                     }
-                });
+                }).then(function () {
+                LocationDataSvc.updateLocation(self.editedHotel.fullAddess.location)
+            });
             hotelData.cInTime = undefined;
             hotelData.cOutTime = undefined;
 
@@ -134,22 +180,34 @@
             self.newHotel.checkInTime = $filter('date')(self.newHotel.cInTime, 'HH:mm:ss').toString();
             self.newHotel.checkOutTime = $filter('date')(self.newHotel.cOutTime, 'HH:mm:ss').toString();
             self.newHotel.ownerId = self.newHotel.user.id;
-            self.newHotel.locationId = self.location.id;
+            // self.newHotel.locationId = self.location.id;
 
             delete self.newHotel.cInTime;
             delete self.newHotel.cOutTime;
             delete self.newHotel.user;
             delete self.newHotel.paySystems;
 
-            HotelDataSvc.addHotel(self.newHotel)
-                .then(function (response) {
-                    if (response.status === 200) {
-                        self.creationResponse = "Success.";
-                        self.isCreated = true;
-                    } else {
-                        self.creationResponse = "Error"
-                    }
+
+            LocationDataSvc.addLocation(self.newHotel.location)
+                .then(function () {
+                    LocationDataSvc.getLocationByStreetAddress(self.newHotel.location)
+                        .then(function (response) {
+                            self.newHotel.locationId = response.data.id;
+                        })
+                        .then(function () {
+                            HotelDataSvc.addHotel(self.newHotel)
+                                .then(function (response) {
+                                    if (response.status === 200) {
+                                        self.creationResponse = "Success.";
+                                        self.isCreated = true;
+                                    } else {
+                                        self.creationResponse = "Error"
+                                    }
+                                })
+                        });
                 })
+
+
         };
     });
 })();
