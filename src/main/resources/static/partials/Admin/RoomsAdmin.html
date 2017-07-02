@@ -1,42 +1,60 @@
 <!-- Страничка «Кабинет Админа гостиницы», вкладка
 Гостинцы» -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div>
-    <p>
-        Room
-        <input type="text" name="inputRoom" size="2">
-        Hotel
-        <select name="SelectHotel" id="SelectHotel">
-            <option value="">- Hotel -</option>
-        </select>
-        Number of people
-        <select name="SelectNumberOfPeople" id="SelectNumberOfPeople">
-            <option value="">- number of people -</option>
-        </select>
-        Price
-        <select name="SelectPrice" id="SelectPrice">
-            <option value="">- price -</option>
-        </select>
-        <button name="buttonClear" class ="btn"> Clear</button>
-        <button name="buttonNewRoom" class ="btn"> New room</button>
-    </p>
-    <p>
-        <table border="0" class = "table">
-            <tr>
-                <th>Room</th>
-                <th>Hotel</th>
-                <th>Number of people</th>
-                <th>Price</th>
-                <th>View</th>
-            </tr>
-            <tr>
-                <td>Example</td>
-                <td>Givnetto</td>
-                <td>2</td>
-                <td>1660</td>
-                <td>
-    <p><a class="btn btn-default" href="#/" role="button">View &raquo;</a></p></td>
-    </tr>
-    </table>
-    </p>
+<p></p>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="Room">Room</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-3">
+                    <label for="Hotel">Hotel</label>
+                    <select name="SelectHotel" id="SelectHotel" class="form-control" style="width:100%">
+                        <option value="">- Hotel -</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="calCheckOut">Number of people</label>
+                    <input type="number" name="inputNumberOfPeople" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-2">
+                    <label for="calCheckOut">Price</label>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-2">
+                    <p>
+                        <button name="buttonClear" class="btn" style="width:100%;">Clear</button>
+                    </p>
+                    <button name="buttonAdd" class="btn btn-success" style="width:100%">New Room</button>
+
+
+                </div>
+            </div>
+        </form>
+
+        <p>
+            <table border="0" class="table">
+                <tr>
+                    <th>Room</th>
+                    <th>Hotel</th>
+                    <th>Number of people</th>
+                    <th>Price</th>
+                    <th>View</th>
+                </tr>
+                <tr>
+                    <td>Example</td>
+                    <td>Givnetto</td>
+                    <td>2</td>
+                    <td>1660</td>
+                    <td>
+        <p><a class="btn btn-default" href="#/" role="button">View &raquo;</a></p></td>
+        </tr>
+        </table>
+        </p>
+    </div>
+    <div class="col-md-1"></div>
 </div>

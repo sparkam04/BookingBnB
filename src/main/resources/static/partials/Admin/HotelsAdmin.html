@@ -1,44 +1,63 @@
 <!-- Страничка «Кабинет Админа гостиницы», вкладка
 Гостинцы» -->
 
-<div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <p>
-        Country
-        <select name="SelectCountry" id="SelectCountry">
-            <option value="">- Country -</option>
-        </select>
-        City
-        <select name="SelectCity" id="SelectCity">
-            <option value="">- Room -</option>
-        </select>
 
-        Hotel
-        <select name="SelectHotel" id="SelectHotel">
-            <option value="">- Hotel -</option>
-        </select>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<p></p>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="SelectCountry">Country</label>
+                    <select name="SelectCountry" id="SelectCountry" class="form-control" style="width:100%">
+                        <option value="">- Country -</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="SelectCityity">City</label>
+                    <select name="SelectCity" id="SelectCity" class="form-control" style="width:100%">
+                        <option value="">- City -</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="Hotel">Hotel</label>
+                    <select name="SelectHotel" id="SelectHotel" class="form-control" style="width:100%">
+                        <option value="">- Hotel -</option>
+                    </select>
+                </div>
 
-        <button name="buttonClear" class = "btn"> Clear</button>
-        <button name="buttonNewHotel" class = "btn"> New Hotel</button>
-    </p>
-    <p>
-    <table border="0" class = "table">
-        <tr>
-            <th>County</th>
-            <th>City</th>
-            <th>Hotel</th>
-            <th>Check-in time</th>
-            <th>Check-out Time</th>
-            <th>View</th>
+                <div class="col-md-3">
+                    <p>
+                        <button name="buttonClear" class="btn" style="width:100%;">Clear</button>
+                    </p>
+                    <button name="buttonAdd" class="btn btn-success" style="width:100%">New hotel</button>
+                </div>
+            </div>
+        </form>
+        </p>
+        <p>
+            <table border="0" class="table">
+                <tr>
+                    <th>County</th>
+                    <th>City</th>
+                    <th>Hotel</th>
+                    <th>Check-in time</th>
+                    <th>Check-out Time</th>
+                    <th>View</th>
+                </tr>
+                <tr>
+                    <td>Spain</td>
+                    <td>Barcelona</td>
+                    <td>Givnetto</td>
+                    <td>12.10.1993</td>
+                    <td>16.10.2017</td>
+                    <td>
+        <p><a class="btn btn-default" href="#/" role="button">View &raquo;</a></p></td>
         </tr>
-        <tr>
-            <td>Spain</td>
-            <td>Barcelona</td>
-            <td>Givnetto</td>
-            <td>12.10.1993</td>
-            <td>16.10.2017</td>
-            <td> <p><a class="btn btn-default" href="#/" role="button">View &raquo;</a></p></td>
-        </tr>
-    </table>
-    </p>
+        </table>
+        </p>
+    </div>
+    <div class="col-md-1"></div>
 </div>
