@@ -26,4 +26,8 @@ public class BookingService extends AbstractEntityService<Booking> {
     public Collection<Booking> getBookingsByDate(Date from, Date to) {
         return getDao().getBookingsByDate(from, to);
     }
+
+    public Collection<Booking> getBookingsByDateAndHotel(Date from, Date to, Long hotelId) {
+        return getDao().getBookingsByDateAndHotel(from, to, hotelId);
+    }
 }

@@ -9,4 +9,6 @@ public interface BookingDAO extends EntityDAO<Booking> {
     Collection<Booking> getBookingsByStatusId(Long statusId);
 
     Collection<Booking> getBookingsByDate(Date from, Date to);
+
+    Collection<Booking> getBookingsByDateAndHotel(Date from, Date to, Long hotelId);
 }

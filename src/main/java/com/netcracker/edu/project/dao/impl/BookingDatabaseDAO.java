@@ -77,6 +77,20 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     }
 
     @Override
+    public Collection<Booking> getBookingsByDateAndHotel(Date from, Date to, Long hotelId) {
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "FROM OBJECTS BOOKING JOIN OBJECTS ROOMS ON\n" +
+                "  (BOOKING.OBJECT_TYPE_ID = 7 AND ROOMS.OBJECT_TYPE_ID = 5 AND BOOKING.PARENT_ID = ROOMS. OBJECT_ID AND ROOMS.PARENT_ID = ?)\n" +
+                "  JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  (CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, hotelId, from, to);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
     public boolean add(Booking model) {
         String sqlNewObjId = "select object_id_seq.nextval new_id from dual";
         Long newObjId = getJdbcTemplate().queryForObject(sqlNewObjId, Long.TYPE);

@@ -30,8 +30,13 @@ public class BookingController {
     }
 
     @RequestMapping("/booking/date/{from}/{to}")
-    public Collection<Booking> getBookingsByStatusId(@PathVariable Date from, @PathVariable Date to) {
+    public Collection<Booking> getBookingsByDate(@PathVariable Date from, @PathVariable Date to) {
         return bookingService.getBookingsByDate(from, to);
+    }
+
+    @RequestMapping("/booking/date/{from}/{to}/hotel/{hotelId}")
+    public Collection<Booking> getBookingsByDateAndHotel(@PathVariable Date from, @PathVariable Date to, @PathVariable Long hotelId) {
+        return bookingService.getBookingsByDateAndHotel(from, to, hotelId);
     }
 
     @RequestMapping("/booking/{id}")
