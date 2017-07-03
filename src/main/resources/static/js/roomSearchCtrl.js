@@ -35,6 +35,7 @@
 
         this.selectRoom = function (room_) {
             DataSvc.room = room_;
+            DataSvc.city = self.city;
             DataSvc.checkin = self.checkIn;
             DataSvc.checkOut = self.checkOut;
         };
