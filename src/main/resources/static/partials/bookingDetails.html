@@ -1,5 +1,5 @@
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-<form name="frm" ng-submit="bc.submitBooking()">
+<form name="frm" ng-submit="bd.updateBooking()">
     <!--{{bd.booking}}-->
     <div class="row">
         <div class="col-md-4"></div>
@@ -98,11 +98,25 @@
 
                 </div>
 
+                <!--<div class="col-md-6">-->
+                    <!--<label for="Status">Status:</label>-->
+                    <!--<span>{{bd.booking.status.name}}</span>-->
+                <!--</div>-->
+
                 <div class="col-md-6">
                     <label for="Status">Status:</label>
-                    <span>{{bd.booking.status.name}}</span>
+                    <select name="SelectStatus"
+
+                            id="SelectStatus" class="form-control" style="width:100%"
+
+                            ng-options="statusOption.name for statusOption in bd.statuses track by statusOption.id"
+                            ng-model="bd.booking.status" ng-change="bd.setStatus()" required>
+                    </select>
                 </div>
+
             </div>
+
+
 
             <hr>
             <div class="row">
@@ -147,7 +161,7 @@
             <p></p>
             <div class="row">
                 <div class="col-md-6">
-                    <input type="submit" class="btn" style="width:100%" ng-disabled="frm.$invalid || bc.isExistsUser || bc.isBooked"> <span>{{bc.creationResponse}}</span>
+                    <input type="submit" class="btn" style="width:100%" ng-disabled="frm.$invalid"> <p><span>{{bd.resp}}</span></p>
                     <!--<p><a class="btn btn-default" role="button" ng-click="" class="btn" style="width:100%" ng-disabled="frm.$invalid">Submit</a></p>-->
                     <!--<button name="buttonConfirm" class="btn" style="width:100%"> Confirm reservation</button>-->
                 </div>

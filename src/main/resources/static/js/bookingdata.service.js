@@ -151,6 +151,26 @@
                     }
                 )
                 ;
+        };
+
+        this.updateBooking = function (bookingData) {
+
+            return $http.put("/booking", bookingData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    }
+                )
+                ;
         }
 
     });
