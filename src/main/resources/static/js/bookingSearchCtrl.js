@@ -58,7 +58,7 @@
         };
 
         this.findBookings = function () {
-            BookingDataSvc.getBookingsByDates(self.checkIn, self.checkOut)
+            BookingDataSvc.getBookingsByDatesHotel(self.checkIn, self.checkOut, self.hotel.id)
                 .then(function(data) {
                     self.bookings = data;
                 });
