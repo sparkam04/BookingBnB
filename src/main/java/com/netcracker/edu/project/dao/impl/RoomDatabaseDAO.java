@@ -74,7 +74,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 "    (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
                 "  JOIN OBJREFERENCE STATUS_ID ON\n" +
                 "    (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
-                "  WHERE BOOKING.PARENT_ID = ROOMS.OBJECT_ID AND STATUS_ID.REFERENCE <> 29 AND\n" +
+                "  WHERE BOOKING.PARENT_ID = ROOMS.OBJECT_ID AND STATUS_ID.REFERENCE <> 29 AND STATUS_ID.REFERENCE <> 32 AND\n" +
                 "    TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')\n" +
                 ")";
         List<Long> roomIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, cityId, checkIn, checkOut);
@@ -92,7 +92,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
                 "JOIN OBJREFERENCE STATUS_ID ON\n" +
                 "  (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
-                "WHERE STATUS_ID.REFERENCE <> 29 AND\n" +
+                "WHERE STATUS_ID.REFERENCE <> 29 AND STATUS_ID.REFERENCE <> 32 AND\n" +
                 "  TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
         List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, hotelId, checkIn, checkOut);
         return getEntityCollection(entityIdList);

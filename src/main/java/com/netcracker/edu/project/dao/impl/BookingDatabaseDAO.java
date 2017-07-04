@@ -56,6 +56,15 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     }
 
     @Override
+    public Collection<Booking> getBookingsByClientId(Long clientId) {
+        String sql = "SELECT OBJ.OBJECT_ID\n" +
+                "FROM OBJECTS OBJ INNER JOIN OBJREFERENCE OBJREF ON\n" +
+                "  (OBJ.OBJECT_TYPE_ID = 7 AND OBJREF.ATTR_ID = 37 AND OBJREF.REFERENCE = ? AND OBJREF.OBJECT_ID = OBJ.OBJECT_ID)";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, clientId);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
     public Collection<Booking> getBookingsByStatusId(Long statusId) {
         String sql = "SELECT OBJ.OBJECT_ID\n" +
                 "FROM OBJECTS OBJ INNER JOIN OBJREFERENCE OBJREF ON \n" +

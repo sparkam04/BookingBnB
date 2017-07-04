@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.util.Collection;
 
 public interface BookingDAO extends EntityDAO<Booking> {
+    Collection<Booking> getBookingsByClientId(Long clientId);
+
     Collection<Booking> getBookingsByStatusId(Long statusId);
 
     Collection<Booking> getBookingsByDate(Date from, Date to);
