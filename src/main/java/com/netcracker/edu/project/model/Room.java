@@ -3,11 +3,11 @@ package com.netcracker.edu.project.model;
 import java.util.Collection;
 
 public class Room extends Model {
-    private String RoomName;
+    private String roomName;
 
     private Long hotelId;
 
-    private Integer RoomNumber;
+    private Integer roomNumber;
     private Integer numOfPlaces;
     private Double cost;
     private Boolean hasBathroom;
@@ -17,11 +17,11 @@ public class Room extends Model {
     private Collection<Long> images;
 
     public String getRoomName() {
-        return RoomName;
+        return roomName;
     }
 
     public void setRoomName(String roomName) {
-        RoomName = roomName;
+        this.roomName = roomName;
     }
 
     public Long getHotelId() {
@@ -33,11 +33,11 @@ public class Room extends Model {
     }
 
     public Integer getRoomNumber() {
-        return RoomNumber;
+        return roomNumber;
     }
 
     public void setRoomNumber(Integer roomNumber) {
-        RoomNumber = roomNumber;
+        this.roomNumber = roomNumber;
     }
 
     public Integer getNumOfPlaces() {

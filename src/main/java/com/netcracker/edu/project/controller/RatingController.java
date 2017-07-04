@@ -18,6 +18,11 @@ public class RatingController {
         return ratingService.getAllEntities();
     }
 
+    @RequestMapping("/rating/booking/{id}")
+    public Collection<Rating> getRatingByBooking(@PathVariable Long id) {
+        return ratingService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/rating/{id}")
     public Rating getRating(@PathVariable Long id) {
         return ratingService.getEntity(id);

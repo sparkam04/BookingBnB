@@ -18,9 +18,19 @@ public class LocationController {
         return locationService.getAllEntities();
     }
 
+    @RequestMapping("/location/city/{id}")
+    public Collection<Location> getLocationsByCity(@PathVariable Long id) {
+        return locationService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/location/{id}")
     public Location getLocation(@PathVariable Long id) {
         return locationService.getEntity(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/location/streetAddress")
+    public Location getLocationByStreetAddress(@RequestBody Location location) {
+        return locationService.getByStreetAddress(location);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/location")

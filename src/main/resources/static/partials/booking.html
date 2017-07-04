@@ -1,0 +1,125 @@
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<form name="frm" ng-submit="bc.submitBooking()">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Hotel">Hotel</label>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%"
+                           ng-model="bc.room.hotel.hotelName" ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Room">Room</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%"
+                           ng-model="bc.room.roomName" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="calCheckIn">Check-in date</label>
+                    <input type="date" name="calCheckIn" class="form-control" style="width:100%" ng-model="bc.checkIn"
+                           ng-disabled="true">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="calCheckOut">Check-out date</label>
+                    <input type="date" name="calCheckOut" class="form-control" style="width:100%" ng-model="bc.checkOut"
+                           ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="inputNumberOfPeople">Number of people</label>
+                    <!--<input type="number" name="inputNumberOfPeople" value="1" class="form-control" style="width:100%">-->
+
+                    <input type="number" name="quantity" class="form-control" style="width:100%" min="1"
+                           max="{{bc.room.numOfPlaces}}" ng-model="bc.numPersons">
+
+
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="Price">Price of booking</label>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%"
+                           ng-model="bc.totalCost" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="PaySystem">Pay system</label>
+                    <select name="SelectPaySystem"
+
+                            id="SelectPaySystem" class="form-control" style="width:100%"
+
+                            ng-options="paySysOption.name for paySysOption in bc.paySystems track by paySysOption.id"
+                            ng-model="bc.paySystem"
+                            <!--ng-init="bc.paySystem = bc.paySystem || bc.paySystems[0].value">-->
+                        <!--<option value="">- Select Pay System -</option>-->
+                    </select>
+
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="Email">*Email</label><span ng-show="bc.isExistsUser" style="color:red"> <strong>already exists. Please login.</strong></span>
+                    <input type="email" name="email" class="form-control" style="width:100%" ng-model="bc.user.email" required ng-change="bc.checkUserByEmail()">
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                    <p></p>
+                    <label for="Phone">*Phone</label>
+                    <input type="text" name="phone" class="form-control" style="width:100%" ng-model="bc.user.phone" required ng-disabled="bc.isExistsUser">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="FirstName">*First Name</label>
+                    <input type="text" name="firstname" class="form-control" style="width:100%" ng-model="bc.user.firstName" required ng-disabled="bc.isExistsUser">
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                    <label for="LastNmae">*Last Name</label>
+                    <input type="text" name="lastname" class="form-control" style="width:100%" ng-model="bc.user.lastName" required ng-disabled="bc.isExistsUser">
+                </div>
+            </div>
+
+            * - Required
+            <hr>
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" class="btn" style="width:100%" ng-disabled="frm.$invalid || bc.isExistsUser || bc.isBooked"> <span>{{bc.creationResponse}}</span>
+                    <!--<p><a class="btn btn-default" role="button" ng-click="" class="btn" style="width:100%" ng-disabled="frm.$invalid">Submit</a></p>-->
+                    <!--<button name="buttonConfirm" class="btn" style="width:100%"> Confirm reservation</button>-->
+                </div>
+                <div class="col-md-6">
+                    <p><a class="btn btn-default" href="#" role="button" ng-click="" class="btn" style="width:100%">Back</a></p>
+                    <!--<button name="buttonBack" class="btn" style="width:100%"> Back</button>-->
+                </div>
+            </div>
+            <p></p>
+
+            <label for="textRequests">Special Requests</label>
+            <p></p>
+            <textarea name="textRequests" ng-model="bc.customerMessage" rows="5" class="form-control"
+                      style="width:100%"></textarea>
+
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+</form>

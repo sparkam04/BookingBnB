@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HotelService extends AbstractEntityService<Hotel>{
+public class HotelService extends AbstractEntityService<Hotel> {
 
     @Autowired
     private HotelDatabaseDAO hotelDatabaseDAO;
@@ -14,5 +14,9 @@ public class HotelService extends AbstractEntityService<Hotel>{
     @Override
     protected HotelDatabaseDAO getDao() {
         return hotelDatabaseDAO;
+    }
+
+    public Double getRatingById(Long id) {
+        return hotelDatabaseDAO.getRatingById(id);
     }
 }

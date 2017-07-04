@@ -18,9 +18,20 @@ public class UserController {
         return userService.getAllEntities();
     }
 
+    @RequestMapping("/user/role/{id}")
+    public Collection<User> getUsersByRole(@PathVariable Long id) {
+        return userService.getEntitiesByParentId(id);
+    }
+
     @RequestMapping("/user/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.getEntity(id);
+    }
+
+//    @RequestMapping("/user/email/{email:.+}")
+    @RequestMapping("/user/email/{email}/")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/user")

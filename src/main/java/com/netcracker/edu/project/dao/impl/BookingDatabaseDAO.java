@@ -5,10 +5,12 @@ import com.netcracker.edu.project.model.Booking;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -53,23 +55,39 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
         return booking;
     }
 
-    private final class BookingMapper implements RowMapper<Booking> {
-        @Override
-        public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Booking booking = new Booking();
-            booking.setId(rs.getLong("object_id"));
-            booking.setRoomId(rs.getLong("room_id"));
-            booking.setCode(rs.getLong("booking_code"));
-            booking.setMessage(rs.getString("message"));
-            booking.setUserId(rs.getLong("user_id"));
-            booking.setCheckIn(rs.getDate("date_check_in"));
-            booking.setCheckOut(rs.getDate("date_check_out"));
-            booking.setNumPersons(rs.getInt("num_persons"));
-            booking.setPaid(Boolean.parseBoolean(rs.getString("is_paid")));
-            booking.setStatusId(rs.getLong("status_id"));
-            booking.setPaySysId(rs.getLong("pay_sys_id"));
-            return booking;
-        }
+    @Override
+    public Collection<Booking> getBookingsByStatusId(Long statusId) {
+        String sql = "SELECT OBJ.OBJECT_ID\n" +
+                "FROM OBJECTS OBJ INNER JOIN OBJREFERENCE OBJREF ON \n" +
+                "  (OBJ.OBJECT_TYPE_ID = 7 AND OBJREF.ATTR_ID = 42 AND OBJREF.REFERENCE = ? AND OBJREF.OBJECT_ID = OBJ.OBJECT_ID)";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, statusId);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
+    public Collection<Booking> getBookingsByDate(Date from, Date to) {
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "FROM OBJECTS BOOKING INNER JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  (BOOKING.OBJECT_TYPE_ID = 7 AND CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  INNER JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, from, to);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
+    public Collection<Booking> getBookingsByDateAndHotel(Date from, Date to, Long hotelId) {
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "FROM OBJECTS BOOKING JOIN OBJECTS ROOMS ON\n" +
+                "  (BOOKING.OBJECT_TYPE_ID = 7 AND ROOMS.OBJECT_TYPE_ID = 5 AND BOOKING.PARENT_ID = ROOMS. OBJECT_ID AND ROOMS.PARENT_ID = ?)\n" +
+                "  JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  (CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, hotelId, from, to);
+        return getEntityCollection(entityIdList);
     }
 
     @Override
@@ -111,7 +129,7 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
                 newObjId, model.isPaid().toString(),
                 model.getStatusId(), newObjId,
                 model.getPaySysId(), newObjId
-                );
+        );
 
         boolean isSuccess1 = affrctedRows == 10;
 
@@ -153,5 +171,24 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
         }
 
         return isSuccess && isSuccess1 && isSuccess2 && isSuccess3 && isSuccess4;
+    }
+
+    private final class BookingMapper implements RowMapper<Booking> {
+        @Override
+        public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Booking booking = new Booking();
+            booking.setId(rs.getLong("object_id"));
+            booking.setRoomId(rs.getLong("room_id"));
+            booking.setCode(rs.getString("booking_code"));
+            booking.setMessage(rs.getString("message"));
+            booking.setUserId(rs.getLong("user_id"));
+            booking.setCheckIn(rs.getDate("date_check_in"));
+            booking.setCheckOut(rs.getDate("date_check_out"));
+            booking.setNumPersons(rs.getInt("num_persons"));
+            booking.setPaid(Boolean.parseBoolean(rs.getString("is_paid")));
+            booking.setStatusId(rs.getLong("status_id"));
+            booking.setPaySysId(rs.getLong("pay_sys_id"));
+            return booking;
+        }
     }
 }

@@ -29,6 +29,20 @@ public class LocationDatabaseDAO extends AbstractDatabaseDAO<Location> implement
         return getJdbcTemplate().queryForObject(sql, new Object[]{id},new LocationMapper());
     }
 
+    @Override
+    public Location getByStreetAddress(Location location) {
+        String sql = "select location.object_id, location.PARENT_ID city_Id, street_addr.value address, postal_code.VALUE postal_Code, gps_coords.VALUE gps_Coordinates\n" +
+                "from OBJECTS location\n" +
+                "    join attributes street_addr on street_addr.OBJECT_ID = location.OBJECT_ID and street_addr.ATTR_ID = 5\n" +
+                "    join attributes postal_code on postal_code.OBJECT_ID = location.OBJECT_ID and postal_code.ATTR_ID = 6\n" +
+                "    join attributes gps_coords on gps_coords.OBJECT_ID = location.OBJECT_ID and gps_coords.ATTR_ID = 7\n" +
+                "where\n" +
+                "    location.OBJECT_TYPE_ID = 3\n" +
+                "    and street_addr.value = ? and location.PARENT_ID = ?";
+
+        return getJdbcTemplate().queryForObject(sql, new Object[]{location.getStreetAddress(), location.getCityId()},new LocationMapper());
+    }
+
     private final class LocationMapper implements RowMapper<Location> {
         @Override
         public Location mapRow(ResultSet rs, int rowNum) throws SQLException {

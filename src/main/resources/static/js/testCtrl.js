@@ -1,15 +1,15 @@
 (function () {
 
-    var app = angular.module("myApp");
-    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, $filter, $timeout, $window, $route) {
+    var app = angular.module('myApp');
+    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, DataSvc, $filter, $timeout, $window) {
         var self = this;
 
         this.init = function () {
-            this.country = {};
-            this.city = {};
-            this.location = {id: 0};
-            this.hotel = {};
-            this.editedHotel = {};
+            self.country = DataSvc.country;
+            self.city = DataSvc.city;
+            self.location = DataSvc.location;
+            self.hotel = DataSvc.hotel;
+            self.editedHotel = DataSvc.editedHotel;
 
             HotelDataSvc.getHotels()
                 .then(function(data) {
@@ -35,16 +35,16 @@
         this.init();
 
         this.selectHotel = function (hotel_) {
-            this.hotel = hotel_;
-            this.hotel.fullAddess = this.getFullAddressByLocationId(this.hotel.locationId);
+            DataSvc.hotel = hotel_;
+            DataSvc.hotel.fullAddess = this.getFullAddressByLocationId(hotel_.locationId);
         };
 
         this.selectCountry = function () {
-            this.location = {id: 0};
+            self.location = {id: 0};
         };
 
         this.selectCity = function () {
-            this.location = {id: 0};
+            self.location = {id: 0};
         };
 
         this.selectLocation = function () {
@@ -75,10 +75,10 @@
             HotelDataSvc.updHotel(hotelData)
                 .then(function (response) {
                     if (response.status === 200) {
-                        self.resp = "Success.";
+                        self.resp = 'Success.';
                         self.clearMessage();
                     } else {
-                        self.resp = "Error"
+                        self.resp = 'Error'
                     }
                 });
             hotelData.cInTime = undefined;
@@ -97,7 +97,7 @@
 
         this.toggleEditMode = function () {
             // this.editedHotel = Object.create(this.hotel);
-            this.editedHotel = JSON.parse(JSON.stringify(this.hotel));
+            DataSvc.editedHotel = JSON.parse(JSON.stringify(DataSvc.hotel));
         };
     });
 })();

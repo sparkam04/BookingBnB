@@ -7,7 +7,7 @@ public class Booking extends Model {
     private Long userId;
     private Long statusId;
     private Long paySysId;
-    private Long code;
+    private String code;
 
     private Integer numPersons;
 
@@ -50,11 +50,11 @@ public class Booking extends Model {
         this.paySysId = paySysId;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

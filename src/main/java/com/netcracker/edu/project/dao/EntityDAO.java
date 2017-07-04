@@ -8,6 +8,8 @@ public interface EntityDAO<T extends Model> {
 
     Collection<T> getAll();
 
+    Collection<T> getByParentId(Long parentId);
+
     T getById(Long id);
 
     boolean add(T model);

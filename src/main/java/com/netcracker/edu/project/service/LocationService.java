@@ -15,4 +15,8 @@ public class LocationService extends AbstractEntityService<Location>{
     protected LocationDatabaseDAO getDao() {
         return locationDatabaseDAO;
     }
+
+    public Location getByStreetAddress(Location location) {
+        return getDao().getByStreetAddress(location);
+    }
 }

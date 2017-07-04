@@ -5,6 +5,7 @@ import com.netcracker.edu.project.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Collection;
 
 @RestController
@@ -16,6 +17,25 @@ public class RoomController {
     @RequestMapping("/room")
     public Collection<Room> getAllRooms() {
         return roomService.getAllEntities();
+    }
+
+    @RequestMapping("/room/hotel/{id}")
+    public Collection<Room> getRoomsByHotel(@PathVariable Long id) {
+        return roomService.getEntitiesByParentId(id);
+    }
+
+    @RequestMapping("/room/free/{checkIn}/{checkOut}/{cityid}")
+    public Collection<Room> getFreeRooms(@PathVariable("checkIn") Date checkIn,
+                                         @PathVariable("checkOut") Date checkOut,
+                                         @PathVariable("cityid") Long cityid) {
+        return roomService.getFreeRoomsByDateByCity(checkIn, checkOut, cityid);
+    }
+
+    @RequestMapping("/room/busy/{checkIn}/{checkOut}/{hotelId}")
+    public Collection<Room> getBusyRooms(@PathVariable("checkIn") Date checkIn,
+                                         @PathVariable("checkOut") Date checkOut,
+                                         @PathVariable("hotelId") Long hotelId) {
+        return roomService.getBusyRoomsByDateByHotel(checkIn, checkOut, hotelId);
     }
 
     @RequestMapping("/room/{id}")

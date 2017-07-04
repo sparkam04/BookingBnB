@@ -38,7 +38,7 @@ public class UserDatabaseDAO extends AbstractDatabaseDAO<User> implements UserDA
         return user;
     }
 
-    public User getByEmail(String email){
+    public User getByEmail(String email) {
         User user;
         String sql = "select user_.object_id, user_.PARENT_ID role_id \n" +
                 "    , first_name.VALUE first_name\n" +
@@ -59,7 +59,6 @@ public class UserDatabaseDAO extends AbstractDatabaseDAO<User> implements UserDA
 
         return user;
     }
-
 
     private final class UserMapper implements RowMapper<User> {
         @Override

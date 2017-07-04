@@ -24,23 +24,37 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
 
     <script src="js/myApp.js"></script>
     <script src="js/testCtrl.js"></script>
+    <script src="js/hotelCtrl.js"></script>
+    <script src="js/roomSearchCtrl.js"></script>
+    <script src="js/bookingSearchCtrl.js"></script>
+    <script src="js/bookingDetailsCtrl.js"></script>
+    <script src="js/bookingCtrl.js"></script>
     <script src="js/hoteldata.service.js"></script>
     <script src="js/countrydata.service.js"></script>
     <script src="js/citydata.service.js"></script>
+    <script src="js/statusdata.service.js"></script>
     <script src="js/locationdata.service.js"></script>
+    <script src="js/roomdata.service.js"></script>
+    <script src="js/paydata.service.js"></script>
+    <script src="js/userdata.service.js"></script>
+    <script src="js/bookingdata.service.js"></script>
+    <script src="js/data.service.js"></script>
+    <script src="js/loginService.js"></script>
+    <script src="js/loginCtrl.js"></script>
+    <script src="js/navBarCtrl.js"></script>
 </head>
 
-<body ng-controller="testCtrl as tc">
+<body>
 
-<div ng-include="'partials/navbar.html'"></div>
-
-<div class="container" style="position: relative" >
-    <br>
-    <br>
-
+<!--<div class="container" style="position: relative" ng-controller="testCtrl as tc">-->
+<div class="container" style="position: relative">
+    <div ng-controller="navBarCtrl as nbc">
+        <div ng-include="'partials/navbar.html'"></div>
+    </div>
     <div ng-view></div>
 
     <hr>
@@ -49,7 +63,6 @@
         <p>&copy; 2017 Booking BnB</p>
     </footer>
 </div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
