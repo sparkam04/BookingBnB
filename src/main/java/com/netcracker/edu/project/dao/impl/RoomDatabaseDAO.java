@@ -61,28 +61,23 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
 
     @Override
     public Collection<Room> getFreeRoomsByDateByCity(Date checkIn, Date checkOut, Long cityId) {
-        String sql = "SELECT ROOM.OBJECT_ID\n" +
-                "FROM OBJECTS ROOM \n" +
-                "JOIN objects hotel ON hotel.OBJECT_ID = ROOM.PARENT_ID\n" +
-                "JOIN objects location ON location.OBJECT_ID = hotel.PARENT_ID\n" +
-                "WHERE ROOM.OBJECT_TYPE_ID = 5 \n" +
-                "AND location.PARENT_ID = ?  AND not EXISTS(\n" +
-                "SELECT *\n" +
-                "    FROM OBJECTS BOOKING\n" +
-                "    JOIN ATTRIBUTES DATE_CHECK_IN ON DATE_CHECK_IN.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_IN.ATTR_ID = 38\n" +
-                "    JOIN ATTRIBUTES DATE_CHECK_OUT ON DATE_CHECK_OUT.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_OUT.ATTR_ID = 39  \n" +
-                "    WHERE BOOKING.OBJECT_TYPE_ID = 7\n" +
-                "    AND (\n" +
-                "            DATE_CHECK_IN.DATE_VALUE between TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') and TO_DATE(?, 'YYYY\"-\"MM\"-\"DD')\n" +
-                "        OR  (DATE_CHECK_OUT.DATE_VALUE between TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') and TO_DATE(?, 'YYYY\"-\"MM\"-\"DD'))\n" +
-                "        OR  (TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') between DATE_CHECK_IN.DATE_VALUE and DATE_CHECK_OUT.DATE_VALUE)\n" +
-                "        OR  (TO_DATE(?, 'YYYY\"-\"MM\"-\"DD') between DATE_CHECK_IN.DATE_VALUE and DATE_CHECK_OUT.DATE_VALUE)\n" +
-                "        )\n" +
-                "    AND ROOM.OBJECT_ID = BOOKING.PARENT_ID\n" +
+        String sql = "SELECT ROOMS.OBJECT_ID\n" +
+                "FROM OBJECTS ROOMS JOIN OBJECTS HOTELS ON\n" +
+                "  (ROOMS.OBJECT_TYPE_ID = 5 AND HOTELS.OBJECT_TYPE_ID = 4 AND ROOMS.PARENT_ID = HOTELS.OBJECT_ID)\n" +
+                "JOIN OBJECTS LOCATIONS ON\n" +
+                "  (LOCATIONS.OBJECT_TYPE_ID = 3 AND LOCATIONS.PARENT_ID = ? AND HOTELS.PARENT_ID = LOCATIONS.OBJECT_ID)\n" +
+                "WHERE NOT EXISTS (\n" +
+                "  SELECT *\n" +
+                "  FROM OBJECTS BOOKING JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "    (BOOKING.OBJECT_TYPE_ID = 7 AND CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "    (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "  JOIN OBJREFERENCE STATUS_ID ON\n" +
+                "    (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
+                "  WHERE BOOKING.PARENT_ID = ROOMS.OBJECT_ID AND STATUS_ID.REFERENCE <> 29 AND\n" +
+                "    TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')\n" +
                 ")";
-        List<Long> roomIdList = getJdbcTemplate().queryForList(sql, new Object[]{cityId, checkIn.toString(), checkOut.toString(),
-                checkIn.toString(), checkOut.toString(), checkIn.toString(), checkOut.toString()}, Long.TYPE);
-
+        List<Long> roomIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, cityId, checkIn, checkOut);
         return getEntityCollection(roomIdList);
     }
 
@@ -91,11 +86,14 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
         String sql = "SELECT DISTINCT ROOMS.OBJECT_ID\n" +
                 "FROM OBJECTS ROOMS JOIN OBJECTS BOOKING ON \n" +
                 "  (ROOMS.OBJECT_TYPE_ID = 5 AND BOOKING.OBJECT_TYPE_ID = 7 AND ROOMS.PARENT_ID = ? AND BOOKING.PARENT_ID = ROOMS.OBJECT_ID)\n" +
-                "  JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "JOIN ATTRIBUTES CHECK_IN ON \n" +
                 "  (CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
-                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "JOIN ATTRIBUTES CHECK_OUT ON\n" +
                 "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
-                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+                "JOIN OBJREFERENCE STATUS_ID ON\n" +
+                "  (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
+                "WHERE STATUS_ID.REFERENCE <> 29 AND\n" +
+                "  TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
         List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, hotelId, checkIn, checkOut);
         return getEntityCollection(entityIdList);
     }
