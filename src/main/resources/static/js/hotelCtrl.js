@@ -58,7 +58,13 @@
             };
             self.numRooms = 1;
             self.RoomNumStart = 1;
+            self.RoomCost = 1000;
+            self.numOfPlaces = 1;
+            self.roomName = "Room";
 
+            self.hasBathroom = true;
+            self.hasTV = true;
+            self.hasExtraBed = false;
 
         };
         this.init();
@@ -181,59 +187,16 @@
         this.addRoom1 = function () {
             for (i = 0; i < self.numRooms; i++) {
                 var newRoom = {
-                    "roomName": "One place",
+                    "roomName": self.roomName,
                     "hotelId": self.hotel.id,
-                    "roomNumber": 1,
-                    "numOfPlaces": 1,
-                    "cost": 1000.0,
-                    "hasBathroom": true,
-                    "hasTV": true,
-                    "hasExtraBed": false,
+                    "roomNumber": self.RoomNumStart + i,
+                    "numOfPlaces": self.numOfPlaces,
+                    "cost": self.RoomCost,
+                    "hasBathroom": self.hasBathroom,
+                    "hasTV": self.hasTV,
+                    "hasExtraBed": self.hasExtraBed,
                     "images": []
                 };
-                newRoom.roomNumber = self.RoomNumStart + i;
-
-                (function (newRoom_) {
-                    RoomDataSvc.addRoom(newRoom_)
-                })(newRoom);
-            }
-        };
-
-        this.addRoom2 = function () {
-            for (i = 0; i < self.numRooms; i++) {
-                var newRoom = {
-                    "roomName": "Two place",
-                    "hotelId": self.hotel.id,
-                    "roomNumber": 1,
-                    "numOfPlaces": 2,
-                    "cost": 2000.0,
-                    "hasBathroom": true,
-                    "hasTV": true,
-                    "hasExtraBed": false,
-                    "images": []
-                };
-                newRoom.roomNumber = self.RoomNumStart + i;
-
-                (function (newRoom_) {
-                    RoomDataSvc.addRoom(newRoom_)
-                })(newRoom);
-            }
-        };
-
-        this.addRoom3 = function () {
-            for (i = 0; i < self.numRooms; i++) {
-                var newRoom = {
-                    "roomName": "Three place",
-                    "hotelId": self.hotel.id,
-                    "roomNumber": 1,
-                    "numOfPlaces": 3,
-                    "cost": 3000.0,
-                    "hasBathroom": true,
-                    "hasTV": true,
-                    "hasExtraBed": true,
-                    "images": []
-                };
-                newRoom.roomNumber = self.RoomNumStart + i;
 
                 (function (newRoom_) {
                     RoomDataSvc.addRoom(newRoom_)
