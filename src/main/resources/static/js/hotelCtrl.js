@@ -18,7 +18,7 @@
                 })
                 .then(function (data) {
 
-                    for(var i=0; i < self.editedHotel.paySysIds.length; i++) {
+                    for (var i = 0; i < self.editedHotel.paySysIds.length; i++) {
                         self.pSselection.ids[self.editedHotel.paySysIds[i]] = true;
                     }
                 });
@@ -34,7 +34,7 @@
             self.hotel = DataSvc.hotel;
             self.editedHotel = DataSvc.editedHotel;
             self.newHotel = {
-                "id":"",
+                "id": "",
                 "ownerId": "",
                 "locationId": "",
                 "hotelRating": "",
@@ -56,6 +56,8 @@
                 "paySysIds": [],
                 "preorder": false
             };
+            self.numRooms = 1;
+            self.RoomNumStart = 1;
 
 
         };
@@ -97,7 +99,7 @@
                     self.cities = undefined;
                     self.selectCountry();
                 })
-                ;
+            ;
 
         };
 
@@ -128,7 +130,7 @@
                     if (self.hotel.fullAddess.location.streetAddress === response.data.streetAddress) {
                         self.isExistsAddress = false;
                     }
-                    else{
+                    else {
                         self.isExistsAddress = self.editedHotel.fullAddess.location.streetAddress === response.data.streetAddress;
                     }
                 });
@@ -145,7 +147,7 @@
             self.editedHotel.paySysIds = [];
             for (var property in self.pSselection.ids) {
                 // if (object.hasOwnProperty(property)) {
-                if(self.pSselection.ids[property] === true) {
+                if (self.pSselection.ids[property] === true) {
                     self.editedHotel.paySysIds.push(property);
                 }
                 // }
@@ -174,6 +176,69 @@
             hotelData.cInTime = undefined;
             hotelData.cOutTime = undefined;
 
+        };
+
+        this.addRoom1 = function () {
+            for (i = 0; i < self.numRooms; i++) {
+                var newRoom = {
+                    "roomName": "One place",
+                    "hotelId": self.hotel.id,
+                    "roomNumber": 1,
+                    "numOfPlaces": 1,
+                    "cost": 1000.0,
+                    "hasBathroom": true,
+                    "hasTV": true,
+                    "hasExtraBed": false,
+                    "images": []
+                };
+                newRoom.roomNumber = self.RoomNumStart + i;
+
+                (function (newRoom_) {
+                    RoomDataSvc.addRoom(newRoom_)
+                })(newRoom);
+            }
+        };
+
+        this.addRoom2 = function () {
+            for (i = 0; i < self.numRooms; i++) {
+                var newRoom = {
+                    "roomName": "Two place",
+                    "hotelId": self.hotel.id,
+                    "roomNumber": 1,
+                    "numOfPlaces": 2,
+                    "cost": 2000.0,
+                    "hasBathroom": true,
+                    "hasTV": true,
+                    "hasExtraBed": false,
+                    "images": []
+                };
+                newRoom.roomNumber = self.RoomNumStart + i;
+
+                (function (newRoom_) {
+                    RoomDataSvc.addRoom(newRoom_)
+                })(newRoom);
+            }
+        };
+
+        this.addRoom3 = function () {
+            for (i = 0; i < self.numRooms; i++) {
+                var newRoom = {
+                    "roomName": "Three place",
+                    "hotelId": self.hotel.id,
+                    "roomNumber": 1,
+                    "numOfPlaces": 3,
+                    "cost": 3000.0,
+                    "hasBathroom": true,
+                    "hasTV": true,
+                    "hasExtraBed": true,
+                    "images": []
+                };
+                newRoom.roomNumber = self.RoomNumStart + i;
+
+                (function (newRoom_) {
+                    RoomDataSvc.addRoom(newRoom_)
+                })(newRoom);
+            }
         };
 
         this.submitHotel = function () {

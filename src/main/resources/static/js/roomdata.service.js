@@ -52,5 +52,21 @@
                     return data;
                 });
         };
+
+        this.addRoom = function (roomData) {
+            return $http.post("/room", roomData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
+        };
     });
 })();
