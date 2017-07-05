@@ -1,6 +1,6 @@
 (function () {
 
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
     app.controller('bookingSearchCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, BookingDataSvc, DataSvc) {
         var self = this;
         this.minChkInDate = new Date();

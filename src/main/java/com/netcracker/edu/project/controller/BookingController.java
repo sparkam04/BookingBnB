@@ -24,6 +24,11 @@ public class BookingController {
         return bookingService.getEntitiesByParentId(id);
     }
 
+    @RequestMapping("/booking/client/{id}")
+    public Collection<Booking> getBookingsByClientId(@PathVariable Long id) {
+        return bookingService.getBookingsByClientId(id);
+    }
+
     @RequestMapping("/booking/status/{id}")
     public Collection<Booking> getBookingsByStatusId(@PathVariable Long id) {
         return bookingService.getBookingsByStatusId(id);

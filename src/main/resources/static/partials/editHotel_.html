@@ -9,15 +9,17 @@
                     {{hc.editedHotel.id}}
                     <p></p>
                     <label for="HotelName">*Hotel Name:</label>
-                    <p><input type="text" ng-model="hc.editedHotel.hotelName" placeholder="Hotel Name" class="form-control" style="width:100%" required></p>
+                    <p><input type="text" ng-model="hc.editedHotel.hotelName" placeholder="Hotel Name"
+                              class="form-control" style="width:100%" required></p>
 
                     <label for="Owner">Owner ID:</label>
                     {{hc.editedHotel.ownerId}}
                     <p></p>
 
                     <label for="Description">*Description:</label>
-                    <p><textarea name="HotelDescription" ng-model="hc.editedHotel.description" rows="5" class="form-control"
-                              style="width:100%" required></textarea></p>
+                    <p><textarea name="HotelDescription" ng-model="hc.editedHotel.description" rows="5"
+                                 class="form-control"
+                                 style="width:100%" required></textarea></p>
                     <!--<p>Location: {{hc.editedHotel.locationId}}</p>-->
 
                     <label for="Country">Country:</label>
@@ -63,16 +65,17 @@
                 <div class="col-md-6">
 
                     <label for="Phone">*Phone</label>
-                    <p><input type="text" ng-model="hc.editedHotel.phone" placeholder="phone" class="form-control" style="width:100%" required></p>
+                    <p><input type="text" ng-model="hc.editedHotel.phone" placeholder="phone" class="form-control"
+                              style="width:100%" required></p>
 
                     <p>CheckIn Time: {{hc.editedHotel.checkInTime}}<input type="time" id="timeInput1" name="input"
                                                                           ng-model="hc.editedHotel.cInTime"
                                                                           placeholder="HH:mm:ss" min="00:00:00"
-                                                                          max="23:59:59" /></p>
+                                                                          max="23:59:59"/></p>
                     <p>CheckOut Time: {{hc.editedHotel.checkOutTime}}<input type="time" id="timeInput2" name="input"
                                                                             ng-model="hc.editedHotel.cOutTime"
                                                                             placeholder="HH:mm:ss" min="00:00:00"
-                                                                            max="23:59:59" /></p>
+                                                                            max="23:59:59"/></p>
                     <p>images: {{hc.editedHotel.images}}</p>
                     <!--<p>Pay Systems: {{hc.editedHotel.paySysIds}}</p>-->
                 </div>
@@ -107,6 +110,82 @@
                 </label>
                 </span>
                 </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <p></p>
+                    <label for="inputNumberOfRooms">Number of rooms to add:</label>
+
+                    <input type="number" name="quantity" class="form-control" style="width:100%" min="1"
+                           max="20" ng-model="hc.numRooms">
+                </div>
+
+                <div class="col-md-4">
+                    <p></p>
+                    <label for="inputRoomNumberStarts">Room numbers starts from:</label>
+
+                    <input type="number" name="startNumber" class="form-control" style="width:100%" min="1"
+                           ng-model="hc.RoomNumStart">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <p></p>
+                    <label for="inputRoomCost">Room cost:</label>
+
+                    <input type="number" name="roomCost" class="form-control" style="width:100%" min="1"
+                           ng-model="hc.RoomCost">
+                </div>
+                <div class="col-md-4">
+                    <p></p>
+                    <label for="inputRoomplaces">Number of places in room:</label>
+
+                    <input type="number" name="roomplaces" class="form-control" style="width:100%" min="1" max="3"
+                           ng-model="hc.numOfPlaces">
+
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <p></p>
+                    <label for="RoomName">Room Name:</label>
+                    <p><input type="text" ng-model="hc.roomName" placeholder="Room Name"
+                              class="form-control" style="width:100%"></p>
+                </div>
+                <div class="col-md-4">
+                    <p></p>
+                    <label for="RoomName">Room features:</label>
+                    <p>Bathroom <input type="checkbox" ng-model="hc.hasBathroom">
+                        TV <input type="checkbox" ng-model="hc.hasTV">
+                        Extra bed <input type="checkbox" ng-model="hc.hasExtraBed"></p>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <p></p>
+                    <!--<label for="RoomOnePlace">One place room</label>-->
+                    <p><a class="btn btn-default" role="button" ng-click="hc.addRoom1()">Add room(s)</a></p>
+                </div>
+
+                <!--<div class="col-md-3">-->
+                <!--<p></p>-->
+                <!--<label for="RoomTwoPlace">Two place room</label>-->
+                <!--<p><a class="btn btn-default" role="button" ng-click="hc.addRoom2()">Add</a></p>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-3">-->
+                <!--<p></p>-->
+                <!--<label for="RoomThreePlace">Three place room</label>-->
+                <!--<p><a class="btn btn-default" role="button" ng-click="hc.addRoom3()">Add</a></p>-->
+                <!--</div>-->
+
             </div>
 
             <hr>

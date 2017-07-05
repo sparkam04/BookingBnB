@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('PayDataSvc', function ($http) {
+    app.service("PayDataSvc", function ($http) {
 
         this.getPaySystems = function () {
 
-            return $http.get('/paysystem')
+            return $http.get("/paysystem")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getPaySystemById = function (Id) {
 
-            return $http.get('/paysystem/' + Id)
+            return $http.get("/paysystem/" + Id)
                 .then(function (response) {
                     return response.data;
                 });

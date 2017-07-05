@@ -56,6 +56,15 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     }
 
     @Override
+    public Collection<Booking> getBookingsByClientId(Long clientId) {
+        String sql = "SELECT OBJ.OBJECT_ID\n" +
+                "FROM OBJECTS OBJ INNER JOIN OBJREFERENCE OBJREF ON\n" +
+                "  (OBJ.OBJECT_TYPE_ID = 7 AND OBJREF.ATTR_ID = 37 AND OBJREF.REFERENCE = ? AND OBJREF.OBJECT_ID = OBJ.OBJECT_ID)";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, clientId);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
     public Collection<Booking> getBookingsByStatusId(Long statusId) {
         String sql = "SELECT OBJ.OBJECT_ID\n" +
                 "FROM OBJECTS OBJ INNER JOIN OBJREFERENCE OBJREF ON \n" +
@@ -92,10 +101,24 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
 
     @Override
     public boolean add(Booking model) {
+        //CHECK IF ALREADY BOOKED
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "FROM OBJECTS BOOKING JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  (BOOKING.OBJECT_TYPE_ID = 7 AND BOOKING.PARENT_ID = ? AND " +
+                "       CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
+                "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "  JOIN OBJREFERENCE STATUS_ID ON\n" +
+                "  (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
+                "WHERE STATUS_ID.REFERENCE <> 29 AND STATUS_ID.REFERENCE <> 32 AND " +
+                "   TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+        if (!getJdbcTemplate().queryForList(sql, Long.TYPE, model.getRoomId(), model.getCheckIn(), model.getCheckOut()).isEmpty())
+            return false;
+
         String sqlNewObjId = "select object_id_seq.nextval new_id from dual";
         Long newObjId = getJdbcTemplate().queryForObject(sqlNewObjId, Long.TYPE);
 
-        String sql = "INSERT ALL\n" +
+        sql = "INSERT ALL\n" +
                 "    INTO objects (object_id, PARENT_ID, object_type_id, name)\n" +
                 "        VALUES (?, ?, 7, 'Booking '|| ?) --object_id, room_id, booling_name\n" +
                 "    INTO attributes (attr_id, object_id, value)\n" +

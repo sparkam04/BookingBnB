@@ -1,6 +1,6 @@
 (function () {
 
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
     app.controller('bookingDetailsCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, BookingDataSvc, DataSvc, StatusDataSvc) {
         var self = this;
         this.minChkInDate = new Date();
@@ -50,9 +50,9 @@
           BookingDataSvc.updateBooking(self.booking)
               .then(function (response) {
                   if (response.status === 200) {
-                      self.resp = 'Booking Status updated.';
+                      self.resp = "Booking Status updated.";
                   } else {
-                      self.resp = 'Error'
+                      self.resp = "Error"
                   }
               });
         };

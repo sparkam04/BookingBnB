@@ -19,6 +19,10 @@ public class BookingService extends AbstractEntityService<Booking> {
         return bookingDatabaseDAO;
     }
 
+    public Collection<Booking> getBookingsByClientId(Long clientId) {
+        return getDao().getBookingsByClientId(clientId);
+    }
+
     public Collection<Booking> getBookingsByStatusId(Long statusId) {
         return getDao().getBookingsByStatusId(statusId);
     }

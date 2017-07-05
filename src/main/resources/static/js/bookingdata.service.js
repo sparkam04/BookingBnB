@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('BookingDataSvc', function ($http, RoomDataSvc, HotelDataSvc, UserDataSvc, PayDataSvc, StatusDataSvc) {
+    app.service("BookingDataSvc", function ($http, RoomDataSvc, HotelDataSvc, UserDataSvc, PayDataSvc, StatusDataSvc) {
         var self = this;
         this.getBookings = function () {
 
-            return $http.get('/booking')
+            return $http.get("/booking")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getBookingById = function (bookingId) {
 
-            return $http.get('/booking/' + bookingId)
+            return $http.get("/booking/" + bookingId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -21,7 +21,7 @@
 
         this.getBookingsByLocation = function (roomId) {
 
-            return $http.get('/booking/room/' + roomId)
+            return $http.get("/booking/room/" + roomId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -34,7 +34,7 @@
             cIn.setDate(cIn.getDate() + 1);
             cOut.setDate(cOut.getDate() + 1);
 
-            return $http.get('/booking/date/' + cIn.toISOString().slice(0, 10) + '/' + cOut.toISOString().slice(0, 10))
+            return $http.get("/booking/date/" + cIn.toISOString().slice(0, 10) + "/" + cOut.toISOString().slice(0, 10))
                 .then(function (response) {
                     return response.data;
                 })
@@ -87,7 +87,7 @@
             cIn.setDate(cIn.getDate() + 1);
             cOut.setDate(cOut.getDate() + 1);
 
-            return $http.get('/booking/date/' + cIn.toISOString().slice(0, 10) + '/' + cOut.toISOString().slice(0, 10) + '/hotel/' + hotelId)
+            return $http.get("/booking/date/" + cIn.toISOString().slice(0, 10) + "/" + cOut.toISOString().slice(0, 10) + "/hotel/" + hotelId)
                 .then(function (response) {
                     return response.data;
                 })
@@ -135,7 +135,7 @@
 
         this.addBooking = function (bookingData) {
 
-            return $http.post('/booking', bookingData)
+            return $http.post("/booking", bookingData)
                 .then(
                     function (response) {
                         // success callback
@@ -155,7 +155,7 @@
 
         this.updateBooking = function (bookingData) {
 
-            return $http.put('/booking', bookingData)
+            return $http.put("/booking", bookingData)
                 .then(
                     function (response) {
                         // success callback

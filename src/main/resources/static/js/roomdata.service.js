@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('RoomDataSvc', function ($http, HotelDataSvc) {
+    app.service("RoomDataSvc", function ($http, HotelDataSvc) {
         var self = this;
         this.getRooms = function () {
 
-            return $http.get('/room')
+            return $http.get("/room")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getRoomById = function (roomId) {
 
-            return $http.get('/room/' + roomId)
+            return $http.get("/room/" + roomId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -21,7 +21,7 @@
 
         this.getRoomsByHotel = function (hotelId) {
 
-            return $http.get('/room/hotel/' + hotelId)
+            return $http.get("/room/hotel/" + hotelId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -34,7 +34,7 @@
             cIn.setDate(cIn.getDate() + 1);
             cOut.setDate(cOut.getDate() + 1);
 
-            return $http.get('/room/free/' + cIn.toISOString().slice(0, 10) + '/' + cOut.toISOString().slice(0, 10) + '/' + cityId)
+            return $http.get("/room/free/" + cIn.toISOString().slice(0, 10) + "/" + cOut.toISOString().slice(0, 10) + "/" + cityId)
                 .then(function (response) {
 
                     return response.data;
@@ -51,6 +51,22 @@
                     }
                     return data;
                 });
+        };
+
+        this.addRoom = function (roomData) {
+            return $http.post("/room", roomData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
         };
     });
 })();

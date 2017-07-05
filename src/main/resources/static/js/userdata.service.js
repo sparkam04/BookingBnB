@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('UserDataSvc', function ($http) {
+    app.service("UserDataSvc", function ($http) {
         var self = this;
         this.getUsers = function () {
 
-            return $http.get('/user')
+            return $http.get("/user")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getUserById = function (userId) {
 
-            return $http.get('/user/' + userId)
+            return $http.get("/user/" + userId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -21,20 +21,20 @@
 
         this.getUserByEmail = function (email) {
 
-            return $http.get('/user/email/' + email + '/')
+            return $http.get("/user/email/" + email + "/")
                 .then(function (response) {
                     return response.data;
                 },
                 function (response) {
                     console.log(response);
-                    return {'email':''};
+                    return {"email":""};
                 });
         };
 
 
         this.addUser = function (user) {
 
-            return $http.post('/user', user)
+            return $http.post("/user", user)
                 .then(
                     function (response) {
                         // success callback

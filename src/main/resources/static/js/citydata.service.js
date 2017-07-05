@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('CityDataSvc', function ($http) {
+    app.service("CityDataSvc", function ($http) {
 
         this.getCities = function () {
 
-            return $http.get('/city')
+            return $http.get("/city")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getCitiesByCountry = function (countryId) {
 
-            return $http.get('/city/country/' + countryId)
+            return $http.get("/city/country/" + countryId)
                 .then(function (response) {
                     return response.data;
                 });

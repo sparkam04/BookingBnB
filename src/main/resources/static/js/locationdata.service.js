@@ -1,11 +1,11 @@
 (function () {
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
 
-    app.service('LocationDataSvc', function ($http) {
+    app.service("LocationDataSvc", function ($http) {
 
         this.getLocations = function () {
 
-            return $http.get('/location')
+            return $http.get("/location")
                 .then(function (response) {
                     return response.data;
                 });
@@ -13,7 +13,7 @@
 
         this.getLocationsByCity = function (cityId) {
 
-            return $http.get('/location/city/' + cityId)
+            return $http.get("/location/city/" + cityId)
                 .then(function (response) {
                     return response.data;
                 });
@@ -21,7 +21,7 @@
 
         this.addLocation = function (locationData) {
 
-            return $http.post('/location', locationData)
+            return $http.post("/location", locationData)
                 .then(
                     function (response) {
                         // success callback
@@ -41,7 +41,7 @@
 
         this.updateLocation = function (locationData) {
 
-            return $http.put('/location', locationData)
+            return $http.put("/location", locationData)
                 .then(
                     function (response) {
                         // success callback
@@ -61,7 +61,7 @@
 
         this.getLocationByStreetAddress = function (locationData) {
 
-            return $http.post('/location/streetAddress', locationData)
+            return $http.post("/location/streetAddress", locationData)
                 .then(
                     function (response) {
                         // success callback
@@ -71,7 +71,7 @@
                     function (response) {
                         // failure callback
                         console.log(response);
-                        response.data = {'streetAddress':''};
+                        response.data = {"streetAddress":""};
                         return response;
                     }
                 )
@@ -80,7 +80,7 @@
 
         this.deleteLocation = function (locationId) {
 
-            return $http.delete('/location/'+ locationId)
+            return $http.delete("/location/"+ locationId)
                 .then(
                     function (response) {
                         // success callback
