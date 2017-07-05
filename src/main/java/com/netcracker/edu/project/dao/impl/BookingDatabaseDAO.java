@@ -108,7 +108,10 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
                 "       CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
                 "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
                 "  (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
-                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+                "  JOIN OBJREFERENCE STATUS_ID ON\n" +
+                "  (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
+                "WHERE STATUS_ID.REFERENCE <> 29 AND STATUS_ID.REFERENCE <> 32 AND " +
+                "   TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
         if (!getJdbcTemplate().queryForList(sql, Long.TYPE, model.getRoomId(), model.getCheckIn(), model.getCheckOut()).isEmpty())
             return false;
 
