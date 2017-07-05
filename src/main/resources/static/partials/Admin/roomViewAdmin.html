@@ -1,28 +1,96 @@
 <!-- Страничка «Просмотр номера» -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div>
-    <p>
-        <b>Room's name</b>
-    </p>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="row">
+    <p></p>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <p align="center">
+            <span class="label label-default" style="font-size: 20" align="center">Room's name</span>
 
-    <p>
-        <img src="http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/hotel-interior-room0416.jpg?itok=5gENxAK1" alt="photo 1" width="200" height="90">
-        <img src="https://cache.carlsonhotels.com/ow-cms/rad/images/hotels/TXAUSTDT/NEW_PILOT/AUTX_67166509_Guest_Room_King_Bed_960x640_72dpi.jpg" alt="photo 2" width="200" height="90">
-        <img src="http://arashu.com/wp-content/uploads/2015/02/Hotel-Room.png" alt="photo 3" width="200" height="90">
-    </p>
-<p>
-    <b>Additions</b>
-</p>
-    <p>
-    <p><input type="checkbox" name="checkboxBathroom"> Bathroom</p>
-    <p><input type="checkbox" name="checkboxTV"> TV </p>
-    <p><input type="checkbox" name="checkboxExtraBad"> Extra bed</p>
-    </p>
-    <p>
-        <input type="number" name="inputPrice" style="width: 5em;">
-        price
-    </p>
-    <p>
-        <button name="buttonBooking" class = "btn"> Booking</button>
-    </p>
+        </p>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src=http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/hotel-interior-room0416.jpg?itok=5gENxAK1"
+                                 alt="Los Angeles">
+                        </div>
+
+                        <div class="item">
+                            <img src="https://cache.carlsonhotels.com/ow-cms/rad/images/hotels/TXAUSTDT/NEW_PILOT/AUTX_67166509_Guest_Room_King_Bed_960x640_72dpi.jpg"
+                                 alt="Chicago">
+                        </div>
+
+                        <div class="item">
+                            <img src="http://arashu.com/wp-content/uploads/2015/02/Hotel-Room.png" alt="New York">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <form role="form" class="form-inline">
+                    <label for="Additions"> Additions</label>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Bathroom
+                            <div class="material-switch pull-right">
+                                <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                                <label for="someSwitchOptionDefault" class="label-default"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            TV
+                            <div class="material-switch pull-right">
+                                <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                                <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Extra bed
+                            <div class="material-switch pull-right">
+                                <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                                <label for="someSwitchOptionSuccess" class="label-success"></label>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <p align="center">
+                        <label for="price"> Price</label>
+                        <input type="number" class="form-control" name="inputPrice" style="width: 5em;">
+                    </p>
+                    <p>
+                        <button name="buttonBooking" class="btn btn-success"> Booking</button>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="col-md-2"></div>
 </div>

@@ -1,38 +1,89 @@
 <!--   Страничка «Кабинет пользователя», вкладка «Текущие
 заказы», действие при нажатии кнопки «Просмотреть» -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div>
-    <p> Hotel: <b>hotel</b></p>
-    <p> Room: <b>room</b></p>
-    <p> Administrator <b>...</b></p>
-    <p> Phone: <b>...</b></p>
-    <p>
-        <input type="date" name="calCheckIn"> Check-in date
-    </p>
-    <p>
-        <input type="date" name="calCheckOut">
-        Check-out date
-    </p>
+<p></p>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Hotel">Hotel</label>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="Room">Room</label>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
 
-    <p>
-        <input type="number" name="inputNumberOfPeople" value="1" style="width: 5em;">
-        Number of People
-    </p>
-    <p>
-        <input type="number" name="inputPrice" style="width: 5em;"> Price
-    </p>
-    <p>
-        <select name="Select" id="SelectPaySystem">
-            <option value="">- pay system -</option>
-        </select>
-    </p>
-    <p>Special requests:</p>
-    <p>
-        <textarea name="TextRequests" cols="40" rows="5"></textarea>
-    </p>
-    <p>
-        <button name="buttonClose" class="btn"> Close </button>
-    </p>
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Administrator">Administrator</label>
+                    <input type="text" name="inputAdministrator" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="cusPhone">Phone</label>
+                    <input type="number" name="inputPhone" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="calCheckIn">Check-in date</label>
+                    <input type="date" name="calCheckIn" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="calCheckOut">Check-out date</label>
+                    <input type="date" name="calCheckOut" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputNumberOfPeople">Number of people</label>
+                    <input type="number" name="inputNumberOfPeople" value="1" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="Price">Price of booking</label>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
+
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="PaySystem">Pay system</label>
+                    <select name="SelectPaySystem" id="SelectPaySystem" class="form-control" style="width:100%">
+                        <option value="">- Pay system -</option>
+                    </select>
+
+                </div>
+            </div>
+
+        </form>
+        <form role="form" class="form-inline">
+            <label for="textRequests">Special Requests</label>
+            <textarea name="textRequests" rows="4" class="form-control" style="width:100%"></textarea>
+
+        </form>
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-4">
+                    <button name="buttonClose" class="btn" style="width:100%"> Close</button>
+                </div>
+                <div class="col-md-8"></div>
+            </div>
+        </form>
+    </div>
 </div>
 
 
