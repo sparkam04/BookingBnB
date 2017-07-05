@@ -65,6 +65,7 @@
                 );
         };
 
+
         this.deleteHotel = function (hotelData) {
 
             // return $http.delete('/hotel', hotelData)

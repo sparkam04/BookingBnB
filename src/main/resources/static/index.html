@@ -23,8 +23,9 @@
     <![endif]-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
 
     <script src="js/myApp.js"></script>
     <script src="js/testCtrl.js"></script>
@@ -46,21 +47,20 @@
     <script src="js/loginService.js"></script>
     <script src="js/loginCtrl.js"></script>
     <script src="js/navBarCtrl.js"></script>
+    <script src="js/registerCtrl.js"></script>
 </head>
 
 <body>
 
 <!--<div class="container" style="position: relative" ng-controller="testCtrl as tc">-->
 <div class="container" style="position: relative">
-    <div ng-controller="navBarCtrl as nbc">
-        <div ng-include="'partials/navbar.html'"></div>
-    </div>
-    <div ng-view></div>
+    <div ui-view="nav"></div>
 
-    <hr>
+    <div ui-view="content"></div>
 
-    <footer>
-        <p>&copy; 2017 Booking BnB</p>
+    <footer class="col-md-12" style="background-color: #dddddd">
+        <p></p>
+        <p class="text-center">&copy; 2017 Booking BnB</p>
     </footer>
 </div>
 

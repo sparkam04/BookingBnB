@@ -17,7 +17,7 @@
             delete $localStorage['appSecurityDate'];
             $http.defaults.headers.common['Authorization'] = '';
             $rootScope.$broadcast('LogoutSuccessful');
-        }
+        };
 
         self.authenticate = function (email, password) {
 
@@ -33,7 +33,7 @@
                 // checking if the token is available in the response
                 if (response.data) {
 
-                    // this.appUser.userId = response.data.userId;
+                    // this.appUser.userId
                     DataSvc.appUser = response.data;
 
                     $localStorage['appSecurityDate'] = DataSvc.appUser;
@@ -46,10 +46,15 @@
                     return false;
                 }
             });
-        }
+        };
 
-        self.register = function () {
-
-        }
+        self.register = function (user) {
+            return $http.post('register', user)
+                .then(function (response) {
+                    return true;
+                }).error(function () {
+                    return false;
+                })
+        };
     });
 })();

@@ -34,13 +34,13 @@
         </div>
     </div>
     <div class="col-md-8">
-        <p><a class="btn btn-default" href="#!addHotel" role="button" ng-click="">Add Hotel</a></p>
+        <p><a class="btn btn-default" ui-sref="addHotel" role="button" ng-click="">Add Hotel</a></p>
         <hr>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="h in hc.hotels">
                 <h3>{{h.hotelName}}</h3>
                 <p>{{h.description}}</p>
-                <p><a class="btn btn-default" href="#!editHotel_" role="button" ng-click="hc.selectHotel(h)">Update</a>
+                <p><a class="btn btn-default" ui-sref="editHotel_" role="button" ng-click="hc.selectHotel(h)">Update</a>
                 <a class="btn btn-default" href="" role="button" ng-click="hc.deleteHotel(h)">Delete</a></p>
             </li>
         </ul>

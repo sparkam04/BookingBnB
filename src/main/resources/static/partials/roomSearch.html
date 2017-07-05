@@ -71,7 +71,7 @@
 
                     <div class="col-md-4" >
                         <h3></h3>
-                        <p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)"
+                        <p><a class="btn btn-default" ui-sref="booking" role="button" ng-click="bc.selectRoom(r)"
                         style="width:100%">Book a room</a></p>
                         <p>Total cost: <span>{{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</span></p>
 
@@ -84,7 +84,7 @@
                     <!--</div>-->
 
                     <!--<div class="col-md-4">-->
-                        <!--<p><a class="btn btn-default" href="#!booking" role="button" ng-click="bc.selectRoom(r)"-->
+                        <!--<p><a class="btn btn-default" ui-sref="booking" role="button" ng-click="bc.selectRoom(r)"-->
                               <!--style="width:100%">Book a room</a></p>-->
                         <!--<p>Total cost: <span class="badge">{{r.cost * (bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}</span></p>-->
                     <!--</div>-->

@@ -2,7 +2,7 @@
 
     var app = angular.module('myApp');
 // Creating the Angular Controller
-    app.controller('loginCtrl', function ($http, loginService, $window) {
+    app.controller('loginCtrl', function ($http, loginService, $state) {
         // this.password = '';
         // this.email = '';
         // this.message = '';
@@ -15,7 +15,7 @@
                     if (isLogin) {
                         self.password = '';
                         self.message = '';
-                        $window.location.href = '/';
+                        $state.go('roomSearch');
                     } else {
                         self.email = '';
                         self.password = '';

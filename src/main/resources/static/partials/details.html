@@ -3,7 +3,7 @@
     <!--<button ng-click="tc.toggleEditMode()">Edit</button>-->
     <!--<p>{{tc.editMode}}</p>-->
 
-    <p><a class="btn btn-default" href="#!editHotel" role="button" ng-click="tc.toggleEditMode()">Edit</a></p>
+    <p><a class="btn btn-default" ui-sref="editHotel" role="button" ng-click="tc.toggleEditMode()">Edit</a></p>
 
     <p>id: {{tc.hotel.id}}</p>
     <p>Hotel Name: {{tc.hotel.hotelName}}</p>
@@ -32,6 +32,6 @@
     <p>Pay Systems: {{tc.hotel.paySysIds}}</p>
     <p>Preorder: <input type="checkbox" ng-model="tc.hotel.preorder" ng-disabled="true"></p>
 
-    <p><a class="btn btn-default" href="#!/" role="button">Back &raquo;</a></p>
+    <p><a class="btn btn-default" ui-sref="/" role="button">Back &raquo;</a></p>
 
 </div>

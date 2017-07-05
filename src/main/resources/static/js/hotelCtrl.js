@@ -1,6 +1,6 @@
 (function () {
 
-    var app = angular.module('myApp');
+    var app = angular.module("myApp");
     app.controller('hotelCtrl', function (HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, PayDataSvc, UserDataSvc, DataSvc, $filter) {
         var self = this;
 
@@ -34,27 +34,27 @@
             self.hotel = DataSvc.hotel;
             self.editedHotel = DataSvc.editedHotel;
             self.newHotel = {
-                'id':'',
-                'ownerId': '',
-                'locationId': '',
-                'hotelRating': '',
-                'hasWifi': false,
-                'hasShuttle': false,
-                'hasSmoking': false,
-                'hasParking': false,
-                'hasConditioning': false,
-                'hasPets': false,
-                'hasPool': false,
-                'hasKitchen': false,
-                'hasBreakfast': false,
-                'hotelName': '',
-                'phone': '',
-                'description': '',
-                'checkInTime': '',
-                'checkOutTime': '',
-                'images': [],
-                'paySysIds': [],
-                'preorder': false
+                "id":"",
+                "ownerId": "",
+                "locationId": "",
+                "hotelRating": "",
+                "hasWifi": false,
+                "hasShuttle": false,
+                "hasSmoking": false,
+                "hasParking": false,
+                "hasConditioning": false,
+                "hasPets": false,
+                "hasPool": false,
+                "hasKitchen": false,
+                "hasBreakfast": false,
+                "hotelName": "",
+                "phone": "",
+                "description": "",
+                "checkInTime": "",
+                "checkOutTime": "",
+                "images": [],
+                "paySysIds": [],
+                "preorder": false
             };
 
 
@@ -164,9 +164,9 @@
             HotelDataSvc.updHotel(hotelData)
                 .then(function (response) {
                     if (response.status === 200) {
-                        self.resp = 'Success.';
+                        self.resp = "Success.";
                     } else {
-                        self.resp = 'Error'
+                        self.resp = "Error"
                     }
                 }).then(function () {
                 LocationDataSvc.updateLocation(self.editedHotel.fullAddess.location)
@@ -198,10 +198,10 @@
                             HotelDataSvc.addHotel(self.newHotel)
                                 .then(function (response) {
                                     if (response.status === 200) {
-                                        self.creationResponse = 'Success.';
+                                        self.creationResponse = "Success.";
                                         self.isCreated = true;
                                     } else {
-                                        self.creationResponse = 'Error'
+                                        self.creationResponse = "Error"
                                     }
                                 })
                         });

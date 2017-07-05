@@ -1,7 +1,7 @@
 (function () {
 
     var app = angular.module('myApp');
-    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, DataSvc, $filter, $timeout, $window) {
+    app.controller('testCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, DataSvc, $filter, $timeout, $state) {
         var self = this;
 
         this.init = function () {
@@ -89,9 +89,10 @@
         this.clearMessage = function () {
             $timeout(function () {
                 self.resp = undefined;
-                $window.location.href = '/';
+                $state.go('roomSearch');
+                // $window.location.href = '/';
                 // $route.reload();
-                $window.route.reload();
+                // $window.route.reload();
             }, 3000)
         };
 
