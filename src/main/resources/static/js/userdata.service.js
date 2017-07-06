@@ -49,6 +49,25 @@
                         return response;
                     }
                 );
+        };
+
+        this.updateUser = function (user) {
+
+            return $http.put("/user", user)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    }
+                );
         }
     });
 })();
