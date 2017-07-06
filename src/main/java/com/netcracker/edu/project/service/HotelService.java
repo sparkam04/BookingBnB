@@ -5,6 +5,8 @@ import com.netcracker.edu.project.model.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class HotelService extends AbstractEntityService<Hotel> {
 
@@ -18,5 +20,9 @@ public class HotelService extends AbstractEntityService<Hotel> {
 
     public Double getRatingById(Long id) {
         return hotelDatabaseDAO.getRatingById(id);
+    }
+
+    public Collection<Hotel> getHotelsByOwnerId(Long ownerId) {
+        return hotelDatabaseDAO.getHotelsByOwnerId(ownerId);
     }
 }

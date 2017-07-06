@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - вторник-июля-04-2017   
+--  File created - четверг-июля-06-2017   
 --------------------------------------------------------
 DROP TABLE "OBJTYPE" cascade constraints;
 DROP TABLE "ATTRTYPE" cascade constraints;
@@ -122,12 +122,12 @@ DROP SEQUENCE "OBJECT_TYPE_ID_SEQ";
 --  DDL for Sequence BOOKING_CODE_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "BOOKING_CODE_SEQ"  MINVALUE 1 MAXVALUE 1000000 INCREMENT BY 1 START WITH 3 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "BOOKING_CODE_SEQ"  MINVALUE 1 MAXVALUE 1000000 INCREMENT BY 1 START WITH 5 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence OBJECT_ID_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "OBJECT_ID_SEQ"  MINVALUE 1 MAXVALUE 10000000 INCREMENT BY 1 START WITH 177 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "OBJECT_ID_SEQ"  MINVALUE 1 MAXVALUE 10000000 INCREMENT BY 1 START WITH 197 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence OBJECT_TYPE_ID_SEQ
 --------------------------------------------------------
@@ -239,8 +239,8 @@ Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('32',null,'6','Status Completed',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('33',null,'10','Visa',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('34',null,'10','Master Card',null);
-Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('35',null,'10','Dollar Cash',null);
-Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('36',null,'10','Pay System Hryvna Cash',null);
+Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('35',null,'10','Pay System Cash',null);
+Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('36',null,'10','Pay System Travel Check',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('37','10','7','Booking1',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('62','1','2','Dnepr',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('99',null,'11','Hotel Image 3',null);
@@ -260,6 +260,8 @@ Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('163',null,'8','Role Admin',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('169','157','13','Rating 166',null);
 Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('167','37','13','Rating 2',null);
+Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('177','12','7','Booking ',null);
+Insert into OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION) values ('178','10','7','Booking ',null);
 REM INSERTING into ATTRIBUTES
 SET DEFINE OFF;
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('1','1','UA',null);
@@ -451,8 +453,8 @@ Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('52','100','
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','20','Client',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('44','21','Hotel Owner',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('36','37','hello',null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','35','Dollar Cash',null);
-Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','36','Hryvna Cash',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','35','Cash',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('51','36','Travel Check',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('28','148','1',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('29','148','3',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('30','148','true',null);
@@ -475,6 +477,18 @@ Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('53','158','
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('55','169','5',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('54','169','Comment!!',null);
 Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('54','167','comment2',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('35','177','3',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('36','177','hello Wotrld',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('38','177',null,to_date('01.05.17','DD.MM.RR'));
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('39','177',null,to_date('07.05.17','DD.MM.RR'));
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('40','177','5',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('41','177','true',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('35','178','4',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('36','178','hello World',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('38','178',null,to_date('01.05.17','DD.MM.RR'));
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('39','178',null,to_date('07.06.17','DD.MM.RR'));
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('40','178','1',null);
+Insert into ATTRIBUTES (ATTR_ID,OBJECT_ID,VALUE,DATE_VALUE) values ('41','178','true',null);
 REM INSERTING into OBJREFERENCE
 SET DEFINE OFF;
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('10','27','8');
@@ -488,10 +502,16 @@ Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('27','98','8');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('27','99','8');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('37','22','37');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('37','22','157');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('37','22','178');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('37','23','177');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('42','29','177');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('42','29','178');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('42','30','157');
-Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('42','31','37');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('42','32','37');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('43','33','37');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('43','33','157');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('43','33','177');
+Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('43','33','178');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','33','8');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','34','8');
 Insert into OBJREFERENCE (ATTR_ID,REFERENCE,OBJECT_ID) values ('57','97','110');
