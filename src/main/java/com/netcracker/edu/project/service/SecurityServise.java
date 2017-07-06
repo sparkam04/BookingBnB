@@ -7,8 +7,6 @@ import com.netcracker.edu.project.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -42,22 +40,22 @@ public class SecurityServise {
             tokenMap.put("phone", user.getPhone());
 
             Role role = roleDatabaseDAO.getById(user.getRoleId());
-            Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            List<String> roles = new ArrayList<String>();
             String rolename = null;
             if ("Client".equals(role.getName())) {
-                rolename = "CLIENT";
+                rolename = "USER";
             }
             if ("Hotel Owner".equals(role.getName())) {
                 rolename = "ADMIN";
             }
-            if ("Role Admin".equals(role.getName())) {
+            if ("Admin".equals(role.getName())) {
                 rolename = "SYSADMIN";
             }
-            authorities.add(new SimpleGrantedAuthority(rolename));
+            roles.add(rolename);
 
             tokenMap.put("role", rolename);
 
-            String token = Jwts.builder().setSubject(email).claim("roles", authorities).setIssuedAt(new Date())
+            String token = Jwts.builder().setSubject(email).claim("roles", roles).setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
             tokenMap.put("token", token);
             return tokenMap;

@@ -1,23 +1,41 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="/">Booking BnB</a>
+            <a class="navbar-brand" ui-sref="roomSearch">Booking BnB</a>
         </div>
         <ul class="nav navbar-nav">
             <!--<li class="active"><a href="#">Home</a></li>-->
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-show="nbc.appUser" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Admin:
-                {{nbc.appUser.firstName}}<span
 
-                    class="caret"></span></a>
+            <li ng-show="nbc.appUser && nbc.appUser.role == 'USER'" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">
+                User: {{nbc.appUser.firstName}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a ui-sref="hotelAdmin">Hotel Admin</a></li>
                     <li><a ui-sref="bookingAdmin">Bookings</a></li>
                     <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
                 </ul>
             </li>
+
+            <li ng-show="nbc.appUser && nbc.appUser.role == 'ADMIN'" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">
+                Admin:{{nbc.appUser.firstName}}<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a ui-sref="hotelAdmin">Hotel Admin</a></li>
+                    <li><a ui-sref="bookingAdmin">Bookings</a></li>
+                    <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
+                </ul>
+            </li>
+
+            <li ng-show="nbc.appUser && nbc.appUser.role == 'SYSADMIN'" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">
+                SysAdmin:{{nbc.appUser.firstName}}<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a ui-sref="hotelAdmin">Hotel Admin</a></li>
+                    <li><a ui-sref="bookingAdmin">Bookings</a></li>
+                    <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
+                </ul>
+            </li>
+
             <!--<li>{{nbc.appUser}} </li>-->
             <li ng-show="!nbc.appUser"><a ui-sref="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li ng-show="!nbc.appUser"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

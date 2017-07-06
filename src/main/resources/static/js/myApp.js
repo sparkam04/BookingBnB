@@ -1,4 +1,21 @@
-var app = angular.module('myApp', ['ui.router', 'ngStorage']);
+var app = angular.module('myApp', ['ui.router', 'ngStorage'])
+
+    .run(function (DataSvc, $rootScope, $state, $http, $localStorage) {
+
+        if ($localStorage['appSecurityDate']) {
+            DataSvc.appUser = $localStorage['appSecurityDate'];
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + DataSvc.appUser.token;
+        }
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            if (DataSvc.appUser &&
+                toState.data && toState.data.role &&
+                toState.data.role !== DataSvc.appUser.role) {
+
+                event.preventDefault();
+                $state.go('access-denied');
+            }
+        });
+    });
 
 // app.config(function ($routeProvider) {
 //     $routeProvider
@@ -87,6 +104,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('roomSearch', {
             parent: 'nav',
             url: '/',
+            // data: {
+            //     role: 'USER'
+            // },
             views: {
                 'content@': {
                     templateUrl: 'partials/roomSearch.html',
@@ -142,6 +162,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('hotelAdmin', {
             parent: 'nav',
             url: '/hotelAdmin',
+            data: {
+                role: 'ADMIN'
+            },
             views: {
                 'content@': {
                     templateUrl: 'partials/hotelAdmin.html',
@@ -153,6 +176,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('editHotel_', {
             parent: 'nav',
             url: '/editHotel_',
+            data: {
+                role: 'ADMIN'
+            },
             views: {
                 'content@': {
                     templateUrl: 'partials/editHotel_.html',
@@ -164,6 +190,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('addHotel', {
             parent: 'nav',
             url: '/addHotel',
+            data: {
+                role: 'ADMIN'
+            },
             views: {
                 'content@': {
                     templateUrl: 'partials/addHotel.html',
@@ -175,6 +204,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('bookingAdmin', {
             parent: 'nav',
             url: '/bookingAdmin',
+            data: {
+                role: 'ADMIN'
+            },
             views: {
                 'content@': {
                     templateUrl: 'partials/bookingAdmin.html',
@@ -186,6 +218,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('bookingDetails', {
             parent: 'nav',
             url: '/bookingDetails',
+            data: {
+                role: 'ADMIN'
+            },
             views: {
                 'content@': {
                     templateUrl: 'partials/bookingDetails.html',
@@ -213,6 +248,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: 'partials/register.html',
                     controller: 'registerCtrl',
                     controllerAs: 'rc'
+                }
+            }
+        })
+        .state('access-denied', {
+            parent: 'nav',
+            url: '/access-denied',
+            views: {
+                'content@': {
+                    templateUrl: 'partials/access-denied.html',
+                    controller: 'accessDeniedCtrl'
                 }
             }
         })

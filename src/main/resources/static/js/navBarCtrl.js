@@ -3,6 +3,7 @@
     var app = angular.module('myApp');
     app.controller('navBarCtrl', function (DataSvc, $scope, loginService) {
         var self = this;
+
         self.appUser = DataSvc.appUser;
 
         $scope.$on('LoginSuccessful', function () {
@@ -10,7 +11,7 @@
         });
 
         $scope.$on('LogoutSuccessful', function () {
-            self.appUser = null;
+            self.appUser = undefined;
         });
 
         self.logout = function () {
