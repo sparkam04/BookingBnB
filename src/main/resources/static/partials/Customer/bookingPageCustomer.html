@@ -1,0 +1,91 @@
+<!-- выборку по отелям копирнул с главной страницы. никакой логики нет -->
+<!--   Страничка «Бронирование»  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<p></p>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="Hotel">Hotel</label>
+                    <p></p>
+                    <input type="text" name="inputHotel" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="Room">Room</label>
+                    <p></p>
+                    <input type="text" name="inputRoom" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
+
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="calCheckIn">Check-in date</label>
+                    <p></p>
+                    <input type="date" name="calCheckIn" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="calCheckOut">Check-out date</label>
+                    <p></p>
+                    <input type="date" name="calCheckOut" class="form-control" style="width:100%">
+                </div>
+            </div>
+        </form>
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputNumberOfPeople">Number of people</label>
+                    <p></p>
+                    <input type="number" name="inputNumberOfPeople" value="1" class="form-control" style="width:100%">
+                </div>
+                <div class="col-md-6">
+                    <label for="Price">Price of booking</label>
+                    <p></p>
+                    <input type="number" name="inputPrice" class="form-control" style="width:100%">
+                </div>
+            </div>
+         </form>
+
+        <form role="form" class="form-inline">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="PaySystem">Pay system</label>
+                    <p></p>
+                    <select name="SelectPaySystem" id="SelectPaySystem" class="form-control" style="width:100%">
+                        <option value="">- Pay system -</option>
+                    </select>
+
+                </div>
+            </div>
+
+        </form>
+
+        <form role="form" class="form-inline">
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-8">
+                    <button name="buttonConfirm" class="btn btn-success" style="width:100%"> Confirm reservation</button>
+                </div>
+                <div class="col-md-4">
+                    <button name="buttonCansel" class="btn" style="width:100%"> Cansel</button>
+                </div>
+            </div>
+        </form>
+        <form role="form" class="form-inline">
+            <p></p>
+            <label for="textRequests">Special Requests</label>
+            <p></p>
+            <textarea name="textRequests" rows="5" class="form-control" style="width:100%"></textarea>
+
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
