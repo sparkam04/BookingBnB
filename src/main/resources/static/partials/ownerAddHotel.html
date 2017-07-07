@@ -21,18 +21,6 @@
                 </div>
             </div>
 
-            <div class="row">
-
-                <div class="col-md-6">
-                    <p></p>
-                    <label for="Owner">*Owner</label>
-                    <select name="SelectUser" id="SelectUser" class="form-control" style="width:100%"
-                            ng-options="userOption.email for userOption in hc.users track by userOption.id"
-                            ng-model="hc.newHotel.user" required>
-                    </select>
-                </div>
-            </div>
-
             <p></p>
             <div class="row">
 
@@ -153,7 +141,7 @@
                     <span>{{hc.creationResponse}}</span>
                 </div>
                 <div class="col-md-6">
-                    <p><a class="btn btn-default" ui-sref="hotelAdmin" role="button">Back</a></p>
+                    <p><a class="btn btn-default" ui-sref="hotelOwner" role="button">Back</a></p>
                 </div>
             </div>
             <div class="col-md-8"></div>

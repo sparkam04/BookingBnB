@@ -1,7 +1,7 @@
 (function () {
 
-    var app = angular.module('myApp');
-    app.controller('roomSearchCtrl', function($scope, DataSvc, HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, $state) {
+    var app = angular.module("myApp");
+    app.controller('bookingSearchOwnerCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, BookingDataSvc, DataSvc) {
         var self = this;
         this.minChkInDate = new Date();
         this.minChkOutDate = this.minChkInDate;
@@ -11,7 +11,12 @@
             self.city = DataSvc.city;
             self.location = DataSvc.location;
             self.hotel = DataSvc.hotel;
-            self.editedHotel = DataSvc.editedHotel;
+
+            HotelDataSvc.getHotelsByOwner(DataSvc.appUser.userId)
+                .then(function(data) {
+                    self.hotels = data;
+                });
+
             CountryDataSvc.getCountries()
                 .then(function(data) {
                     self.countries = data;
@@ -19,35 +24,11 @@
         };
         this.init();
 
-        $scope.$on('LoginSuccessful', function () {
-            console.log('roomSearchInit');
-
-        });
-
         this.setMinChkOut = function () {
             self.minChkOutDate = new Date(self.checkIn);
             self.minChkOutDate.setDate(self.minChkOutDate.getDate() + 2);
             self.checkOut = new Date(self.checkIn);
             self.checkOut.setDate(self.checkOut.getDate() + 1);
-        };
-
-        this.findRoom = function () {
-            RoomDataSvc.getFreeRoomsByDateCity(self.checkIn, self.checkOut, self.city.id)
-                .then(function(data) {
-                    self.rooms = data;
-                });
-        };
-
-        this.selectRoom = function (room_) {
-            DataSvc.room = room_;
-            DataSvc.city = self.city;
-            DataSvc.checkin = self.checkIn;
-            DataSvc.checkOut = self.checkOut;
-            if (DataSvc.appUser.userId === undefined) {
-                $state.go('booking');
-            } else {
-                $state.go('bookingAuth');
-            }
         };
 
         this.selectCountry = function () {
@@ -64,6 +45,28 @@
             LocationDataSvc.getLocationsByCity(self.city.id)
                 .then(function(data) {
                     self.locations = data;
+                });
+        };
+
+        this.selectLocation = function () {
+            HotelDataSvc.getHotelsByLocation(self.location.id)
+                .then(function(data) {
+                    self.hotels = data;
+                });
+        };
+
+        this.selectHotel = function () {
+            self.bookibgs = {};
+        };
+
+        this.selectBooking = function (booking_) {
+            DataSvc.booking = booking_;
+        };
+
+        this.findBookings = function () {
+            BookingDataSvc.getBookingsByDatesHotel(self.checkIn, self.checkOut, self.hotel.id)
+                .then(function(data) {
+                    self.bookings = data;
                 });
         };
     });

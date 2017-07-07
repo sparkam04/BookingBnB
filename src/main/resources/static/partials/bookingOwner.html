@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="sidebar-nav">
+
+            <ul class="nav nav-list">
+
+                <li>
+                    <select name="SelectHotel" id="SelectHotel" class="form-control" style="width:100%"
+                            ng-options="hotelOption.hotelName for hotelOption in bc.hotels track by hotelOption.id"
+                            ng-change="bc.selectHotel()"
+                            ng-model="bc.hotel">
+                        <option value="">- Hotel -</option>
+                    </select>
+                </li>
+
+                <li>
+                    CheckIn:<br>
+                    <input type="date" name="chkIn" class="form-control" style="width:100%" ng-model="bc.checkIn"
+                           ng-change="bc.setMinChkOut()">
+                </li>
+                <li>
+                    CheckOut:<br>
+                    <input type="date" name="chkOut" class="form-control" style="width:100%" ng-model="bc.checkOut"
+                           min="{{bc.minChkOutDate.toISOString().slice(0,10)}}">
+                    <!--<br>Days:{{(bc.checkOut - bc.checkIn) / (1000 * 3600 * 24)}}-->
+                </li>
+
+                <li>
+                    <p><a class="btn btn-default" href="" role="button" ng-click="bc.findBookings()" style="width:100%">Search&raquo;</a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="b in bc.bookings">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Booking Code: <span>{{b.code}}</span></h4>
+                                <p>Booking ID: <span class="badge">{{b.id}}</span>
+                                    <span>         Hotel: <span class="badge">{{b.hotel.hotelName}}</span></span>
+                                    <span>         Room Type: <span class="badge">{{b.room.roomName}}</span></span>
+                                <span>         Status: <span class="badge">{{b.status.name}}</span></span>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                Check-In<input type="date" name="calCheckIn" class="form-control" style="width:100%"
+                                               ng-model="b.cIn" ng-disabled="true">
+                            </div>
+                            <div class="col-md-4">
+                                Check-Out<input type="date" name="calCheckOut" class="form-control" style="width:100%"
+                                                ng-model="b.cOut" ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                            <p></p>
+                            <div class="col-md-8">
+                                <p>Client email: <span class="badge">{{b.user.email}}</span>
+                                    <span>Persons: <span class="badge">{{b.numPersons}}</span></span></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4></h4>
+                        <p><a class="btn btn-default" ui-sref="bookingDetailsOwner" role="button"
+                              ng-click="bc.selectBooking(b)"
+                              style="width:100%">Details</a></p>
+                        <p>Price: <span class="badge">{{b.price}}</span></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+</div>

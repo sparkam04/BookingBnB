@@ -11,6 +11,14 @@
                 });
         };
 
+        this.getCityById = function (id) {
+
+            return $http.get("/city/" + id)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.getCitiesByCountry = function (countryId) {
 
             return $http.get("/city/country/" + countryId)
