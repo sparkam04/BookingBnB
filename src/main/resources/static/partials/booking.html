@@ -61,7 +61,7 @@
                             id="SelectPaySystem" class="form-control" style="width:100%"
 
                             ng-options="paySysOption.name for paySysOption in bc.paySystems track by paySysOption.id"
-                            ng-model="bc.paySystem"
+                            ng-model="bc.paySystem">
                             <!--ng-init="bc.paySystem = bc.paySystem || bc.paySystems[0].value">-->
                         <!--<option value="">- Select Pay System -</option>-->
                     </select>
@@ -108,7 +108,7 @@
                     <!--<button name="buttonConfirm" class="btn" style="width:100%"> Confirm reservation</button>-->
                 </div>
                 <div class="col-md-6">
-                    <p><a class="btn btn-default" href="#" role="button" ng-click="" class="btn" style="width:100%">Back</a></p>
+                    <p><a class="btn btn-default" href="#" role="button" ng-click="" style="width:100%">Back</a></p>
                     <!--<button name="buttonBack" class="btn" style="width:100%"> Back</button>-->
                 </div>
             </div>
