@@ -66,14 +66,14 @@
                     <p><input type="text" ng-model="hc.editedHotel.phone" placeholder="phone" class="form-control"
                               style="width:100%" required></p>
 
-                    <p>CheckIn Time: {{hc.editedHotel.checkInTime}}<input type="time" id="timeInput1" name="input"
-                                                                          ng-model="hc.editedHotel.cInTime"
-                                                                          placeholder="HH:mm" min="00:00"
-                                                                          max="23:59"/></p>
-                    <p>CheckOut Time: {{hc.editedHotel.checkOutTime}}<input type="time" id="timeInput2" name="input"
-                                                                            ng-model="hc.editedHotel.cOutTime"
-                                                                            placeholder="HH:mm" min="00:00"
-                                                                            max="23:59"/></p>
+                    <p><input type="time" id="timeInput1" name="input"
+                              ng-model="hc.editedHotel.cInTime"
+                              placeholder="HH:mm" min="00:00"
+                              max="23:59"/>CheckIn Time: {{hc.editedHotel.checkInTime}}</p>
+                    <p><input type="time" id="timeInput2" name="input"
+                              ng-model="hc.editedHotel.cOutTime"
+                              placeholder="HH:mm" min="00:00"
+                              max="23:59"/>CheckOut Time: {{hc.editedHotel.checkOutTime}}</p>
                     <p>images: {{hc.editedHotel.images}}</p>
                     <!--<p>Pay Systems: {{hc.editedHotel.paySysIds}}</p>-->
                 </div>
@@ -82,16 +82,16 @@
             <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <p>Wifi: <input type="checkbox" ng-model="hc.editedHotel.hasWifi"></p>
-                    <p>Shuttle: <input type="checkbox" ng-model="hc.editedHotel.hasShuttle"></p>
-                    <p>Smoking: <input type="checkbox" ng-model="hc.editedHotel.hasSmoking"></p>
-                    <p>Parking: <input type="checkbox" ng-model="hc.editedHotel.hasParking"></p>
-                    <p>Conditioning: <input type="checkbox" ng-model="hc.editedHotel.hasConditioning"></p>
-                    <p>Pets: <input type="checkbox" ng-model="hc.editedHotel.hasPets"></p>
-                    <p>Pool: <input type="checkbox" ng-model="hc.editedHotel.hasPool"></p>
-                    <p>Kitchen: <input type="checkbox" ng-model="hc.editedHotel.hasKitchen"></p>
-                    <p>Breakfast: <input type="checkbox" ng-model="hc.editedHotel.hasBreakfast"></p>
-                    <p>Preorder: <input type="checkbox" ng-model="hc.editedHotel.preorder"></p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasWifi">Wifi</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasShuttle">Shuttle</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasSmoking">Smoking</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasParking">Parking</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasConditioning">Conditioning</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasPets">Pets</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasPool">Pool</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasKitchen">Kitchen</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.hasBreakfast">Breakfast</p>
+                    <p><input type="checkbox" ng-model="hc.editedHotel.preorder">Preorder</p>
                 </div>
             </div>
 

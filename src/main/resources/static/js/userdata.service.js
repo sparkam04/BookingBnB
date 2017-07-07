@@ -19,6 +19,14 @@
                 });
         };
 
+        this.getUsersByRoleId = function (roleId) {
+
+            return $http.get("/user/role/" + roleId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.getUserByEmail = function (email) {
 
             return $http.get("/user/email/" + email + "/")

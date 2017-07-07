@@ -7,9 +7,9 @@
         this.minChkOutDate = this.minChkInDate;
         this.init = function () {
 
-            self.country = DataSvc.country;
-            self.city = DataSvc.city;
-            self.location = DataSvc.location;
+            // self.country = DataSvc.country;
+            // self.city = DataSvc.city;
+            // self.location = DataSvc.location;
             self.hotel = DataSvc.hotel;
 
             HotelDataSvc.getHotelsByOwner(DataSvc.appUser.userId)

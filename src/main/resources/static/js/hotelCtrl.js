@@ -23,14 +23,14 @@
                     }
                 });
 
-            UserDataSvc.getUsers()
+            UserDataSvc.getUsersByRoleId(21)
                 .then(function (data) {
                     self.users = data;
                 });
 
-            self.country = DataSvc.country;
-            self.city = DataSvc.city;
-            self.location = DataSvc.location;
+            // self.country = DataSvc.country;
+            // self.city = DataSvc.city;
+            // self.location = DataSvc.location;
             self.hotel = DataSvc.hotel;
             self.editedHotel = DataSvc.editedHotel;
             self.newHotel = {
