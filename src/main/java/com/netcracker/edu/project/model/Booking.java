@@ -11,12 +11,30 @@ public class Booking extends Model {
 
     private Integer numPersons;
 
+    private Double cost;
+
     private Boolean isPaid;
 
     private String message;
 
     private Date checkIn;
     private Date checkOut;
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
 
     public Long getRoomId() {
         return roomId;
@@ -68,10 +86,6 @@ public class Booking extends Model {
 
     public Boolean isPaid() {
         return isPaid;
-    }
-
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
     }
 
     public String getMessage() {
