@@ -5,7 +5,6 @@ import com.netcracker.edu.project.service.SecurityServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class AuthorizationController {
     private SecurityServise securityServise;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public boolean createUser(@RequestBody User user) {
+    public Map<String, Object> createUser(@RequestBody User user) {
         return securityServise.registerUser(user);
     }
 

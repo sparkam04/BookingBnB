@@ -14,6 +14,9 @@ public class BookingService extends AbstractEntityService<Booking> {
     @Autowired
     private BookingDatabaseDAO bookingDatabaseDAO;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     protected BookingDatabaseDAO getDao() {
         return bookingDatabaseDAO;
@@ -33,5 +36,15 @@ public class BookingService extends AbstractEntityService<Booking> {
 
     public Collection<Booking> getBookingsByDateAndHotel(Date from, Date to, Long hotelId) {
         return getDao().getBookingsByDateAndHotel(from, to, hotelId);
+    }
+
+    @Override
+    public boolean addEntity(Booking booking) {
+        if (super.addEntity(booking)){
+            emailService.sendMessageBookingCreated(booking);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

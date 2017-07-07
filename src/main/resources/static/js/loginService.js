@@ -17,6 +17,11 @@
             delete $localStorage['appSecurityDate'];
             $http.defaults.headers.common['Authorization'] = '';
             $rootScope.$broadcast('LogoutSuccessful');
+
+            $http.get("/user/" + 2000)
+                .then(function (response) {
+                    return response.data;
+                });
         };
 
         self.authenticate = function (email, password) {
@@ -51,10 +56,10 @@
         self.register = function (user) {
             return $http.post('register', user)
                 .then(function (response) {
-                    return true;
-                }).error(function () {
-                    return false;
-                })
+                    return response.data;
+                });
         };
     });
 })();
+
+
