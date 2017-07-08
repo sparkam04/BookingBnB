@@ -235,6 +235,34 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('roomsAdmin', {
+            parent: 'nav',
+            url: '/roomsAdmin',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/roomsAdmin.html',
+                    controller: 'roomsAdminCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
+        .state('editRoomAdmin', {
+            parent: 'nav',
+            url: '/editRoomAdmin',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/editRoomAdmin.html',
+                    controller: 'editRoomCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
         .state('bookingOwner', {
             parent: 'nav',
             url: '/bookingOwner',

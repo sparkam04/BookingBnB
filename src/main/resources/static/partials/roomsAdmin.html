@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="sidebar-nav">
+
+            <ul class="nav nav-list">
+                <li>
+                    <select name="SelectCountry" id="SelectCountry" class="form-control" style="width:100%"
+                            ng-options="countryOption.name for countryOption in rc.countries track by countryOption.id"
+                            ng-change="rc.selectCountry()" ng-model="rc.country">
+                        <option value="">- Country -</option>
+                    </select>
+                </li>
+                <li>
+                    <select name="SelectCity" id="SelectCity" class="form-control" style="width:100%"
+                            ng-options="cityOption.name for cityOption in rc.cities track by cityOption.id"
+                            ng-change="rc.selectCity()" ng-model="rc.city">
+                        <option value="">- City -</option>
+                    </select>
+                </li>
+
+                <li>
+                    <select name="SelectLocation" id="SelectLocation" class="form-control" style="width:100%"
+                            ng-options="locationOption.streetAddress for locationOption in rc.locations track by locationOption.id"
+                            ng-change="rc.selectLocation()" ng-model="rc.location">
+                        <option value="">- Address -</option>
+                    </select>
+                </li>
+                
+                <li>
+                    <label for="inputHotel">Hotel:</label>
+                    <select name="SelectHotel" id="SelectHotel" class="form-control" style="width:100%"
+                            ng-options="hotelOption.hotelName for hotelOption in rc.hotels track by hotelOption.id"
+                            ng-change="rc.selectHotel()"
+                            ng-model="rc.hotel">
+                        <option value="">- Hotel -</option>
+                    </select>
+                </li>
+            </ul>
+
+            <hr>
+            <form name="frm" ng-submit="rc.addRoom()">
+                <ul class="nav nav-list">
+                    <label for="createRooms">Add Room(s):</label>
+                    <li>
+
+                        <p></p>
+                        <label for="inputNumberOfRooms">Number of rooms to add:</label>
+
+                        <input type="number" name="quantity" class="form-control" style="width:100%" min="1"
+                               max="20" ng-model="rc.numRooms" required>
+                    </li>
+
+                    <li>
+                        <p></p>
+                        <label for="inputRoomNumberStarts">Room numbers starts from:</label>
+
+                        <input type="number" name="startNumber" class="form-control" style="width:100%" min="1"
+                               ng-model="rc.RoomNumStart" required>
+                    </li>
+
+                    <li>
+                        <label for="inputRoomCost">Room cost:</label>
+
+                        <input type="number" name="roomCost" class="form-control" style="width:100%" min="1"
+                               ng-model="rc.RoomCost" required>
+                    </li>
+
+                    <li>
+                        <p></p>
+                        <label for="inputRoomplaces">Number of places in room:</label>
+
+                        <input type="number" name="roomplaces" class="form-control" style="width:100%" min="1" max="3"
+                               ng-model="rc.numOfPlaces" required>
+                    </li>
+
+                    <li>
+                        <p></p>
+                        <label for="RoomName">Room Name:</label>
+                        <p><input type="text" ng-model="rc.roomName" placeholder="Room Name"
+                                  class="form-control" style="width:100%" required></p>
+                    </li>
+
+                    <li>
+                        <p></p>
+                        <label for="RoomName">Room features:</label>
+                        <p>Bathroom <input type="checkbox" ng-model="rc.hasBathroom">
+                            TV <input type="checkbox" ng-model="rc.hasTV">
+                            Extra bed <input type="checkbox" ng-model="rc.hasExtraBed"></p>
+                    </li>
+
+                    <li>
+                        <p>
+                            <input type="submit" class="btn"
+                                   ng-disabled="frm.$invalid || rc.hotel.id === undefined"> {{rc.creationResponse}}
+                        </p>
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+
+        <h3>Rooms</h3>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="r in rc.rooms">
+                <h3>{{r.roomName}}</h3>
+                <p>Room ID: {{r.id}}</p>
+                <p>Room №: {{r.roomNumber}}</p>
+                <p>Room cost: {{r.cost}}</p>
+                <p><a class="btn btn-default" role="button" ng-click="rc.selectRoom(r)">Update</a>
+                    <a class="btn btn-default" href="" role="button" ng-click="rc.deleteRoom(r)">Delete</a></p>
+            </li>
+        </ul>
+    </div>
+</div>
