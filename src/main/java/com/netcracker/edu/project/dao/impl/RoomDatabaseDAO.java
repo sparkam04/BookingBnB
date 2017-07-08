@@ -123,7 +123,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 "    INTO attributes (attr_id, object_id, value)\n" +
                 "        VALUES (33, ?, ?) --cost\n" +
                 "    INTO attributes (attr_id, object_id, value)\n" +
-                "        VALUES (61, ?, ?) --cost\n" +
+                "        VALUES (61, ?, ?) --enabled\n" +
                 "select * from dual";
 
         int affrctedRows = getJdbcTemplate().update(sql,
@@ -134,7 +134,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 newObjId, model.isHasTV().toString(),
                 newObjId, model.isHasExtraBed().toString(),
                 newObjId, model.getCost(),
-                newObjId, model.getEnabled()
+                newObjId, model.getEnabled().toString()
         );
 
         boolean isSuccess1 = affrctedRows == 8;
@@ -159,7 +159,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 add(new Object[]{model.isHasTV().toString(), model.getId(), 31});
                 add(new Object[]{model.isHasExtraBed().toString(), model.getId(), 32});
                 add(new Object[]{model.getCost(), model.getId(), 33});
-                add(new Object[]{model.getEnabled(), model.getId(), 61});
+                add(new Object[]{model.getEnabled().toString(), model.getId(), 61});
             }
         };
 
