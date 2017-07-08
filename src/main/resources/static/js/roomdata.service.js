@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module("myApp");
 
-    app.service("RoomDataSvc", function ($http, HotelDataSvc) {
+    app.service("RoomDataSvc", function ($http, HotelDataSvc, LocationDataSvc) {
         var self = this;
         this.getRooms = function () {
 
@@ -46,6 +46,10 @@
                             HotelDataSvc.getHotelById(room.hotelId)
                                 .then(function (hotel) {
                                     room.hotel = hotel;
+                                    LocationDataSvc.getLocationById(hotel.locationId)
+                                        .then(function (loc) {
+                                            room.hotel.location = loc;
+                                        })
                                 });
                         })(room);
                     }
