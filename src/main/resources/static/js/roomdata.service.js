@@ -72,5 +72,38 @@
                     }
                 );
         };
+
+        this.updateRoom = function (roomData) {
+            return $http.put("/room", roomData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
+        };
+
+        this.deleteRoom = function (roomData) {
+
+            return $http.delete("/room/"+ roomData.id)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
+        };
     });
 })();
