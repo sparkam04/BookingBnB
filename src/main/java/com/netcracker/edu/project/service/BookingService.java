@@ -40,7 +40,7 @@ public class BookingService extends AbstractEntityService<Booking> {
 
     @Override
     public boolean addEntity(Booking booking) {
-        if (super.addEntity(booking)){
+        if (super.addEntity(booking)) {
             emailService.sendMessageBookingCreated(booking);
             return true;
         } else {
