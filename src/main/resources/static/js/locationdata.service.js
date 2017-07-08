@@ -11,6 +11,14 @@
                 });
         };
 
+        this.getLocationById = function (id) {
+
+            return $http.get("/location/" + id)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.getLocationsByCity = function (cityId) {
 
             return $http.get("/location/city/" + cityId)

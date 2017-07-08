@@ -112,6 +112,16 @@ public class HotelDatabaseDAO extends AbstractDatabaseDAO<Hotel> implements Hote
     }
 
     @Override
+    public Collection<Hotel> getHotelsByOwnerId(Long ownerId) {
+        String sql = "SELECT HOTELS.OBJECT_ID\n" +
+                "FROM OBJECTS HOTELS JOIN OBJREFERENCE OWNERS ON\n" +
+                " (HOTELS.OBJECT_TYPE_ID = 4 AND OWNERS.ATTR_ID = 10 AND \n" +
+                "  OWNERS. REFERENCE = ? AND HOTELS.OBJECT_ID = OWNERS.OBJECT_ID)";
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, ownerId);
+        return getEntityCollection(entityIdList);
+    }
+
+    @Override
     public boolean add(Hotel model) {
         String sqlNewObjId = "select object_id_seq.nextval new_id from dual";
         Long newObjId = getJdbcTemplate().queryForObject(sqlNewObjId, Long.TYPE);

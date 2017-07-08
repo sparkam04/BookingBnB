@@ -9,7 +9,15 @@
          .then(function(response) {
             return response.data;
          });
-    }
+    };
+
+        this.getCountryById = function(id) {
+
+            return $http.get('/country/' + id)
+                .then(function(response) {
+                    return response.data;
+                });
+        }
 
     });
 })();

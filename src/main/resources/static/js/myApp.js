@@ -115,39 +115,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('details', {
-            parent: 'nav',
-            url: '/details',
-            views: {
-                'content@': {
-                    templateUrl: 'partials/details.html',
-                    controller: 'testCtrl',
-                    controllerAs: 'tc'
-                }
-            }
-        })
-        .state('editHotel', {
-            parent: 'nav',
-            url: '/editHotel',
-            views: {
-                'content@': {
-                    templateUrl: 'partials/editHotel.html',
-                    controller: 'testCtrl',
-                    controllerAs: 'tc'
-                }
-            }
-        })
-        .state('test', {
-            parent: 'nav',
-            url: '/test',
-            views: {
-                'content@': {
-                    templateUrl: 'partials/home.html',
-                    controller: 'testCtrl',
-                    controllerAs: 'tc'
-                }
-            }
-        })
         .state('booking', {
             parent: 'nav',
             url: '/booking',
@@ -159,11 +126,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('bookingAuth', {
+            parent: 'nav',
+            url: '/bookingAuth',
+            views: {
+                'content@': {
+                    templateUrl: 'partials/bookingAuth.html',
+                    controller: 'bookingAuthCtrl',
+                    controllerAs: 'bc'
+                }
+            }
+        })
         .state('hotelAdmin', {
             parent: 'nav',
             url: '/hotelAdmin',
             data: {
-                role: 'ADMIN'
+                role: 'SYSADMIN'
             },
             views: {
                 'content@': {
@@ -173,11 +151,151 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('editUserRole', {
+            parent: 'nav',
+            url: '/editUserRole',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/editUserRole.html',
+                    controller: 'editUserRoleCtrl',
+                    controllerAs: 're'
+                }
+            }
+        })
+        .state('hotelOwner', {
+            parent: 'nav',
+            url: '/hotelOwner',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/hotelOwner.html',
+                    controller: 'hotelOwnerCtrl',
+                    controllerAs: 'hc'
+                }
+            }
+        })
+        .state('ownerEditHotel', {
+            parent: 'nav',
+            url: '/ownerEditHotel',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/ownerEditHotel.html',
+                    controller: 'ownerEditHotelCtrl',
+                    controllerAs: 'hc'
+                }
+            }
+        })
+        .state('ownerAddHotel', {
+            parent: 'nav',
+            url: '/ownerAddHotel',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/ownerAddHotel.html',
+                    controller: 'ownerEditHotelCtrl',
+                    controllerAs: 'hc'
+                }
+            }
+        })
+        .state('roomsOwner', {
+            parent: 'nav',
+            url: '/roomsOwner',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/roomsOwner.html',
+                    controller: 'roomsOwnerCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
+        .state('editRoom', {
+            parent: 'nav',
+            url: '/editRoom',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/editRoom.html',
+                    controller: 'editRoomCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
+        .state('roomsAdmin', {
+            parent: 'nav',
+            url: '/roomsAdmin',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/roomsAdmin.html',
+                    controller: 'roomsAdminCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
+        .state('editRoomAdmin', {
+            parent: 'nav',
+            url: '/editRoomAdmin',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/editRoomAdmin.html',
+                    controller: 'editRoomCtrl',
+                    controllerAs: 'rc'
+                }
+            }
+        })
+        .state('bookingOwner', {
+            parent: 'nav',
+            url: '/bookingOwner',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/bookingOwner.html',
+                    controller: 'bookingSearchOwnerCtrl',
+                    controllerAs: 'bc'
+                }
+            }
+        })
+        .state('bookingDetailsOwner', {
+            parent: 'nav',
+            url: '/bookingDetailsOwner',
+            data: {
+                role: 'ADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/bookingDetailsOwner.html',
+                    controller: 'bookingDetailsCtrl',
+                    controllerAs: 'bd'
+                }
+            }
+        })
         .state('editHotel_', {
             parent: 'nav',
             url: '/editHotel_',
             data: {
-                role: 'ADMIN'
+                role: 'SYSADMIN'
             },
             views: {
                 'content@': {
@@ -191,7 +309,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/addHotel',
             data: {
-                role: 'ADMIN'
+                role: 'SYSADMIN'
             },
             views: {
                 'content@': {
@@ -205,7 +323,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingAdmin',
             data: {
-                role: 'ADMIN'
+                role: 'SYSADMIN'
             },
             views: {
                 'content@': {
@@ -219,7 +337,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingDetails',
             data: {
-                role: 'ADMIN'
+                role: 'SYSADMIN'
             },
             views: {
                 'content@': {

@@ -19,6 +19,14 @@
                 });
         };
 
+        this.getUsersByRoleId = function (roleId) {
+
+            return $http.get("/user/role/" + roleId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.getUserByEmail = function (email) {
 
             return $http.get("/user/email/" + email + "/")
@@ -35,6 +43,25 @@
         this.addUser = function (user) {
 
             return $http.post("/user", user)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        // this.window.alert(response.status);
+                        return response;
+                    }
+                );
+        };
+
+        this.updateUser = function (user) {
+
+            return $http.put("/user", user)
                 .then(
                     function (response) {
                         // success callback

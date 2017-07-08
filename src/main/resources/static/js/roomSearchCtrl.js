@@ -1,7 +1,7 @@
 (function () {
 
     var app = angular.module('myApp');
-    app.controller('roomSearchCtrl', function($scope, DataSvc, HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, DataSvc) {
+    app.controller('roomSearchCtrl', function($scope, DataSvc, HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, $state) {
         var self = this;
         this.minChkInDate = new Date();
         this.minChkOutDate = this.minChkInDate;
@@ -43,6 +43,11 @@
             DataSvc.city = self.city;
             DataSvc.checkin = self.checkIn;
             DataSvc.checkOut = self.checkOut;
+            if (DataSvc.appUser.userId === undefined) {
+                $state.go('booking');
+            } else {
+                $state.go('bookingAuth');
+            }
         };
 
         this.selectCountry = function () {

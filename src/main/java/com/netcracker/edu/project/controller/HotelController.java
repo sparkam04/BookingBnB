@@ -21,9 +21,15 @@ public class HotelController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")
-    @RequestMapping("/hotel/location/{id}")
-    public Collection<Hotel> getHotelsByLocation(@PathVariable Long id) {
-        return hotelService.getEntitiesByParentId(id);
+    @RequestMapping("/hotel/location/{locationId}")
+    public Collection<Hotel> getHotelsByLocation(@PathVariable Long locationId) {
+        return hotelService.getEntitiesByParentId(locationId);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")
+    @RequestMapping("/hotel/owner/{ownerId}")
+    public Collection<Hotel> getHotelsByOwnerId(@PathVariable Long ownerId) {
+        return hotelService.getHotelsByOwnerId(ownerId);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")

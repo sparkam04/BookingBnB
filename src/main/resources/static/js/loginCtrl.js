@@ -13,8 +13,6 @@
 
                 loginService.authenticate(self.email, self.password).then(function (isLogin) {
                     if (isLogin) {
-                        self.password = '';
-                        self.message = '';
                         $state.go('roomSearch');
                     } else {
                         self.email = '';

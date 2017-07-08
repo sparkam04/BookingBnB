@@ -1,7 +1,7 @@
 (function () {
 
     var app = angular.module("myApp");
-    app.controller('bookingSearchCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, BookingDataSvc, DataSvc) {
+    app.controller('bookingSearchOwnerCtrl', function(HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, BookingDataSvc, DataSvc) {
         var self = this;
         this.minChkInDate = new Date();
         this.minChkOutDate = this.minChkInDate;
@@ -11,6 +11,12 @@
             // self.city = DataSvc.city;
             // self.location = DataSvc.location;
             self.hotel = DataSvc.hotel;
+
+            HotelDataSvc.getHotelsByOwner(DataSvc.appUser.userId)
+                .then(function(data) {
+                    self.hotels = data;
+                });
+
             CountryDataSvc.getCountries()
                 .then(function(data) {
                     self.countries = data;

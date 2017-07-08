@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module("myApp");
 
-    app.service("RoomDataSvc", function ($http, HotelDataSvc) {
+    app.service("RoomDataSvc", function ($http, HotelDataSvc, LocationDataSvc) {
         var self = this;
         this.getRooms = function () {
 
@@ -46,6 +46,10 @@
                             HotelDataSvc.getHotelById(room.hotelId)
                                 .then(function (hotel) {
                                     room.hotel = hotel;
+                                    LocationDataSvc.getLocationById(hotel.locationId)
+                                        .then(function (loc) {
+                                            room.hotel.location = loc;
+                                        })
                                 });
                         })(room);
                     }
@@ -55,6 +59,39 @@
 
         this.addRoom = function (roomData) {
             return $http.post("/room", roomData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
+        };
+
+        this.updateRoom = function (roomData) {
+            return $http.put("/room", roomData)
+                .then(
+                    function (response) {
+                        // success callback
+                        console.log(response);
+                        return response;
+                    },
+                    function (response) {
+                        // failure callback
+                        console.log(response);
+                        return response;
+                    }
+                );
+        };
+
+        this.deleteRoom = function (roomData) {
+
+            return $http.delete("/room/"+ roomData.id)
                 .then(
                     function (response) {
                         // success callback

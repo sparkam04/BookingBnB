@@ -7,6 +7,7 @@ import com.netcracker.edu.project.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,13 +21,27 @@ public class SecurityServise {
     @Autowired
     private RoleDatabaseDAO roleDatabaseDAO;
 
-    public boolean registerUser(User user) {
-        if (userDatabaseDAO.getByEmail(user.getEmail()) != null) {
-            return false;
+    @Autowired
+    private EmailService emailService;
+
+    public Map<String, Object> registerUser(User user) {
+        Map<String, Object> map = new HashMap<>();
+        Boolean isRegistered;
+        String message;
+        try {
+            userDatabaseDAO.getByEmail(user.getEmail());
+            message = "This user already exist!";
+            isRegistered = false;
+        } catch (EmptyResultDataAccessException e) {
+            user.setRoleId(20L);
+            userDatabaseDAO.add(user);
+            emailService.sendMessageUserCreated(user);
+            message = "Registered successful!";
+            isRegistered = true;
         }
-        user.setRoleId(20L);
-        userDatabaseDAO.add(user);
-        return true;
+        map.put("isRegistered", isRegistered);
+        map.put("message", message);
+        return map;
     }
 
     public Map<String, Object> login(String email, String password) {

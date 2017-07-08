@@ -4,31 +4,6 @@
 
             <ul class="nav nav-list">
 
-
-                <li>
-                    <select name="SelectCountry" id="SelectCountry" class="form-control" style="width:100%"
-
-                            ng-options="countryOption.name for countryOption in bc.countries track by countryOption.id"
-                            ng-change="bc.selectCountry()" ng-model="bc.country">
-                        <option value="">- Country -</option>
-                    </select>
-                </li>
-                <li>
-                    <select name="SelectCity" id="SelectCity" class="form-control" style="width:100%"
-                            ng-options="cityOption.name for cityOption in bc.cities track by cityOption.id"
-                            ng-change="bc.selectCity()" ng-model="bc.city">
-                        <option value="">- City -</option>
-                    </select>
-                </li>
-
-                <li>
-                    <select name="SelectLocation" id="SelectLocation" class="form-control" style="width:100%"
-                            ng-options="locationOption.streetAddress for locationOption in bc.locations track by locationOption.id"
-                            ng-change="bc.selectLocation()" ng-model="bc.location">
-                        <option value="">- Address -</option>
-                    </select>
-                </li>
-
                 <li>
                     <select name="SelectHotel" id="SelectHotel" class="form-control" style="width:100%"
                             ng-options="hotelOption.hotelName for hotelOption in bc.hotels track by hotelOption.id"
@@ -98,7 +73,7 @@
                     </div>
                     <div class="col-md-2">
                         <h4></h4>
-                        <p><a class="btn btn-default" ui-sref="bookingDetails" role="button"
+                        <p><a class="btn btn-default" ui-sref="bookingDetailsOwner" role="button"
                               ng-click="bc.selectBooking(b)"
                               style="width:100%">Details</a></p>
                         <!--<p>Price: <span class="badge">{{b.price}}</span></p>-->

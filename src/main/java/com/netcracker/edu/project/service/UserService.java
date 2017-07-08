@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends AbstractEntityService<User>{
+public class UserService extends AbstractEntityService<User> {
 
     @Autowired
     private UserDatabaseDAO userDatabaseDAO;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     protected UserDatabaseDAO getDao() {
@@ -17,4 +20,15 @@ public class UserService extends AbstractEntityService<User>{
     }
 
     public User getUserByEmail(String email) {return getDao().getByEmail(email);}
+
+    @Override
+    public boolean addEntity(User user) {
+        if (super.addEntity(user)){
+            user = userDatabaseDAO.getByEmail(user.getEmail());
+            emailService.sendMessageUserCreated(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

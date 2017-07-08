@@ -23,32 +23,34 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
     @Override
     public Booking getById(Long id) {
         Booking booking;
-        String sql = "select booking.object_id\n" +
-                "    , booking.parent_id room_id\n" +
-                "    , booking_code.VALUE booking_code\n" +
-                "    , message.VALUE message\n" +
-                "    , user_id.REFERENCE user_id\n" +
-                "    , date_check_in.DATE_VALUE date_check_in\n" +
-                "    , date_check_out.DATE_VALUE date_check_out\n" +
-                "    , num_persons.VALUE num_persons\n" +
-                "    , is_paid.VALUE is_paid\n" +
-                "    , status_id.REFERENCE status_id\n" +
-                "    , pay_sys_id.REFERENCE pay_sys_id\n" +
-                "from objects booking\n" +
-                "join attributes booking_code on booking_code.OBJECT_ID = booking.OBJECT_ID and booking_code.ATTR_ID = 35\n" +
-                "join attributes message on message.OBJECT_ID = booking.OBJECT_ID and message.ATTR_ID = 36\n" +
-                "join OBJREFERENCE user_id on user_id.OBJECT_ID = booking.OBJECT_ID\n" +
-                "join attributes date_check_in on date_check_in.OBJECT_ID = booking.OBJECT_ID and date_check_in.ATTR_ID = 38\n" +
-                "join attributes date_check_out on date_check_out.OBJECT_ID = booking.OBJECT_ID and date_check_out.ATTR_ID = 39\n" +
-                "join attributes num_persons on num_persons.OBJECT_ID = booking.OBJECT_ID and num_persons.ATTR_ID = 40\n" +
-                "join attributes is_paid on is_paid.OBJECT_ID = booking.OBJECT_ID and is_paid.ATTR_ID = 41\n" +
-                "join OBJREFERENCE status_id on status_id.OBJECT_ID = booking.OBJECT_ID\n" +
-                "join OBJREFERENCE pay_sys_id on pay_sys_id.OBJECT_ID = booking.OBJECT_ID\n" +
-                "where booking.OBJECT_TYPE_ID = 7\n" +
-                "    and user_id.ATTR_ID = 37\n" +
-                "    and status_id.ATTR_ID = 42\n" +
-                "    and pay_sys_id.ATTR_ID = 43\n" +
-                "    and booking.OBJECT_ID = ?";
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "                    , BOOKING.PARENT_ID ROOM_ID\n" +
+                "                    , BOOKING_CODE.VALUE BOOKING_CODE\n" +
+                "                    , MESSAGE.VALUE MESSAGE\n" +
+                "                    , USER_ID.REFERENCE USER_ID\n" +
+                "                    , DATE_CHECK_IN.DATE_VALUE DATE_CHECK_IN\n" +
+                "                    , DATE_CHECK_OUT.DATE_VALUE DATE_CHECK_OUT\n" +
+                "                    , NUM_PERSONS.VALUE NUM_PERSONS\n" +
+                "                    , IS_PAID.VALUE IS_PAID\n" +
+                "                    , STATUS_ID.REFERENCE STATUS_ID\n" +
+                "                    , PAY_SYS_ID.REFERENCE PAY_SYS_ID\n" +
+                "                    , COST.VALUE COST\n" +
+                "                FROM OBJECTS BOOKING\n" +
+                "                JOIN ATTRIBUTES BOOKING_CODE ON BOOKING_CODE.OBJECT_ID = BOOKING.OBJECT_ID AND BOOKING_CODE.ATTR_ID = 35\n" +
+                "                JOIN ATTRIBUTES MESSAGE ON MESSAGE.OBJECT_ID = BOOKING.OBJECT_ID AND MESSAGE.ATTR_ID = 36\n" +
+                "                JOIN OBJREFERENCE USER_ID ON USER_ID.OBJECT_ID = BOOKING.OBJECT_ID\n" +
+                "                JOIN ATTRIBUTES DATE_CHECK_IN ON DATE_CHECK_IN.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_IN.ATTR_ID = 38\n" +
+                "                JOIN ATTRIBUTES DATE_CHECK_OUT ON DATE_CHECK_OUT.OBJECT_ID = BOOKING.OBJECT_ID AND DATE_CHECK_OUT.ATTR_ID = 39\n" +
+                "                JOIN ATTRIBUTES NUM_PERSONS ON NUM_PERSONS.OBJECT_ID = BOOKING.OBJECT_ID AND NUM_PERSONS.ATTR_ID = 40\n" +
+                "                JOIN ATTRIBUTES IS_PAID ON IS_PAID.OBJECT_ID = BOOKING.OBJECT_ID AND IS_PAID.ATTR_ID = 41\n" +
+                "                JOIN OBJREFERENCE STATUS_ID ON STATUS_ID.OBJECT_ID = BOOKING.OBJECT_ID\n" +
+                "                JOIN OBJREFERENCE PAY_SYS_ID ON PAY_SYS_ID.OBJECT_ID = BOOKING.OBJECT_ID\n" +
+                "                JOIN ATTRIBUTES COST ON COST.OBJECT_ID = BOOKING.OBJECT_ID AND COST.ATTR_ID = 60\n" +
+                "                WHERE BOOKING.OBJECT_TYPE_ID = 7\n" +
+                "                    AND USER_ID.ATTR_ID = 37\n" +
+                "                    AND STATUS_ID.ATTR_ID = 42\n" +
+                "                    AND PAY_SYS_ID.ATTR_ID = 43\n" +
+                "                    AND BOOKING.OBJECT_ID = ?";
 
         booking = getJdbcTemplate().queryForObject(sql, new Object[]{id}, new BookingMapper());
 
@@ -139,7 +141,11 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
                 "        VALUES (42, ?, ?) --status_id\n" +
                 "    INTO OBJREFERENCE (attr_id, reference, object_id)\n" +
                 "        VALUES (43, ?, ?) --pay_sys_id\n" +
-                "select * from dual";
+                "    INTO attributes (attr_id, object_id, value)\n" +
+                "        VALUES (60, ?, COST) --COST\n" +
+                "   SELECT (? - ?) * ROOM_COST.VALUE COST\n" +
+                "   FROM ATTRIBUTES ROOM_COST\n" +
+                "   WHERE ROOM_COST.OBJECT_ID = ? AND ROOM_COST.ATTR_ID = 33";
 
         int affrctedRows = getJdbcTemplate().update(sql,
                 newObjId, model.getRoomId(), model.getCode(),
@@ -151,10 +157,11 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
                 newObjId, model.getNumPersons(),
                 newObjId, model.isPaid().toString(),
                 model.getStatusId(), newObjId,
-                model.getPaySysId(), newObjId
+                model.getPaySysId(), newObjId,
+                newObjId, model.getCheckOut(), model.getCheckIn(), model.getRoomId()
         );
 
-        boolean isSuccess1 = affrctedRows == 10;
+        boolean isSuccess1 = affrctedRows == 11;
 
         return isSuccess1;
     }
@@ -211,6 +218,7 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
             booking.setPaid(Boolean.parseBoolean(rs.getString("is_paid")));
             booking.setStatusId(rs.getLong("status_id"));
             booking.setPaySysId(rs.getLong("pay_sys_id"));
+            booking.setCost(rs.getDouble("cost"));
             return booking;
         }
     }

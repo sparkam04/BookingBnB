@@ -1,7 +1,7 @@
 (function () {
 
     var app = angular.module("myApp");
-    app.controller('hotelCtrl', function (HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, PayDataSvc, UserDataSvc, DataSvc, $filter) {
+    app.controller('ownerEditHotelCtrl', function (HotelDataSvc, CountryDataSvc, CityDataSvc, LocationDataSvc, RoomDataSvc, PayDataSvc, UserDataSvc, DataSvc, $filter) {
         var self = this;
 
         this.init = function () {
@@ -16,26 +16,24 @@
                     self.paySystems = data;
                     return data;
                 })
-                .then(function (data) {
+                .then(function () {
 
                     for (var i = 0; i < self.editedHotel.paySysIds.length; i++) {
                         self.pSselection.ids[self.editedHotel.paySysIds[i]] = true;
                     }
                 });
 
-            UserDataSvc.getUsersByRoleId(21)
-                .then(function (data) {
-                    self.users = data;
+            UserDataSvc.getUserById(DataSvc.appUser.userId)
+                .then(function (user) {
+                   self.users = [user];
+                    self.user = user;
                 });
 
-            // self.country = DataSvc.country;
-            // self.city = DataSvc.city;
-            // self.location = DataSvc.location;
             self.hotel = DataSvc.hotel;
             self.editedHotel = DataSvc.editedHotel;
             self.newHotel = {
                 "id": "",
-                "ownerId": "",
+                "ownerId": DataSvc.appUser.userId,
                 "locationId": "",
                 "hotelRating": "",
                 "hasWifi": false,
@@ -84,43 +82,6 @@
                 .then(function (data) {
                     self.locations = data;
                 });
-        };
-
-        this.selectLocation = function () {
-            HotelDataSvc.getHotelsByLocation(self.location.id)
-                .then(function (data) {
-                    self.hotels = data;
-                });
-        };
-
-        this.selectHotel = function (hotel_) {
-            hotel_.fullAddess = this.getFullAddressByLocationId(hotel_.locationId);
-            DataSvc.hotel = hotel_;
-            DataSvc.editedHotel = JSON.parse(JSON.stringify(hotel_));
-        };
-
-        this.deleteHotel = function (hotel_) {
-            HotelDataSvc.deleteHotel(hotel_)
-                .then(function () {
-                    self.cities = undefined;
-                    self.selectCountry();
-                })
-            ;
-
-        };
-
-        this.getFullAddressByLocationId = function (locationId) {
-            return {
-                'country': self.country,
-                'city': self.city,
-                'location': self.location
-            };
-            // return {
-            //     'country': self.country.name,
-            //     'city': self.city.name,
-            //     'location': self.location.streetAddress
-            // };
-
         };
 
         this.checkAddress = function () {
@@ -207,8 +168,6 @@
         this.submitHotel = function () {
             self.newHotel.checkInTime = $filter('date')(self.newHotel.cInTime, 'HH:mm:ss').toString();
             self.newHotel.checkOutTime = $filter('date')(self.newHotel.cOutTime, 'HH:mm:ss').toString();
-            self.newHotel.ownerId = self.newHotel.user.id;
-            // self.newHotel.locationId = self.location.id;
 
             delete self.newHotel.cInTime;
             delete self.newHotel.cOutTime;
