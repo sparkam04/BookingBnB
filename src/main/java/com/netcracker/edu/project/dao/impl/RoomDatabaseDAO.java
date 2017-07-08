@@ -68,16 +68,18 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 "  (ROOMS.OBJECT_TYPE_ID = 5 AND HOTELS.OBJECT_TYPE_ID = 4 AND ROOMS.PARENT_ID = HOTELS.OBJECT_ID)\n" +
                 "JOIN OBJECTS LOCATIONS ON\n" +
                 "  (LOCATIONS.OBJECT_TYPE_ID = 3 AND LOCATIONS.PARENT_ID = ? AND HOTELS.PARENT_ID = LOCATIONS.OBJECT_ID)\n" +
-                "WHERE NOT EXISTS (\n" +
+                "JOIN ATTRIBUTES ENABLED ON\n" +
+                "  (ENABLED.ATTR_ID = 61 AND ROOMS.OBJECT_ID = ENABLED.OBJECT_ID)\n" +
+                "WHERE ENABLED.VALUE <> 'false' AND NOT EXISTS (\n" +
                 "  SELECT *\n" +
-                "  FROM OBJECTS BOOKING JOIN ATTRIBUTES CHECK_IN ON \n" +
+                "  FROM OBJECTS BOOKING JOIN ATTRIBUTES CHECK_IN ON\n" +
                 "    (BOOKING.OBJECT_TYPE_ID = 7 AND CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
                 "  JOIN ATTRIBUTES CHECK_OUT ON\n" +
-                "    (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "    (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)                  \n" +
                 "  JOIN OBJREFERENCE STATUS_ID ON\n" +
                 "    (STATUS_ID.ATTR_ID = 42 AND BOOKING.OBJECT_ID = STATUS_ID.OBJECT_ID)\n" +
                 "  WHERE BOOKING.PARENT_ID = ROOMS.OBJECT_ID AND STATUS_ID.REFERENCE <> 29 AND STATUS_ID.REFERENCE <> 32 AND\n" +
-                "    TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')\n" +
+                "  TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') <= TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')\n" +
                 ")";
         List<Long> roomIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, cityId, checkIn, checkOut);
         return getEntityCollection(roomIdList);
