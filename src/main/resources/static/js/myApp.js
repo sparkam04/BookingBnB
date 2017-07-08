@@ -151,6 +151,20 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('editUserRole', {
+            parent: 'nav',
+            url: '/editUserRole',
+            data: {
+                role: 'SYSADMIN'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/editUserRole.html',
+                    controller: 'editUserRoleCtrl',
+                    controllerAs: 're'
+                }
+            }
+        })
         .state('hotelOwner', {
             parent: 'nav',
             url: '/hotelOwner',

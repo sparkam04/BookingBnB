@@ -19,6 +19,22 @@
             </div>
 
             <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="address">Street, address</label>
+                    <input type="text" name="inputAddr" class="form-control" style="width:100%"
+                           ng-model="bc.room.hotel.location.streetAddress" ng-disabled="true">
+                </div>
+
+                <div class="col-md-12">
+                    <p></p>
+                    <label for="address">Gps co-ordinates</label>
+                    <input type="text" name="inputGps" class="form-control" style="width:100%"
+                           ng-model="bc.room.hotel.location.gpscoords" ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-6">
                     <p></p>
                     <label for="calCheckIn">Check-in date</label>
@@ -51,6 +67,8 @@
                            ng-model="bc.totalCost" ng-disabled="true">
                 </div>
             </div>
+
+
 
             <div class="row">
                 <div class="col-md-12">
