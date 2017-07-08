@@ -25,4 +25,8 @@ public class HotelService extends AbstractEntityService<Hotel> {
     public Collection<Hotel> getHotelsByOwnerId(Long ownerId) {
         return hotelDatabaseDAO.getHotelsByOwnerId(ownerId);
     }
+
+    public Collection<Hotel> getHotelsByClientIdInBooking(Long clientId) {
+        return getDao().getHotelsByClientIdInBooking(clientId);
+    }
 }

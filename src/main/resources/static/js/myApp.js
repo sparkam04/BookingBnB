@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router', 'ngStorage'])
+var app = angular.module('myApp', ['ui.router', 'ngStorage', 'ngRateIt'])
 
     .run(function (DataSvc, $rootScope, $state, $http, $localStorage) {
 
@@ -344,6 +344,48 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: 'partials/bookingDetails.html',
                     controller: 'bookingDetailsCtrl',
                     controllerAs: 'bd'
+                }
+            }
+        })
+        .state('bookingClient', {
+            parent: 'nav',
+            url: '/bookingClient',
+            data: {
+                role: 'USER'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/bookingClient.html',
+                    controller: 'bookingSearchClientCtrl',
+                    controllerAs: 'bcc'
+                }
+            }
+        })
+        .state('feedbackClient', {
+            parent: 'nav',
+            url: '/feedback',
+            data: {
+                role: 'USER'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/feedbackClient.html',
+                    controller: 'feedbackClientCtrl',
+                    controllerAs: 'fcc'
+                }
+            }
+        })
+        .state('settingClient', {
+            parent: 'nav',
+            url: '/settingClient',
+            data: {
+                role: 'USER'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/settingClientCtrl.html',
+                    controller: 'settingClientCtrl',
+                    controllerAs: 'scc'
                 }
             }
         })

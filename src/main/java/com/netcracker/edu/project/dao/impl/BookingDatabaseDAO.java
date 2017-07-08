@@ -101,6 +101,20 @@ public class BookingDatabaseDAO extends AbstractDatabaseDAO<Booking> implements 
         return getEntityCollection(entityIdList);
     }
 
+    public Collection<Booking> getBookingsByDateAndClientIdAndHotelId(Date from, Date to, Long clientId, Long hotelId, Long statusId) {
+        String sql = "SELECT BOOKING.OBJECT_ID\n" +
+                "FROM OBJECTS BOOKING JOIN OBJREFERENCE CLIENTREF ON\n" +
+                "(BOOKING.OBJECT_TYPE_ID = 7 AND CLIENTREF.ATTR_ID = 37 AND CLIENTREF.REFERENCE = ? AND CLIENTREF.OBJECT_ID = BOOKING.OBJECT_ID)\n" +
+                "JOIN ATTRIBUTES CHECK_IN ON (BOOKING.OBJECT_TYPE_ID = 7 AND CHECK_IN.ATTR_ID = 38 AND BOOKING.OBJECT_ID = CHECK_IN.OBJECT_ID)\n" +
+                "JOIN ATTRIBUTES CHECK_OUT ON (CHECK_OUT.ATTR_ID = 39 AND BOOKING.OBJECT_ID = CHECK_OUT.OBJECT_ID)\n" +
+                "JOIN OBJECTS ROOM ON (ROOM.OBJECT_TYPE_ID = 5 AND ROOM.PARENT_ID = ? AND ROOM.OBJECT_ID = BOOKING.PARENT_ID)\n" +
+                "JOIN OBJREFERENCE STATYSREF ON (STATYSREF.ATTR_ID = 42 AND STATYSREF.REFERENCE = ? AND STATYSREF.OBJECT_ID = BOOKING.OBJECT_ID)\n" +
+                "WHERE TO_DATE(GREATEST(CHECK_IN.DATE_VALUE,?),'dd.mm.yyyy') < TO_DATE(LEAST(CHECK_OUT.DATE_VALUE,?),'dd.mm.yyyy')";
+
+        List<Long> entityIdList = getJdbcTemplate().queryForList(sql, Long.TYPE, clientId, hotelId, statusId, from, to);
+        return getEntityCollection(entityIdList);
+    }
+
     @Override
     public boolean add(Booking model) {
         //CHECK IF ALREADY BOOKED

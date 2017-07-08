@@ -31,7 +31,7 @@ public class EmailService {
     private final static String MESSAGE_FOR_BOOKING_CREATED = "Dear, %s %s!\n" +
             "You booked a room at the hotel \"%s\".\n" +
             "Address: %s, %s, %s \n" +
-            "Armory reservation code: %d\n" +
+            "Booking key: %s\n" +
             "Room Name: \"%s\"\n" +
             "Check-in: %tD %tR\n" +
             "Check-out date: %tD %tR\n" +
@@ -97,7 +97,7 @@ public class EmailService {
                 client.getFirstName(), client.getLastName(),                    //"Dear, %s %s!\n"
                 hotel.getHotelName(),                                           //"You booked a room at the hotel \"%s\".\n"
                 country.getName(), city.getName(), location.getStreetAddress(), //"Address %s, %s, %s \n"
-                booking.getId(),                                                //"Armory reservation code: %d\n"
+                booking.getCode(),                                              //"Booking key: %s\n"
                 room.getRoomName(),                                             //"Room Name: \"%s\"\n"
                 booking.getCheckIn(), hotel.getCheckInTime(),                   //"Check-in: %tD %tR\n"
                 booking.getCheckOut(), hotel.getCheckOutTime(),                 //"Check-out date: %tD %tR\n"
