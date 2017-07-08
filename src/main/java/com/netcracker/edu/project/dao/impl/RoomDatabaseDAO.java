@@ -22,24 +22,26 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
     @Override
     public Room getById(Long id) {
         Room room;
-        String sql = "select room.object_id\n" +
-                "    , room.NAME room_name\n" +
-                "    , room.parent_id hotel_id\n" +
-                "    , room_no.VALUE room_no\n" +
-                "    , num_places.VALUE num_places\n" +
-                "    , has_bathroom.VALUE has_bathroom\n" +
-                "    , has_tv.VALUE has_tv\n" +
-                "    , has_extra_bed.VALUE has_extra_bed\n" +
-                "    , cost.VALUE cost\n" +
-                "from objects room\n" +
-                "join attributes room_no on room_no.OBJECT_ID = room.OBJECT_ID and room_no.ATTR_ID = 28\n" +
-                "join attributes num_places on num_places.OBJECT_ID = room.OBJECT_ID and num_places.ATTR_ID = 29\n" +
-                "join attributes has_bathroom on has_bathroom.OBJECT_ID = room.OBJECT_ID and has_bathroom.ATTR_ID = 30\n" +
-                "join attributes has_tv on has_tv.OBJECT_ID = room.OBJECT_ID and has_tv.ATTR_ID = 31\n" +
-                "join attributes has_extra_bed on has_extra_bed.OBJECT_ID = room.OBJECT_ID and has_extra_bed.ATTR_ID = 32\n" +
-                "join attributes cost on cost.OBJECT_ID = room.OBJECT_ID and cost.ATTR_ID = 33\n" +
-                "where room.OBJECT_TYPE_ID = 5\n" +
-                "    and room.OBJECT_ID = ?";
+        String sql = "SELECT ROOM.OBJECT_ID\n" +
+                "                    , ROOM.NAME ROOM_NAME\n" +
+                "                    , ROOM.PARENT_ID HOTEL_ID\n" +
+                "                    , ROOM_NO.VALUE ROOM_NO\n" +
+                "                    , NUM_PLACES.VALUE NUM_PLACES\n" +
+                "                    , HAS_BATHROOM.VALUE HAS_BATHROOM\n" +
+                "                    , HAS_TV.VALUE HAS_TV\n" +
+                "                    , HAS_EXTRA_BED.VALUE HAS_EXTRA_BED\n" +
+                "                    , COST.VALUE COST\n" +
+                "                    , IS_ENABLED.VALUE IS_ENABLED\n" +
+                "                FROM OBJECTS ROOM\n" +
+                "                JOIN ATTRIBUTES ROOM_NO ON ROOM_NO.OBJECT_ID = ROOM.OBJECT_ID AND ROOM_NO.ATTR_ID = 28\n" +
+                "                JOIN ATTRIBUTES NUM_PLACES ON NUM_PLACES.OBJECT_ID = ROOM.OBJECT_ID AND NUM_PLACES.ATTR_ID = 29\n" +
+                "                JOIN ATTRIBUTES HAS_BATHROOM ON HAS_BATHROOM.OBJECT_ID = ROOM.OBJECT_ID AND HAS_BATHROOM.ATTR_ID = 30\n" +
+                "                JOIN ATTRIBUTES HAS_TV ON HAS_TV.OBJECT_ID = ROOM.OBJECT_ID AND HAS_TV.ATTR_ID = 31\n" +
+                "                JOIN ATTRIBUTES HAS_EXTRA_BED ON HAS_EXTRA_BED.OBJECT_ID = ROOM.OBJECT_ID AND HAS_EXTRA_BED.ATTR_ID = 32\n" +
+                "                JOIN ATTRIBUTES COST ON COST.OBJECT_ID = ROOM.OBJECT_ID AND COST.ATTR_ID = 33\n" +
+                "                JOIN ATTRIBUTES IS_ENABLED ON IS_ENABLED.OBJECT_ID = ROOM.OBJECT_ID AND IS_ENABLED.ATTR_ID = 61\n" +
+                "                WHERE ROOM.OBJECT_TYPE_ID = 5\n" +
+                "                    AND ROOM.OBJECT_ID = ?";
 
         String sql_Room_images = "select room_image.REFERENCE room_image\n" +
                 "from OBJECTS room\n" +
@@ -118,6 +120,8 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 "        VALUES (32, ?, ?) --has_extra_bed\n" +
                 "    INTO attributes (attr_id, object_id, value)\n" +
                 "        VALUES (33, ?, ?) --cost\n" +
+                "    INTO attributes (attr_id, object_id, value)\n" +
+                "        VALUES (61, ?, ?) --cost\n" +
                 "select * from dual";
 
         int affrctedRows = getJdbcTemplate().update(sql,
@@ -127,9 +131,11 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 newObjId, model.isHasBathroom().toString(),
                 newObjId, model.isHasTV().toString(),
                 newObjId, model.isHasExtraBed().toString(),
-                newObjId, model.getCost());
+                newObjId, model.getCost(),
+                newObjId, model.getEnabled()
+        );
 
-        boolean isSuccess1 = affrctedRows == 7;
+        boolean isSuccess1 = affrctedRows == 8;
 
         boolean isSuccess2 = batchInsertObjReferences(59, model.getImages(), newObjId);
 
@@ -151,6 +157,7 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
                 add(new Object[]{model.isHasTV().toString(), model.getId(), 31});
                 add(new Object[]{model.isHasExtraBed().toString(), model.getId(), 32});
                 add(new Object[]{model.getCost(), model.getId(), 33});
+                add(new Object[]{model.getEnabled(), model.getId(), 61});
             }
         };
 
@@ -184,9 +191,8 @@ public class RoomDatabaseDAO extends AbstractDatabaseDAO<Room> implements RoomDA
             room.setHasTV(Boolean.parseBoolean(rs.getString("has_tv")));
             room.setHasExtraBed(Boolean.parseBoolean(rs.getString("has_extra_bed")));
             room.setCost(rs.getDouble("cost"));
+            room.setEnabled(rs.getBoolean("is_enabled"));
             return room;
         }
     }
-
-
 }
