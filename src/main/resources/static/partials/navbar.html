@@ -13,8 +13,9 @@
                 User: {{nbc.appUser.firstName}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a ui-sref="bookingClient">My Bookings</a></li>
-                    <!--<li><a ui-sref="settingClient">Setting</a></li>-->
-                    <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
+                    <li><a ui-sref="setting">Setting</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="nbc.logout()" ui-sref="login"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
                 </ul>
             </li>
 
@@ -24,7 +25,9 @@
                     <li><a ui-sref="hotelOwner">My Hotels</a></li>
                     <li><a ui-sref="roomsOwner">Rooms</a></li>
                     <li><a ui-sref="bookingOwner">Bookings</a></li>
-                    <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
+                    <li><a ui-sref="setting">Setting</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="nbc.logout()" ui-sref="login"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
                 </ul>
             </li>
 
@@ -35,7 +38,8 @@
                     <li><a ui-sref="roomsAdmin">Rooms</a></li>
                     <li><a ui-sref="bookingAdmin">Bookings</a></li>
                     <li><a ui-sref="editUserRole">Edit User Roles</a></li>
-                    <li><a ng-click="nbc.logout()" ui-sref="login">Logout</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="nbc.logout()" ui-sref="login"><i class="fa fa-sign-out fa-fw"></i>Logout</a></li>
                 </ul>
             </li>
 

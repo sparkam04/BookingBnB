@@ -54,6 +54,21 @@
                     return response.data;
                 });
         };
+
+        self.change = function (user, oldPassword) {
+            return $http.get('/change/'
+                + user.id + '/'
+                + user.firstName + '/'
+                + user.lastName + '/'
+                + user.phone + '/'
+                + user.email + '/'
+                + user.pass + '/'
+                + oldPassword)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
     });
 })();
 

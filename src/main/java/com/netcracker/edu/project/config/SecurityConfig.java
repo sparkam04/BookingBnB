@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 // ignoring the "/", "/index.html", "/app/**", "/register",
                 // "/favicon.ico"
-                .antMatchers("/", "/register", "/authenticate", "/index.html", "/js/**", "/partials/**", "/resources/**", "/favicon.ico");
+                .antMatchers("/", "/register", "/authenticate", "/change", "/index.html", "/js/**", "/partials/**", "/resources/**", "/favicon.ico");
 
         web.ignoring().antMatchers(
                 HttpMethod.GET,
