@@ -375,17 +375,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('settingClient', {
+        .state('setting', {
             parent: 'nav',
-            url: '/settingClient',
+            url: '/setting',
             data: {
                 role: 'USER'
             },
             views: {
                 'content@': {
-                    templateUrl: 'partials/settingClientCtrl.html',
-                    controller: 'settingClientCtrl',
-                    controllerAs: 'scc'
+                    templateUrl: 'partials/settingClientOwner.html',
+                    controller: 'settingClientOwnerCtrl',
+                    controllerAs: 'scoc'
                 }
             }
         })
