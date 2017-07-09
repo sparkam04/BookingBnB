@@ -39,6 +39,12 @@ public class HotelController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")
+    @RequestMapping("/hotel/client/{clientId}")
+    public Collection<Hotel> getHotelsByClientIdInBooking(@PathVariable Long clientId){
+        return hotelService.getHotelsByClientIdInBooking(clientId);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")
     @RequestMapping("/hotel/{id}")
     public Hotel getHotel(@PathVariable Long id) {
         return hotelService.getEntity(id);

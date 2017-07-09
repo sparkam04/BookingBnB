@@ -38,6 +38,10 @@ public class BookingService extends AbstractEntityService<Booking> {
         return getDao().getBookingsByDateAndHotel(from, to, hotelId);
     }
 
+    public Collection<Booking> getBookingsByDateAndClientAndHotel(Date from, Date to, Long clientId, Long hotelId, Long statusId) {
+        return getDao().getBookingsByDateAndClientIdAndHotelId(from, to, clientId, hotelId, statusId);
+    }
+
     @Override
     public boolean addEntity(Booking booking) {
         if (super.addEntity(booking)) {

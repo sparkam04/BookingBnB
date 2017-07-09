@@ -1,6 +1,7 @@
 package com.netcracker.edu.project.config;
 
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,7 +22,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 // ignoring the "/", "/index.html", "/app/**", "/register",
                 // "/favicon.ico"
-                .antMatchers("/**", "/register", "/authenticate", "/index.html", "/_index.html", "/js/**", "/partials/**", "/resources/**", "/favicon.ico");
+                .antMatchers("/", "/register", "/authenticate", "/change", "/index.html", "/js/**", "/partials/**", "/resources/**", "/favicon.ico");
+
+        web.ignoring().antMatchers(
+                HttpMethod.GET,
+                "/user/*","/user/email/*/", "/booking/**", "/country/**", "/city/**", "/location/**",
+                "/hotel/**", "/image/**", "/paysystem/**", "/room/**", "/status/**");
+
+        web.ignoring().antMatchers(
+                HttpMethod.POST,
+                "/user", "/booking");
     }
 
     // This method is used for override HttpSecurity of the web Application.

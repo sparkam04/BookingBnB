@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+        <div class="panel panel-success">
+            <div class="panel-heading" style="background-color: #777">
+                <p></p>
+                <p align="center">
+                    <span class="label label-default" style="font-size: 30px" align="center">Feedback</span>
+                </p>
+            </div>
+            <div class="panel-body">
+                <form role="form">
+
+                    <div class="row">
+                        <label class="col-lg-6" style="font-size: 20px; margin-top: 15px">Detailed review</label>
+
+                        <div  class="col-md-6">
+                            <style>
+                                .ngrateit-star{
+                                    background-size: 40px;
+                                }
+                                /*.bigstar{*/
+                                    /*margin-left: -20px;*/
+                                /*}*/
+                            </style>
+                            <ng-rate-it step="1" ng-model="fcc.value1" star-width="40" star-height="40" class="bigstar"></ng-rate-it>
+                        </div>
+                    </div>
+
+                    <textarea name="textRequests" ng-model="fcc.comment" rows="7" class="form-control"></textarea>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button name="buttonCansel" class="btn btn-default form-control" ng-click="fcc.cancel()">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button name="buttonSend" class="btn btn-success form-control" ng-click="fcc.send()">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+<!--Assessment-->
+    </div>
+    <div class="col-md-3"></div>
+</div>

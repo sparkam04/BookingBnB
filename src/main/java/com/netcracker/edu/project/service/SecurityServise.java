@@ -79,4 +79,31 @@ public class SecurityServise {
         }
 
     }
+
+    public Map<String, Object> updateUser(User user, String oldPassword) {
+        Map<String, Object> map = new HashMap<>();
+        Boolean isChange;
+        String message;
+        User user1 = userDatabaseDAO.getById(user.getId());
+        if (user1.getPass().equals(oldPassword)) {
+            user1.setFirstName(user.getFirstName());
+            user1.setLastName(user.getLastName());
+            user1.setPhone(user.getPhone());
+            user1.setEmail(user.getEmail());
+            user1.setPass(user.getPass());
+            if (userDatabaseDAO.update(user1)) {
+                isChange = true;
+                message = "Successful change";
+            } else {
+                isChange = false;
+                message = "Failed change";
+            }
+        } else {
+            isChange = false;
+            message = "Invalid old password!";
+        }
+        map.put("isChange", isChange);
+        map.put("message", message);
+        return map;
+    }
 }

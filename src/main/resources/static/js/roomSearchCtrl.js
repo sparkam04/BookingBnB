@@ -43,7 +43,7 @@
             DataSvc.city = self.city;
             DataSvc.checkin = self.checkIn;
             DataSvc.checkOut = self.checkOut;
-            if (DataSvc.appUser.userId === undefined) {
+            if (DataSvc.appUser === undefined || DataSvc.appUser.userId === undefined) {
                 $state.go('booking');
             } else {
                 $state.go('bookingAuth');

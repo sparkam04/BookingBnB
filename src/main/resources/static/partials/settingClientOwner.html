@@ -1,0 +1,58 @@
+<div class=" col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <label class="panel-title">Change Profile</label>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form ng-submit="scoc.change()" novalidate>
+
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" required class="form-control" ng-model="scoc.firstName" id="firstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" required class="form-control" ng-model="scoc.lastName" id="lastName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" required class="form-control" ng-model="scoc.phone" id="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" ng-model="scoc.email" id="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" required class="form-control" id="pwd" ng-model="scoc.password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpw">Confirm Password:</label>
+                        <input type="password" required class="form-control" id="cpw" ng-model="scoc.confirmPassword">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="opw">Old password:</label>
+                        <input type="password" required class="form-control" id="opw" ng-model="scoc.oldPassword">
+                        <p>* - for identity confirmation, type your old password</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Change</button>
+
+                    <div class="margin-top-5" ng-show="scoc.message">
+                        <br>
+                        <div class="alert alert-info">{{scoc.message}}</div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

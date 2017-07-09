@@ -195,6 +195,7 @@
                     "hasBathroom": self.hasBathroom,
                     "hasTV": self.hasTV,
                     "hasExtraBed": self.hasExtraBed,
+                    "enabled": 'true',
                     "images": []
                 };
 

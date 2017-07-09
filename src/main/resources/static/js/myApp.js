@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router', 'ngStorage'])
+var app = angular.module('myApp', ['ui.router', 'ngStorage', 'ngRateIt'])
 
     .run(function (DataSvc, $rootScope, $state, $http, $localStorage) {
 
@@ -7,12 +7,19 @@ var app = angular.module('myApp', ['ui.router', 'ngStorage'])
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + DataSvc.appUser.token;
         }
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            if (DataSvc.appUser &&
-                toState.data && toState.data.role &&
-                toState.data.role !== DataSvc.appUser.role) {
-
-                event.preventDefault();
-                $state.go('access-denied');
+            if (DataSvc.appUser && toState.data && toState.data.roles) {
+                var hasAccess = false;
+                for (var i = 0; i < toState.data.roles.length; i++) {
+                    var role = toState.data.roles[i];
+                    if (role === DataSvc.appUser.role) {
+                        hasAccess = true;
+                        break;
+                    }
+                }
+                if (!hasAccess) {
+                    event.preventDefault();
+                    $state.go('access-denied');
+                }
             }
         });
     });
@@ -105,7 +112,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/',
             // data: {
-            //     role: 'USER'
+            //     roles: ['USER']
             // },
             views: {
                 'content@': {
@@ -141,7 +148,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/hotelAdmin',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -155,7 +162,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/editUserRole',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -169,7 +176,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/hotelOwner',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -183,7 +190,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/ownerEditHotel',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -197,7 +204,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/ownerAddHotel',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -211,7 +218,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/roomsOwner',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -225,7 +232,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/editRoom',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -239,7 +246,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/roomsAdmin',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -253,7 +260,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/editRoomAdmin',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -267,7 +274,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingOwner',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -281,7 +288,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingDetailsOwner',
             data: {
-                role: 'ADMIN'
+                roles: ['ADMIN']
             },
             views: {
                 'content@': {
@@ -295,7 +302,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/editHotel_',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -309,7 +316,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/addHotel',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -323,7 +330,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingAdmin',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
@@ -337,13 +344,55 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             parent: 'nav',
             url: '/bookingDetails',
             data: {
-                role: 'SYSADMIN'
+                roles: ['SYSADMIN']
             },
             views: {
                 'content@': {
                     templateUrl: 'partials/bookingDetails.html',
                     controller: 'bookingDetailsCtrl',
                     controllerAs: 'bd'
+                }
+            }
+        })
+        .state('bookingClient', {
+            parent: 'nav',
+            url: '/bookingClient',
+            data: {
+                roles: ['USER']
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/bookingClient.html',
+                    controller: 'bookingSearchClientCtrl',
+                    controllerAs: 'bcc'
+                }
+            }
+        })
+        .state('feedbackClient', {
+            parent: 'nav',
+            url: '/feedback',
+            data: {
+                roles: ['USER']
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/feedbackClient.html',
+                    controller: 'feedbackClientCtrl',
+                    controllerAs: 'fcc'
+                }
+            }
+        })
+        .state('setting', {
+            parent: 'nav',
+            url: '/setting',
+            data: {
+                roles: ['USER', 'ADMIN']
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'partials/settingClientOwner.html',
+                    controller: 'settingClientOwnerCtrl',
+                    controllerAs: 'scoc'
                 }
             }
         })
