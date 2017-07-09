@@ -35,6 +35,14 @@
                 });
         };
 
+        this.getHotelsByClient = function (clientId) {
+
+            return $http.get("/hotel/client/" + clientId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.updHotel = function (hotelData) {
 
             // console.log(JSON.stringify(hotelData));

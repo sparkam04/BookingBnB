@@ -39,6 +39,15 @@ public class BookingController {
         return bookingService.getBookingsByStatusId(id);
     }
 
+    @RequestMapping(value = "/booking/getall/date/client/hotel/status", method = RequestMethod.POST)
+    public Collection<Booking> getBookingsByDateAndClientAndHotel(@RequestParam Date from,
+                                                                  @RequestParam Date to,
+                                                                  @RequestParam Long clientId,
+                                                                  @RequestParam Long hotelId,
+                                                                  @RequestParam Long statusId) {
+        return bookingService.getBookingsByDateAndClientAndHotel(from, to, clientId, hotelId, statusId);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SYSADMIN')")
     @RequestMapping("/booking/date/{from}/{to}")
     public Collection<Booking> getBookingsByDate(@PathVariable Date from, @PathVariable Date to) {
