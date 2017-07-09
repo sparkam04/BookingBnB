@@ -14,11 +14,12 @@
         };
 
         self.rating.bookingId = DataSvc.booking.id;
+        self.rating.booking = DataSvc.booking;
+        self.booking = DataSvc.booking;
 
-
-        self.cansel = function () {
+        self.cancel = function () {
             $state.go('bookingClient');
-        }
+        };
 
         self.send = function () {
             if (self.value1 && self.comment) {

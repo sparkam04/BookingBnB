@@ -118,7 +118,7 @@
 
 
                         <p><a class="btn btn-success form-control" ui-sref="feedbackClient" role="button"
-                              ng-show="!b.rating" ng-click="bcc.selectBooking(b)">Feedback</a></p>
+                              ng-show="!b.rating && b.statusId == 32" ng-click="bcc.selectBooking(b)">Feedback</a></p>
                     </div>
                 </div>
             </li>

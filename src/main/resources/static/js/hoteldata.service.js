@@ -19,6 +19,14 @@
                 });
         };
 
+        this.getRatingByHotelId = function (hotelId) {
+
+            return $http.get("/hotel/rating/" + hotelId)
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.getHotelsByLocation = function (locationId) {
 
             return $http.get("/hotel/location/" + locationId)

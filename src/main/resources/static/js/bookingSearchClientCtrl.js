@@ -20,7 +20,7 @@
         BookingDataSvc.getBookingsByClient(DataSvc.appUser.userId)
             .then(function (date) {
                 self.bookings = date;
-            })
+            });
 
 
         this.setMinChkOut = function () {

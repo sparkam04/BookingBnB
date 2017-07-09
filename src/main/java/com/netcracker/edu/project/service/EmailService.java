@@ -31,12 +31,12 @@ public class EmailService {
     private final static String MESSAGE_FOR_BOOKING_CREATED = "Dear, %s %s!\n" +
             "You booked a room at the hotel \"%s\".\n" +
             "Address: %s, %s, %s \n" +
-            "Booking key: %s\n" +
+            "Booking code: %s\n" +
             "Room Name: \"%s\"\n" +
             "Check-in: %tD %tR\n" +
             "Check-out date: %tD %tR\n" +
             "Number of people: %s\n" +
-            "Armor price: %10.2f\n" +
+            "Booking price: %10.2f\n" +
             "Paid with: %s\n" +
             "\n" +
             "Sincerely, Hotel Administrator: %s %s\n" +
